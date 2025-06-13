@@ -1,0 +1,116 @@
+// schema.prisma
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL") // Your Supabase connection string
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model AgeEffectsCoefficients {
+  id            Int     @id @default(autoincrement())
+  age_bin_label String  @unique @map("age_bin_label")
+  coefficient   Float?
+
+  @@map("age_effects_coefficients")
+}
+
+model DriverAllTimeRankingU0 {
+  id                 Int     @id @default(autoincrement()) // Assuming driverid might not be unique if ranks reset
+  driverid           String  @map("driverid")
+  u0_skill_intercept Float?  @map("u0_skill_intercept")
+  u1_skill_trend     Float?  @map("u1_skill_trend")
+  forename           String?
+  surname            String?
+
+  // If driverid should be unique in this specific table (e.g., only one all-time entry per driver)
+  // @@unique([driverid]) 
+  @@map("driver_all_time_ranking_u0")
+}
+
+model DriverCareerEffects {
+  id                 Int     @id @default(autoincrement())
+  driverid           String  @unique @map("driverid")
+  u0_skill_intercept Float?  @map("u0_skill_intercept")
+  u1_skill_trend     Float?  @map("u1_skill_trend")
+  forename           String?
+  surname            String?
+
+  @@map("driver_career_effects")
+}
+
+// Included for completeness, though you might not use it in the new app
+model DriverRankingsBase {
+  id       Int     @id @default(autoincrement())
+  driverid String     @map("driverid")
+  residual Float?
+  forename String?
+  surname  String?
+
+  // If driverid should be unique in this specific table
+  // @@unique([driverid])
+  @@map("driver_rankings_base")
+}
+
+model DriverYearlyPerformanceRankings {
+  id                         Int     @id @default(autoincrement())
+  driverid                   String     @map("driverid")
+  year                       Int     // bigint in SQLite often maps to Int or BigInt in PG. Int is usually fine.
+  yearly_performance_score   Float?  @map("yearly_performance_score")
+  u0_contrib                 Float?  @map("u0_contrib")
+  u1_year_contrib            Float?  @map("u1_year_contrib")
+  age_contrib                Float?  @map("age_contrib")
+  exp_contrib                Float?  @map("exp_contrib")
+  forename                   String?
+  surname                    String?
+  yearly_rank                Float?  @map("yearly_rank") // Using Float as it was in your spec, could be Int
+
+  @@index([year, yearly_rank])
+  @@index([driverid, year]) // Also useful for looking up a driver's performance over years
+  @@map("driver_yearly_performance_rankings")
+}
+
+model ExperienceEffectsCoefficients {
+  id               Int     @id @default(autoincrement())
+  experience_level String  @unique @map("experience_level")
+  coefficient      Float?
+
+  @@map("experience_effects_coefficients")
+}
+
+model ModelSummaryExtended {
+  id        Int     @id @default(autoincrement())
+  variable  String  @unique
+  mean      Float?
+  sd        Float?
+  hdi_3     Float?  @map("hdi_3%")
+  hdi_97    Float?  @map("hdi_97%")
+  mcse_mean Float?  @map("mcse_mean")
+  mcse_sd   Float?  @map("mcse_sd")
+  ess_bulk  Float?  @map("ess_bulk")
+  ess_tail  Float?  @map("ess_tail")
+  r_hat     Float?  @map("r_hat")
+
+  @@map("model_summary_extended")
+}
+
+model VarianceFunctionsYearly {
+  id                 Int    @id @default(autoincrement())
+  Year               Int    @unique // Assuming Year is unique key here
+  Driver_Variance    Float? @map("Driver_Variance")
+  Team_Variance      Float? @map("Team_Variance")
+  Team_Year_Variance Float? @map("Team_Year_Variance")
+
+  @@map("variance_functions_yearly")
+}
+
+// Included for completeness
+model VarianceSummaryBase {
+  id        Int     @id @default(autoincrement())
+  Component String? @unique // Assuming Component is unique (e.g., "Team", "Driver")
+  Variance  Float?
+
+  @@map("variance_summary_base")
+}
