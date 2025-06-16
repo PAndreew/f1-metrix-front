@@ -12,7 +12,7 @@ interface ArticlePreviewCardProps {
 export function ArticlePreviewCard({ article }: ArticlePreviewCardProps) {
   return (
     <Card className="flex flex-col h-full"> {/* Ensure card takes full height of its grid cell */}
-      <CardHeader>
+      <CardHeader className="font-highlight">
         <CardTitle>{article.title}</CardTitle>
         <CardDescription>
           {format(new Date(article.date), 'MMMM d, yyyy')}

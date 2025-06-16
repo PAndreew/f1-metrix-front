@@ -15,7 +15,6 @@ const geistMono = Geist_Mono({
 
 const orbitron = Orbitron({
   subsets: ["latin"],
-  weight: ["400", "700", "900"],
   variable: "--font-orbitron",
 })
 
@@ -30,10 +29,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} ${orbitron.variable} antialiased`}
-      >
+    <html className={`${geistSans.variable} ${geistMono.variable} ${orbitron.variable} antialiased`} lang="en">
+      <body>
         <Header />
         <main>{children}</main> {/* It's good practice to wrap children in a <main> tag */}
       </body>
