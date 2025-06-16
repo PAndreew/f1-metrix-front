@@ -30,7 +30,7 @@ export default function RootLayout({
 }>) {
   return (
     <html className={`${geistSans.variable} ${geistMono.variable} ${orbitron.variable} antialiased`} lang="en">
-      <body>
+      <body className="min-h-screen bg-slate-900 text-white flex flex-col">
         <Header />
         <main>{children}</main> {/* It's good practice to wrap children in a <main> tag */}
       </body>

@@ -15,11 +15,12 @@ export function Header() {
   const isMobile = useMediaQuery("(max-width: 768px)")
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background font-orbitron">
+    <header className="sticky top-0 z-50 flex items-center justify-between px-6 py-4 border-b border-slate-700">
       <div className="container flex h-16 items-center justify-between px-4 md:px-6">
         <div className="flex items-center gap-2">
           <Link href="/" className="flex items-center gap-2">
-            <span className="text-2xl font-extrabold tracking-tighter text-red-600">F1 METRIX</span>
+            <div className="bg-red-600 text-white px-2 py-1 font-bold text-sm transform -skew-x-12">F1</div>
+            <span className={`text-lg font-semibold tracking-wide font-highlight`}>F1 METRIX</span>
           </Link>
         </div>
 
