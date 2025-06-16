@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Orbitron } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/header"; // 1. Import the Header component (adjust path if needed)
 
@@ -12,6 +12,12 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
+
+const orbitron = Orbitron({
+  subsets: ["latin"],
+  weight: ["400", "700", "900"],
+  variable: "--font-orbitron",
+})
 
 export const metadata: Metadata = {
   title: "F1 Metrix", // You might want to update the title
@@ -26,7 +32,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${orbitron.variable} antialiased`}
       >
         <Header />
         <main>{children}</main> {/* It's good practice to wrap children in a <main> tag */}

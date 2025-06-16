@@ -1,5 +1,4 @@
 // app/rankings/page.tsx
-import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import prisma from "@/lib/prisma";
 import { DriverCard } from "@/components/driver-card"; // Reuse for consistency if desired

@@ -1,7 +1,6 @@
 // app/page.tsx
 import prisma from '@/lib/prisma';
 import { getAllArticlesMetadata, ArticleMetadata } from '@/lib/mdx';
-import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
 import { ArticlePreviewCard } from '@/components/article-preview-card';
 import { RankingSidebar } from '@/components/ranking-sidebar';
