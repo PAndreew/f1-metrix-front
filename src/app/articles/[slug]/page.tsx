@@ -2,7 +2,6 @@
 import { getAllArticleSlugs, getArticleDataBySlug, ArticleMetadata } from '@/lib/mdx';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import { notFound } from 'next/navigation';
-import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
 import { format } from 'date-fns';
 

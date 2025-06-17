@@ -14,7 +14,7 @@ export function YearSelector({ availableYears, currentYear }: YearSelectorProps)
   const handleYearChange = (yearValue: string) => {
     const params = new URLSearchParams(searchParams.toString());
     params.set('year', yearValue);
-    router.push(`/?${params.toString()}`);
+    router.push(`/rankings?${params.toString()}`);
   };
 
   return (

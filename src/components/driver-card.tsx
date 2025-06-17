@@ -82,13 +82,13 @@ export function DriverCard({ driver, rank }: DriverCardProps) {
   };
 
   return (
-    <Card>
+    <Card className='bg-slate-800 overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 h-full flex flex-col group text-white'>
       <CardHeader>
         <CardTitle className="flex justify-between">
           <span>{rank}. {driver.forename} {driver.surname}</span>
           <span>Score: {driver.yearly_performance_score?.toFixed(3)}</span>
         </CardTitle>
-        <CardDescription>Rank in {driver.year}: {driver.yearly_rank?.toFixed(0)}</CardDescription>
+        <CardDescription className="text-slate-300">Rank in {driver.year}: {driver.yearly_rank?.toFixed(0)}</CardDescription>
       </CardHeader>
       <CardContent>
         <Accordion type="single" collapsible className="w-full">
