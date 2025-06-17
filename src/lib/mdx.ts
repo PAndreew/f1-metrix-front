@@ -12,25 +12,30 @@ export interface ArticleMetadata {
   date: string; // YYYY-MM-DD
   summary: string;
   author?: string;
+  imageUrl?: string;
 }
 
-export function getAllArticleSlugs() {
+export function getAllArticleSlugs() { // This can remain synchronous
   const fileNames = fs.readdirSync(articlesDirectory);
   return fileNames.map((fileName) => {
     return {
-      params: {
-        slug: fileName.replace(/\.mdx$/, ''),
-      },
+      // No 'params' key here, just the slug itself for generateStaticParams
+      slug: fileName.replace(/\.mdx$/, ''),
     };
   });
 }
 
-export function getArticleDataBySlug(slug: string) {
+// Make this function async
+export async function getArticleDataBySlug(slug: string) {
   const fullPath = path.join(articlesDirectory, `${slug}.mdx`);
-  if (!fs.existsSync(fullPath)) {
-    return null; // Handle case where article doesn't exist
+  // Asynchronous check for file existence is generally better practice
+  try {
+    await fs.promises.access(fullPath, fs.constants.F_OK); // Check if file exists and is accessible
+  } catch (error) {
+    return null; // File does not exist or not accessible
   }
-  const fileContents = fs.readFileSync(fullPath, 'utf8');
+
+  const fileContents = await fs.promises.readFile(fullPath, 'utf8'); // Use async readFile
   const { data, content } = matter(fileContents);
 
   return {
@@ -40,20 +45,19 @@ export function getArticleDataBySlug(slug: string) {
   };
 }
 
-export function getAllArticlesMetadata(count?: number): ArticleMetadata[] {
+export function getAllArticlesMetadata(count?: number): ArticleMetadata[] { // This can remain synchronous
   const fileNames = fs.readdirSync(articlesDirectory);
   const allArticlesData = fileNames.map((fileName) => {
     const slug = fileName.replace(/\.mdx$/, '');
     const fullPath = path.join(articlesDirectory, fileName);
-    const fileContents = fs.readFileSync(fullPath, 'utf8');
+    const fileContents = fs.readFileSync(fullPath, 'utf8'); // Sync is okay here for bulk metadata
     const { data } = matter(fileContents);
     return {
       slug,
-      ...(data as Omit<ArticleMetadata, 'slug'>), // Spread frontmatter, slug is already there
+      ...(data as Omit<ArticleMetadata, 'slug'>),
     };
   });
 
-  // Sort articles by date in descending order
   const sortedArticles = allArticlesData.sort((a, b) => {
     return compareDesc(parseISO(a.date), parseISO(b.date));
   });
