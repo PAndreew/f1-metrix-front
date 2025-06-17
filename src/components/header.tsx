@@ -52,7 +52,7 @@ export function Header() {
           <a href="#" className="text-slate-300 hover:text-white">
             Schedule
           </a>
-          <Button variant="outline" className="border-slate-600 text-white hover:bg-slate-700">
+          <Button variant="outline" className="bg-red-600 border-slate-600 text-white hover:bg-red-700">
             SIGN IN
           </Button>
         </nav>
