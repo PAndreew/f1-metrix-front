@@ -41,16 +41,10 @@ export function Header() {
         </div>
         <nav className="flex items-center space-x-8">
           <a href="#" className="text-slate-300 hover:text-white">
-            News
+            Articles
           </a>
           <a href="#" className="text-slate-300 hover:text-white">
-            Teams
-          </a>
-          <a href="#" className="text-slate-300 hover:text-white">
-            Standings
-          </a>
-          <a href="#" className="text-slate-300 hover:text-white">
-            Schedule
+            Rankings
           </a>
           <Button variant="outline" className="bg-red-600 border-slate-600 text-white hover:bg-red-700">
             SIGN IN

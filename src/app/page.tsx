@@ -55,7 +55,7 @@ export default async function HomePage() {
         {/* More Articles Section */}
         {moreArticles.length > 0 && (
           <section>
-            <h2 className="text-3xl font-bold mb-6 text-center md:text-left border-b border-slate-700 pb-3">
+            <h2 className="text-3xl font-bold mb-6 text-center md:text-left border-b border-slate-700 pb-3 font-highlight">
               More Articles
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
