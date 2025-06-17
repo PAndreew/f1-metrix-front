@@ -1,19 +1,30 @@
 // components/DashboardPanel.tsx
-'use client'; // This component will manage its own full-screen state
+'use client';
 
-import React, { useState, ReactNode } from 'react';
+import React, { useState, ReactNode, useEffect } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Maximize, Minimize } from 'lucide-react'; // Icons
+import { Maximize, Minimize } from 'lucide-react';
 
 interface DashboardPanelProps {
   title: string;
   children: ReactNode;
-  initialHeight?: string; // e.g., 'h-96' or 'h-[500px]'
-  onExpandToggle?: (isExpanded: boolean) => void; // Optional callback
+  initialHeight?: string;
+  className?: string;
+  contentClassName?: string;
+  headerActions?: ReactNode; // New prop for elements next to title or expand button
+  onExpandToggle?: (isExpanded: boolean) => void;
 }
 
-export function DashboardPanel({ title, children, initialHeight = 'h-auto', onExpandToggle }: DashboardPanelProps) {
+export function DashboardPanel({
+  title,
+  children,
+  initialHeight = 'h-auto',
+  className = '',
+  contentClassName = 'p-0', // Defaulting to no padding for full control by child
+  headerActions,
+  onExpandToggle,
+}: DashboardPanelProps) {
   const [isFullScreen, setIsFullScreen] = useState(false);
 
   const toggleFullScreen = () => {
@@ -22,42 +33,56 @@ export function DashboardPanel({ title, children, initialHeight = 'h-auto', onEx
     if (onExpandToggle) {
       onExpandToggle(newFullScreenState);
     }
-    // Basic full-screen toggle for the element itself, you might need more robust handling
-    // for body scroll locking etc. for a true full-screen experience.
-    if (newFullScreenState) {
-        document.body.style.overflow = 'hidden'; // Prevent body scroll when panel is full screen
-    } else {
-        document.body.style.overflow = 'auto';
-    }
   };
+
+  useEffect(() => {
+    const originalOverflow = document.body.style.overflow;
+    if (isFullScreen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = originalOverflow || 'auto';
+    }
+    return () => {
+      document.body.style.overflow = originalOverflow || 'auto';
+    };
+  }, [isFullScreen]);
 
   if (isFullScreen) {
     return (
-      <div className="fixed inset-0 bg-slate-900 bg-opacity-95 p-4 sm:p-8 z-50 flex flex-col overflow-auto">
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-2xl font-semibold text-white">{title}</h2>
+      <div className="fixed inset-0 bg-slate-900 bg-opacity-95 p-4 sm:p-6 z-50 flex flex-col overflow-hidden">
+        <div className="flex justify-between items-center mb-4 flex-shrink-0">
+          <div className="flex items-center gap-4">
+            <h2 className="text-2xl font-semibold text-white">{title}</h2>
+            {headerActions && <div className="hidden sm:block">{headerActions}</div>} {/* Show header actions in FS */}
+          </div>
           <Button variant="ghost" size="icon" onClick={toggleFullScreen} className="text-white hover:bg-slate-700">
             <Minimize className="h-6 w-6" />
             <span className="sr-only">Minimize</span>
           </Button>
         </div>
-        <div className="flex-grow overflow-auto bg-slate-800 p-4 rounded-md">
-            {children}
+        {/* Fullscreen header actions for mobile, if needed */}
+        {headerActions && <div className="sm:hidden mb-3">{headerActions}</div>}
+        <div className="flex-grow overflow-hidden bg-slate-800 p-0 rounded-md"> {/* No padding here */}
+            {children} {/* Child should be a flex-col container now */}
         </div>
       </div>
     );
   }
 
   return (
-    <Card className={`flex flex-col ${initialHeight}`}>
-      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-        <CardTitle className="text-lg font-medium">{title}</CardTitle>
-        <Button variant="ghost" size="icon" onClick={toggleFullScreen} className="text-muted-foreground hover:text-primary">
+    <Card className={`flex flex-col ${initialHeight} ${className} overflow-hidden`}> {/* Added overflow-hidden to card */}
+      <CardHeader className="flex flex-row items-center justify-between space-y-0 py-3 px-4 flex-shrink-0 border-b border-slate-700">
+        <div className="flex items-center gap-3">
+            <CardTitle className="text-lg font-medium">{title}</CardTitle>
+            {headerActions} {/* Render header actions here */}
+        </div>
+        <Button variant="ghost" size="icon" onClick={toggleFullScreen} className="text-muted-foreground hover:text-primary -mr-2">
           <Maximize className="h-5 w-5" />
-          <span className="sr-only">Expand</span>
+          <span className="sr-only">Expand to Fullscreen</span>
         </Button>
       </CardHeader>
-      <CardContent className="flex-grow overflow-auto p-4 pt-2"> {/* Added padding control */}
+      <CardContent className={`flex-grow overflow-hidden ${contentClassName}`}> {/* overflow-hidden is key */}
+        {/* Children will be a flex column that handles its own internal layout & scroll */}
         {children}
       </CardContent>
     </Card>
