@@ -1,5 +1,5 @@
 // app/articles/[slug]/page.tsx
-import { getAllArticleSlugs, getArticleDataBySlug, ArticleMetadata } from '@/lib/mdx';
+import { getAllArticleSlugs, getArticleDataBySlug } from '@/lib/mdx';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import { notFound } from 'next/navigation';
 import { Footer } from '@/components/footer';
@@ -46,7 +46,6 @@ export default async function ArticlePage({ params }: { params: { slug: string }
               {frontmatter.author && ` by ${frontmatter.author}`}
             </p>
           </header>
-          {/* @ts-ignore // MDXRemote types can still be a bit tricky with RSC */}
           <MDXRemote source={content} />
         </article>
       </main>

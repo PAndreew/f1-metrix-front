@@ -15,12 +15,11 @@ import {
   VisibilityState,
   // PaginationState, // Not needed if no internal pagination controls
 } from "@tanstack/react-table"
-import { ArrowUpDown, ChevronDown, CalendarDays, Layers } from "lucide-react"
+import { CalendarDays, Layers } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
-  DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuLabel,
   DropdownMenuSeparator,

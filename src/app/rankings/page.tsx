@@ -8,7 +8,6 @@ import { RankingsDataTable, RankingData } from "@/components/rankings-datatable"
 import { yearlyRankingsColumns, allTimeRankingsColumns } from "@/components/rankings-columns";
 
 const BATCH_SIZE_ALL_TIME = 30; // Define batch size for all-time
-const DEFAULT_CLIENT_PAGE_SIZE = 30; // Define page size for yearly
 
 // --- Data Fetching Functions ---
 async function getAllRankingsForYear(year: number): Promise<DriverYearlyPerformanceRankings[]> {

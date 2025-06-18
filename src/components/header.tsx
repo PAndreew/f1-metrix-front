@@ -1,31 +1,27 @@
 'use client'
 // components/Header.tsx
 import Link from "next/link"
-import { Menu, X } from "lucide-react"
-import { useState } from "react"
+// import { useState } from "react"
 
 import { Button } from "@/components/ui/button"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 // Assuming you have this hook or a similar one
 // import { useMediaQuery } from "@/hooks/use-mobile";
 
 // Placeholder for useMediaQuery if you don't have it yet
-const useMediaQuery = (query: string) => {
-  if (typeof window === 'undefined') return false; // Or a default value
-  const [matches, setMatches] = useState(window.matchMedia(query).matches);
-  useState(() => {
-    const mediaQueryList = window.matchMedia(query);
-    const listener = (event: MediaQueryListEvent) => setMatches(event.matches);
-    mediaQueryList.addEventListener('change', listener);
-    return () => mediaQueryList.removeEventListener('change', listener);
-  }, [query]);
-  return matches;
-};
+// const useMediaQuery = (query: string) => {
+//   if (typeof window === 'undefined') return false; // Or a default value
+//   const [matches, setMatches] = useState(window.matchMedia(query).matches);
+//   useState(() => {
+//     const mediaQueryList = window.matchMedia(query);
+//     const listener = (event: MediaQueryListEvent) => setMatches(event.matches);
+//     mediaQueryList.addEventListener('change', listener);
+//     return () => mediaQueryList.removeEventListener('change', listener);
+//   }, [query]);
+//   return matches;
+// };
 
 
 export function Header() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const isMobile = useMediaQuery("(max-width: 768px)") // md breakpoint
 
   return (
     <header className="sticky-top flex items-center justify-between px-6 py-4 border-b border-slate-700">
