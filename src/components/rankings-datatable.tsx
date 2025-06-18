@@ -47,11 +47,11 @@ export interface RankingData {
   score: number | null;
   driverId?: number | string;
   year?: number;
-  [key: string]: any;
+  // [key: string]: any;
 }
 
 interface RankingsDataTableProps<TData extends RankingData> {
-  columns: ColumnDef<TData, any>[];
+  columns: ColumnDef<TData, unknown>[];
   data: TData[]; // For yearly, this is ALL data. For all-time, this is the current BATCH.
   tableType: 'yearly' | 'all-time'; // Simplified
 
