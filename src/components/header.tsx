@@ -46,7 +46,7 @@ export function Header() {
           <a href="#" className="text-slate-300 hover:text-white">
             Rankings
           </a>
-          <Button variant="outline" className="bg-red-600 border-slate-600 text-white hover:bg-red-700">
+          <Button variant="outline" className="bg-red-600 border-slate-600 text-white hover:bg-red-700 hidden">
             SIGN IN
           </Button>
         </nav>
