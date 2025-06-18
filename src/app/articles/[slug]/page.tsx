@@ -5,7 +5,7 @@ import { notFound } from 'next/navigation';
 import { Footer } from '@/components/footer';
 import { format } from 'date-fns';
 
-export async function generateStaticParams() {
+export async function generateStaticParams(): Promise<Array<{ slug: string }>> {
   const articles = getAllArticleSlugs();
   return articles.map(article => ({
     slug: article.slug,

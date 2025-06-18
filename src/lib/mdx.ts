@@ -15,7 +15,7 @@ export interface ArticleMetadata {
   imageUrl?: string;
 }
 
-export function getAllArticleSlugs() { // This can remain synchronous
+export function getAllArticleSlugs(): Array<{ slug: string }> { // This can remain synchronous
   const fileNames = fs.readdirSync(articlesDirectory);
   return fileNames.map((fileName) => {
     return {
