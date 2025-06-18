@@ -98,7 +98,7 @@ export default async function RankingsDashboardPage({
 
   return (
     <main className="flex-grow container mx-auto px-2 sm:px-4 py-8">
-      <h1 className="text-3xl sm:text-4xl font-bold mb-8 text-center font-orbitron">
+      <h1 className="text-3xl sm:text-4xl font-bold mb-8 text-center font-highlight">
         F1 Driver Rankings Dashboard
       </h1>
 

@@ -10,7 +10,7 @@ interface ArticlePreviewCardProps {
 }
 
 export function ArticlePreviewCard({ article, isFeatured = false }: ArticlePreviewCardProps) {
-  const placeholderImageUrl = `/placeholder-f1-${Math.floor(Math.random() * 3) + 1}.jpg`;
+  const placeholderImageUrl = `/images/red-bull.webp`; // Default placeholder image URL
 
   return (
     // The Link component itself now receives the className and acts as the clickable area.
@@ -24,9 +24,10 @@ export function ArticlePreviewCard({ article, isFeatured = false }: ArticlePrevi
           src={article.imageUrl || placeholderImageUrl} // Use article.imageUrl if you add it to your frontmatter
           alt={article.title || "F1 News"}
           fill // Changed from layout="fill" objectFit="cover" to just fill for Next 13+ Image
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" // Example sizes, adjust as needed
+          // sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" // Example sizes, adjust as needed
           style={{ objectFit: 'cover' }} // objectFit is now a style property
           className="group-hover:scale-105 transition-transform duration-300"
+          priority
         />
       </div>
       <div className="p-4 flex flex-col flex-grow">
