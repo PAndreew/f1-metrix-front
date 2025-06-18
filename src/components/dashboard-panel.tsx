@@ -70,10 +70,10 @@ export function DashboardPanel({
   }
 
   return (
-    <Card className={`flex flex-col ${initialHeight} ${className} overflow-hidden`}> {/* Added overflow-hidden to card */}
+    <Card className={`flex  bg-slate-800 text-white flex-col ${initialHeight} ${className} overflow-hidden`}> {/* Added overflow-hidden to card */}
       <CardHeader className="flex flex-row items-center justify-between space-y-0 py-3 px-4 flex-shrink-0 border-b border-slate-700">
         <div className="flex items-center gap-3">
-            <CardTitle className="text-lg font-medium">{title}</CardTitle>
+            <CardTitle className="text-lg font-medium font-highlight">{title}</CardTitle>
             {headerActions} {/* Render header actions here */}
         </div>
         <Button variant="ghost" size="icon" onClick={toggleFullScreen} className="text-muted-foreground hover:text-primary -mr-2">

@@ -136,7 +136,7 @@ export function RankingsDataTable<TData extends RankingData>({
           {isYearlyTable && availableYears.length > 0 && currentSelectedYear !== undefined ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="outline" size="sm" className="h-9">
+                <Button variant="outline" size="sm" className="h-9 bg-slate-700 text-slate-300 hover:bg-slate-600">
                   Year: {currentSelectedYear} <CalendarDays className="ml-2 h-4 w-4" />
                 </Button>
               </DropdownMenuTrigger>
@@ -155,7 +155,7 @@ export function RankingsDataTable<TData extends RankingData>({
           ) : table.getAllColumns().some(col => col.getCanHide()) ? ( // Fallback to Column Visibility if not yearly table
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="outline" size="sm" className="h-9">
+                <Button variant="outline" size="sm" className="h-9 hidden">
                   Columns <ChevronDown className="ml-2 h-4 w-4" />
                 </Button>
               </DropdownMenuTrigger>
