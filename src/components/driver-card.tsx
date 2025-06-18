@@ -24,7 +24,7 @@ ChartJS.register(
 // Define a type for your driver ranking data
 interface DriverRanking {
   id: number;
-  driverid: number;
+  driverid: string;
   year: number;
   yearly_performance_score: number | null;
   u0_contrib: number | null;
