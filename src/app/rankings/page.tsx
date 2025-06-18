@@ -9,6 +9,20 @@ import { yearlyRankingsColumns, allTimeRankingsColumns } from "@/components/rank
 
 const BATCH_SIZE_ALL_TIME = 30; // Define batch size for all-time
 
+interface ResolvedSearchParams {
+  year?: string;
+  batch?: string;
+}
+
+// --- Define the type for the searchParams prop as received by the async page ---
+type AsyncSearchParamsProp = Promise<ResolvedSearchParams>; // Or Promise<{ year?: string; batch?: string; }>
+
+// --- Define the overall props for the page component ---
+interface RankingsDashboardPageProps {
+  // params?: Promise<{ [key: string]: string | string[] | undefined }>; // If you had route params like [id]
+  searchParams?: AsyncSearchParamsProp; // searchParams itself can be a Promise
+}
+
 // --- Data Fetching Functions ---
 async function getAllRankingsForYear(year: number): Promise<DriverYearlyPerformanceRankings[]> {
   // For yearly, we fetch all and let the table paginate client-side
@@ -56,10 +70,12 @@ async function getAvailableYears(): Promise<number[]> {
 
 
 export default async function RankingsDashboardPage({
-  searchParams,
-}: {
-  searchParams?: { year?: string; batch?: string };
-}) {
+  searchParams: searchParamsPromise, // Rename for clarity, it's a promise
+}: RankingsDashboardPageProps) { // Use the defined PageProps type
+
+  // Await the searchParams if it's provided as a promise
+  const searchParams = searchParamsPromise ? await searchParamsPromise : {};
+
   const availableYears = await getAvailableYears();
   const currentSelectedYear = searchParams?.year ? parseInt(searchParams.year) : (availableYears[0] || new Date().getFullYear());
   const currentBatchAllTime = searchParams?.batch ? parseInt(searchParams.batch) : 1;
