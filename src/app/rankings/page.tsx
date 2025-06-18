@@ -1,15 +1,13 @@
 // app/rankings/page.tsx
 import prisma from "@/lib/prisma";
-// import { YearSelector } from "@/components/YearSelector"; // YearSelector is now part of YearlyRankingsPanel
+import { YearSelector } from "@/components/year-selector";
 import { DashboardPanel } from "@/components/dashboard-panel";
-// import { DriverCard } from "@/components/DriverCard";
 import { TopDriverPerYearChart, TopDriverDataPoint } from "@/components/top-driver-per-year";
 import { DriverYearlyPerformanceRankings, DriverAllTimeRankingU0 } from "@prisma/client";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { YearlyRankingsPanel } from "@/components/yearly-ranking-panel"; // Import the new panel
+import { RankingsDataTable, RankingData } from "@/components/rankings-datatable"; // Import data table
+import { yearlyRankingsColumns, allTimeRankingsColumns } from "@/components/rankings-columns"; // Import column definitions
 
-// Fetch ALL rankings for the given year
+// --- Data Fetching Functions (Unchanged) ---
 async function getAllRankingsForYear(year: number): Promise<DriverYearlyPerformanceRankings[]> {
   return prisma.driverYearlyPerformanceRankings.findMany({
     where: { year: year },
@@ -17,10 +15,9 @@ async function getAllRankingsForYear(year: number): Promise<DriverYearlyPerforma
   });
 }
 
-async function getAllTimeRankings(take?: number): Promise<DriverAllTimeRankingU0[]> {
+async function getAllTimeRankingsData(): Promise<DriverAllTimeRankingU0[]> {
   return prisma.driverAllTimeRankingU0.findMany({
     orderBy: { u0_skill_intercept: 'desc' },
-    take: take,
   });
 }
 
@@ -28,39 +25,55 @@ async function getTopDriverPerYearData(): Promise<TopDriverDataPoint[]> {
   const topDrivers = await prisma.driverYearlyPerformanceRankings.findMany({
     where: { yearly_rank: 1 },
     orderBy: { year: 'asc' },
-    select: {
-      year: true,
-      forename: true,
-      surname: true,
-      yearly_performance_score: true,
-    }
+    select: { year: true, forename: true, surname: true, yearly_performance_score: true }
   });
   return topDrivers.map(d => ({
     year: d.year,
-    driverName: `${d.forename || ''} ${d.surname || ''}`.trim(), // Handle null names
+    driverName: `${d.forename || ''} ${d.surname || ''}`.trim(),
     score: d.yearly_performance_score
   }));
 }
 
 async function getAvailableYears(): Promise<number[]> {
     const yearsData = await prisma.driverYearlyPerformanceRankings.groupBy({
-        by: ['year'],
-        orderBy: { year: 'desc' },
-        _count: { year: true },
+        by: ['year'], orderBy: { year: 'desc' }, _count: { year: true },
     });
     return yearsData.filter(y => y._count.year > 0).map(y => y.year);
 }
 
-const DEFAULT_ITEMS_SHOWN_IN_PANEL = 10;
-const DEFAULT_ITEMS_ALL_TIME = 7;
 
 export default async function RankingsDashboardPage({ searchParams }: { searchParams?: { year?: string } }) {
   const availableYears = await getAvailableYears();
   const currentSelectedYear = searchParams?.year ? parseInt(searchParams.year) : (availableYears[0] || new Date().getFullYear());
 
-  const allRankingsForSelectedYear = await getAllRankingsForYear(currentSelectedYear);
-  const allTimeRankings = await getAllTimeRankings();
+  const yearlyRankingsRaw = await getAllRankingsForYear(currentSelectedYear);
+  const allTimeRankingsRaw = await getAllTimeRankingsData();
   const topDriverHistory = await getTopDriverPerYearData();
+
+  // --- Map data to the generic RankingData structure ---
+  const yearlyTableData: RankingData[] = yearlyRankingsRaw.map(d => ({
+    id: d.id.toString(), // Ensure id is string or number as per RankingData
+    rank: d.yearly_rank,
+    driverName: `${d.forename || ''} ${d.surname || ''}`.trim(),
+    score: d.yearly_performance_score,
+    driverId: d.driverid, // Pass original driverid for linking
+    year: d.year,
+  }));
+
+  const allTimeTableData: RankingData[] = allTimeRankingsRaw.map((d, index) => ({
+    id: d.id.toString(), // Ensure id is string or number
+    rank: index + 1, // All-time rank is based on order
+    driverName: `${d.forename || ''} ${d.surname || ''}`.trim(),
+    score: d.u0_skill_intercept,
+    driverId: d.driverid,
+  }));
+
+  const yearSelectorForYearlyPanel = (
+    <YearSelector availableYears={availableYears} currentYear={currentSelectedYear} />
+  );
+
+  const panelDefaultHeight = "h-[500px] sm:h-[550px]"; // Unified height for panels with tables
+  const tableScrollHeight = "h-full"; // Table scroll area should take full height of its container
 
   return (
     <main className="flex-grow container mx-auto px-2 sm:px-4 py-8">
@@ -69,43 +82,37 @@ export default async function RankingsDashboardPage({ searchParams }: { searchPa
       </h1>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
-        {/* Panel 1: Yearly Rankings Panel (now uses the dedicated component) */}
-        <YearlyRankingsPanel
-          allRankingsForYear={allRankingsForSelectedYear}
-          availableYears={availableYears}
-          currentSelectedYear={currentSelectedYear}
-          defaultItemsShown={DEFAULT_ITEMS_SHOWN_IN_PANEL}
-        />
-
-        {/* Panel 2: All Time Ranking */}
-        <DashboardPanel title="All-Time Greats (Based on u0)" initialHeight="h-[480px] sm:h-[530px]">
-          <div className="space-y-3 overflow-y-auto pr-1 h-full p-4"> {/* Added p-4 to match styling, h-full */}
-            {allTimeRankings.length > 0 ? (
-              allTimeRankings.map((driver, index) => (
-                 <Link href={`/drivers/${driver.driverid}`} key={driver.id}
-                      className="block p-3 border border-slate-700 rounded-md hover:bg-slate-800 transition-colors">
-                   <div className="flex justify-between items-center">
-                        <div>
-                            <span className="font-semibold">{index + 1}. {driver.forename} {driver.surname}</span>
-                        </div>
-                        <span className="text-sm text-slate-400">{driver.u0_skill_intercept?.toFixed(3)}</span>
-                   </div>
-                </Link>
-              ))
-            ) : (
-              <p className="text-center text-slate-400 py-4">No all-time rankings available.</p>
-            )}
-            {allTimeRankings.length >= DEFAULT_ITEMS_ALL_TIME && ( // Use the constant
-                <div className="text-center mt-4 sticky bottom-0 bg-slate-800 py-2"> {/* Made button sticky-ish */}
-                    <Button asChild variant="outline">
-                        <Link href="/rankings/all-time">View Full All-Time List</Link>
-                    </Button>
-                </div>
-            )}
-          </div>
+        {/* Panel 1: Yearly Rankings Table */}
+        <DashboardPanel
+          title={`${currentSelectedYear} Rankings`}
+          initialHeight={panelDefaultHeight}
+          contentClassName="p-0 flex flex-col" // Panel's content area is a flex column with no padding
+          // No headerActions needed here as YearSelector will be part of tableControls
+        >
+          <RankingsDataTable
+            columns={yearlyRankingsColumns}
+            data={yearlyTableData}
+            tableControls={yearSelectorForYearlyPanel} // Pass YearSelector here
+            scrollAreaClass={tableScrollHeight} // Make table scroll fill panel
+            initialPageSize={15} // Adjust as needed
+          />
         </DashboardPanel>
 
-        {/* Panel 3: Top Driver Per Year Line Chart (can be wider on larger screens) */}
+        {/* Panel 2: All Time Ranking Table */}
+        <DashboardPanel
+          title="All-Time Greats (Based on u0)"
+          initialHeight={panelDefaultHeight}
+          contentClassName="p-0 flex flex-col"
+        >
+          <RankingsDataTable
+            columns={allTimeRankingsColumns}
+            data={allTimeTableData}
+            scrollAreaClass={tableScrollHeight}
+            initialPageSize={15}
+          />
+        </DashboardPanel>
+
+        {/* Panel 3: Top Driver Per Year Line Chart */}
         <DashboardPanel title="Top Driver Performance Over Time" initialHeight="h-[400px] md:h-[500px]" className="lg:col-span-2">
           <div className="h-full w-full p-2">
             {topDriverHistory.length > 0 ? (
@@ -115,13 +122,6 @@ export default async function RankingsDashboardPage({ searchParams }: { searchPa
             )}
           </div>
         </DashboardPanel>
-
-        {/* Panel 4: Placeholder (can be wider on larger screens) */}
-        {/* <DashboardPanel title="Future Insights" initialHeight="h-[400px] md:h-[500px]" className="lg:col-span-1">
-          <div className="flex items-center justify-center h-full">
-            <p className="text-slate-500">More analysis coming soon...</p>
-          </div>
-        </DashboardPanel> */}
       </div>
     </main>
   );
