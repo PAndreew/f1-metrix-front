@@ -5,6 +5,13 @@ import { notFound } from 'next/navigation';
 import { Footer } from '@/components/footer';
 import { format } from 'date-fns';
 
+interface ArticlePageProps {
+  params: {
+    slug: string;
+  };
+  // searchParams?: { [key: string]: string | string[] | undefined }; // If you were using searchParams
+}
+
 export async function generateStaticParams(): Promise<Array<{ slug: string }>> {
   const articles = getAllArticleSlugs();
   return articles.map(article => ({
@@ -12,7 +19,7 @@ export async function generateStaticParams(): Promise<Array<{ slug: string }>> {
   }));
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }) {
+export async function generateMetadata({ params }: ArticlePageProps){
   const article = await getArticleDataBySlug(params.slug); // article can be { data... } or null
 
   if (!article) { // Check for null before accessing frontmatter
@@ -24,7 +31,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   };
 }
 
-export default async function ArticlePage({ params }: { params: { slug: string } }) {
+export default async function ArticlePage({ params }: ArticlePageProps) {
   const articleData = await getArticleDataBySlug(params.slug); // articleData can be { data... } or null
 
   if (!articleData) { // Check for null first
