@@ -4,7 +4,7 @@
 import { ColumnDef } from "@tanstack/react-table"
 import { RankingData } from "./rankings-datatable" // Your generic data type
 import { Button } from "@/components/ui/button"
-import { ArrowUpDown, ExternalLink } from "lucide-react"
+import { ArrowUpDown } from "lucide-react"
 import Link from "next/link"
 
 // --- Columns for Yearly Rankings ---

@@ -31,7 +31,8 @@ export async function getArticleDataBySlug(slug: string) {
   // Asynchronous check for file existence is generally better practice
   try {
     await fs.promises.access(fullPath, fs.constants.F_OK); // Check if file exists and is accessible
-  } catch (error) {
+  } catch (_error) {
+    console.warn(`Article not found or inaccessible: ${fullPath}`, _error);
     return null; // File does not exist or not accessible
   }
 

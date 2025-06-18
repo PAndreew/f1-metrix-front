@@ -12,6 +12,7 @@ import {
   Tooltip,
   Legend,
   Filler, // For area fill if desired
+  TooltipItem,
 } from 'chart.js';
 
 ChartJS.register(
@@ -67,7 +68,7 @@ export function TopDriverPerYearChart({ data }: TopDriverPerYearChartProps) {
       },
       tooltip: {
         callbacks: {
-          label: function(context: any) {
+          label: function(context: TooltipItem<'line'>) {
             let label = context.dataset.label || '';
             if (label) {
               label += ': ';
