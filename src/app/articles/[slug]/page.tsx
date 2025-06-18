@@ -5,12 +5,21 @@ import { notFound } from 'next/navigation';
 import { Footer } from '@/components/footer';
 import { format } from 'date-fns';
 
-interface ArticlePageProps {
-  params: {
-    slug: string;
-  };
-  // searchParams?: { [key: string]: string | string[] | undefined }; // If you were using searchParams
+// Define the shape of the resolved params
+interface ResolvedPageParams {
+  slug: string;
 }
+
+// Define the type for the params prop as it's received by the async page/metadata function
+// This indicates that Next.js might be providing it as a Promise that resolves to ResolvedPageParams
+type AsyncPageParamsProp = Promise<ResolvedPageParams>; // Or Promise<{ slug: string; }> directly
+
+// Define the overall props for the page component
+interface ArticlePageProps {
+  params: AsyncPageParamsProp; // params itself is a Promise
+  // searchParams?: { [key: string]: string | string[] | undefined };
+}
+
 
 export async function generateStaticParams(): Promise<Array<{ slug: string }>> {
   const articles = getAllArticleSlugs();
@@ -19,8 +28,9 @@ export async function generateStaticParams(): Promise<Array<{ slug: string }>> {
   }));
 }
 
-export async function generateMetadata({ params }: ArticlePageProps){
-  const article = await getArticleDataBySlug(params.slug); // article can be { data... } or null
+export async function generateMetadata({ params: paramsPromise }: ArticlePageProps) {
+  const params = await paramsPromise; // Await the promise to get the actual slug object
+  const article = await getArticleDataBySlug(params.slug);
 
   if (!article) { // Check for null before accessing frontmatter
     return { title: 'Article Not Found' };
@@ -31,8 +41,10 @@ export async function generateMetadata({ params }: ArticlePageProps){
   };
 }
 
-export default async function ArticlePage({ params }: ArticlePageProps) {
-  const articleData = await getArticleDataBySlug(params.slug); // articleData can be { data... } or null
+export default async function ArticlePage({ params: paramsPromise }: ArticlePageProps) {
+  const params = await paramsPromise; // Await the promise to get the actual slug object
+  const articleData = await getArticleDataBySlug(params.slug);
+
 
   if (!articleData) { // Check for null first
     notFound(); // This will correctly throw and stop execution
