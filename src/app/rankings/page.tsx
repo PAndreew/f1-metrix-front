@@ -1,13 +1,14 @@
 // app/rankings/page.tsx
 import prisma from "@/lib/prisma";
-import { YearSelector } from "@/components/year-selector";
+// import { YearSelector } from "@/components/YearSelector"; // No longer directly used here
 import { DashboardPanel } from "@/components/dashboard-panel";
 import { TopDriverPerYearChart, TopDriverDataPoint } from "@/components/top-driver-per-year";
 import { DriverYearlyPerformanceRankings, DriverAllTimeRankingU0 } from "@prisma/client";
-import { RankingsDataTable, RankingData } from "@/components/rankings-datatable"; // Import data table
-import { yearlyRankingsColumns, allTimeRankingsColumns } from "@/components/rankings-columns"; // Import column definitions
+import { RankingsDataTable, RankingData } from "@/components/rankings-datatable";
+import { yearlyRankingsColumns, allTimeRankingsColumns } from "@/components/rankings-columns";
 
 // --- Data Fetching Functions (Unchanged) ---
+// ... (keep your existing data fetching functions)
 async function getAllRankingsForYear(year: number): Promise<DriverYearlyPerformanceRankings[]> {
   return prisma.driverYearlyPerformanceRankings.findMany({
     where: { year: year },
@@ -50,30 +51,29 @@ export default async function RankingsDashboardPage({ searchParams }: { searchPa
   const allTimeRankingsRaw = await getAllTimeRankingsData();
   const topDriverHistory = await getTopDriverPerYearData();
 
-  // --- Map data to the generic RankingData structure ---
   const yearlyTableData: RankingData[] = yearlyRankingsRaw.map(d => ({
-    id: d.id.toString(), // Ensure id is string or number as per RankingData
+    id: d.id.toString(),
     rank: d.yearly_rank,
     driverName: `${d.forename || ''} ${d.surname || ''}`.trim(),
     score: d.yearly_performance_score,
-    driverId: d.driverid, // Pass original driverid for linking
+    driverId: d.driverid,
     year: d.year,
   }));
 
   const allTimeTableData: RankingData[] = allTimeRankingsRaw.map((d, index) => ({
-    id: d.id.toString(), // Ensure id is string or number
-    rank: index + 1, // All-time rank is based on order
+    id: d.id.toString(),
+    rank: index + 1,
     driverName: `${d.forename || ''} ${d.surname || ''}`.trim(),
     score: d.u0_skill_intercept,
     driverId: d.driverid,
   }));
 
-  const yearSelectorForYearlyPanel = (
-    <YearSelector availableYears={availableYears} currentYear={currentSelectedYear} />
-  );
+  // const yearSelectorForYearlyPanel = ( // No longer needed as separate component for table controls
+  //   <YearSelector availableYears={availableYears} currentYear={currentSelectedYear} />
+  // );
 
-  const panelDefaultHeight = "h-[500px] sm:h-[550px]"; // Unified height for panels with tables
-  const tableScrollHeight = "h-full"; // Table scroll area should take full height of its container
+  const panelDefaultHeight = "h-[500px] sm:h-[550px]";
+  const tableScrollHeight = "h-full";
 
   return (
     <main className="flex-grow container mx-auto px-2 sm:px-4 py-8">
@@ -84,17 +84,20 @@ export default async function RankingsDashboardPage({ searchParams }: { searchPa
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
         {/* Panel 1: Yearly Rankings Table */}
         <DashboardPanel
-          title={`${currentSelectedYear} Rankings`}
+          title={`${currentSelectedYear} Rankings`} // Title still dynamic
           initialHeight={panelDefaultHeight}
-          contentClassName="p-0 flex flex-col" // Panel's content area is a flex column with no padding
-          // No headerActions needed here as YearSelector will be part of tableControls
+          contentClassName="p-0 flex flex-col"
         >
           <RankingsDataTable
             columns={yearlyRankingsColumns}
             data={yearlyTableData}
-            tableControls={yearSelectorForYearlyPanel} // Pass YearSelector here
-            scrollAreaClass={tableScrollHeight} // Make table scroll fill panel
-            initialPageSize={15} // Adjust as needed
+            // Pass year selector props directly
+            isYearlyTable={true}
+            availableYears={availableYears}
+            currentSelectedYear={currentSelectedYear}
+            // tableControls={null} // Or remove if not used for anything else
+            scrollAreaClass={tableScrollHeight}
+            initialPageSize={15}
           />
         </DashboardPanel>
 
@@ -107,6 +110,7 @@ export default async function RankingsDashboardPage({ searchParams }: { searchPa
           <RankingsDataTable
             columns={allTimeRankingsColumns}
             data={allTimeTableData}
+            isYearlyTable={false} // This table is not for yearly selection
             scrollAreaClass={tableScrollHeight}
             initialPageSize={15}
           />
