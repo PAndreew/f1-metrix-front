@@ -55,8 +55,6 @@ The model then describes these Rankit Points as a combination of several key com
     *   **Customer Cars (`beta_customer`):** A specific adjustment for entries identified as "customer cars," an effect particularly relevant in earlier F1 eras (our model applies this between 1950-1980 if `is_customer_car_raw` is flagged).
 
 Mathematically, the expected performance (`μ`) for a driver in a race can be thought of (in a simplified way) as:
-Use code with caution.
-Mdx
 RankitPoints ~ Normal(μ, σ_e)
 μ = GlobalIntercept
 + (Driver_BaselineSkill + Driver_SkillTrend * Year)
@@ -67,7 +65,6 @@ RankitPoints ~ Normal(μ, σ_e)
 + Effect_of_NumDriversInRace
 + Effect_of_RaceCompetitiveness
 + Effect_of_CustomerCarStatus
-Generated code
 All these components are estimated simultaneously within a Bayesian framework using PyMC. The random effects for driver, team, and team-year (the terms like `Driver_BaselineSkill` and `Driver_SkillTrend`) are drawn from distributions whose variances and correlations are also estimated, allowing us to see, for example, if skilled drivers also tend to improve at a different rate. This dynamic approach, where effects can vary with time (the `Year` interaction), is crucial for capturing the evolving nature of F1 and is inspired by the variance functions discussed in the Bell et al. paper.
 
 ## Data: The Fuel for Our Engine
@@ -125,8 +122,6 @@ So, what kinds of analyses can you expect from **[Your Blog Name]** using this m
 This journey of discovery is just beginning. We're incredibly excited to share our findings, visualizations, and interpretations with you.
 
 ## Join the Conversation!
-
-Thank you for joining us on this first lap into the world of data-driven Formula 1 analysis at **[Your Blog Name]**. We firmly believe that by combining robust statistical methods with a deep passion for the sport's rich history and intricate nuances, we can uncover fascinating stories that lie hidden within the data.
 
 This model, and its outputs, are intended as tools to spark discussion, challenge assumptions, and inspire further inquiry – not as the definitive last word on any debate. We eagerly await your thoughts, critiques, questions, and suggestions. What burning F1 questions would you like to see tackled with a data-driven lens?
 

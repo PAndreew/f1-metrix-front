@@ -36,12 +36,12 @@ export function Header() {
           </div>
         </div>
         <nav className="flex items-center space-x-8">
-          <a href="#" className="text-slate-300 hover:text-white">
+          <Link href="/articles" className="text-slate-300 hover:text-white">
             Articles
-          </a>
-          <a href="#" className="text-slate-300 hover:text-white">
+          </Link>
+          <Link href="/rankings?year=2025" className="text-slate-300 hover:text-white">
             Rankings
-          </a>
+          </Link>
           <Button variant="outline" className="bg-red-600 border-slate-600 text-white hover:bg-red-700 hidden">
             SIGN IN
           </Button>
