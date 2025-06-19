@@ -3,7 +3,7 @@
 
 import { Bar } from 'react-chartjs-2';
 import {
-  Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend
+  Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, TooltipItem, Legend
 } from 'chart.js';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
@@ -62,7 +62,7 @@ export function DriverAttributesChart({ data, year }: DriverAttributesChartProps
       title: { display: true, text: `Driver Performance Attributes Breakdown (${year})`, color: '#e2e8f0' },
       tooltip: {
         callbacks: {
-          label: function(context: any) {
+          label: function(context: TooltipItem<'bar'>) {
             let label = context.dataset.label || '';
             if (label) { label = context.label + ': '; } // Use category label
             if (context.parsed.x !== null) {

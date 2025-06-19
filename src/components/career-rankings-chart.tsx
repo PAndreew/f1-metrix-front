@@ -3,7 +3,7 @@
 
 import { Line } from 'react-chartjs-2';
 import {
-  Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, Filler
+  Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, TooltipItem, Legend, Filler
 } from 'chart.js';
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, Filler);
@@ -46,7 +46,7 @@ export function CareerRankingsChart({ data, driverName }: CareerRankingsChartPro
       title: { display: true, text: `${driverName}'s Career Ranking Trajectory`, color: '#e2e8f0' },
       tooltip: {
         callbacks: {
-          label: function(context: any) {
+          label: function(context: TooltipItem<'line'>) {
             let label = `Rank: ${context.parsed.y}`;
             const dataIndex = context.dataIndex;
             if (data[dataIndex] && data[dataIndex].score !== undefined && data[dataIndex].score !== null) {

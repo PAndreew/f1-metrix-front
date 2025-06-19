@@ -131,7 +131,7 @@ export default async function DriverProfilePage({
           /> */}
         </div>
         <div>
-          <h1 className="text-4xl font-bold font-orbitron">{driverFullName}</h1>
+          <h1 className="text-4xl font-bold font-highlight">{driverFullName}</h1>
           <p className="text-xl text-slate-400">F1 Driver Profile</p>
           <div className="mt-3 text-sm text-slate-300">
             <p>Base Skill (u0): <span className="font-semibold text-sky-400">{driverInfo.u0_skill_intercept?.toFixed(3)}</span></p>
@@ -141,7 +141,7 @@ export default async function DriverProfilePage({
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <Card className="lg:col-span-2">
+        <Card className="lg:col-span-2 bg-slate-800 text-white">
           <CardHeader>
             <CardTitle>Career Ranking Trajectory</CardTitle>
             <CardDescription>Driver&#39;s final rank in each participated F1 season.</CardDescription>
@@ -155,7 +155,7 @@ export default async function DriverProfilePage({
           </CardContent>
         </Card>
 
-        <Card className="lg:col-span-2">
+        <Card className="lg:col-span-2 bg-slate-800 text-white">
           <CardHeader>
             <div className="flex flex-col sm:flex-row justify-between sm:items-center">
                 <div>

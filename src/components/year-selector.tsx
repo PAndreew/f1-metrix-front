@@ -59,8 +59,8 @@ export function YearSelector({
   return (
     <div className={className}>
       <Select onValueChange={handleYearChange} defaultValue={currentYear?.toString()}>
-        <SelectTrigger className="w-auto min-w-[150px] h-9 bg-slate-700 text-slate-300 border-slate-600 hover:bg-slate-600">
-          <CalendarDays className="mr-2 h-4 w-4 opacity-80" />
+        <SelectTrigger className="w-auto min-w-[150px] h-9 bg-slate-700 text-slate-200 border-slate-600 hover:bg-slate-600">
+          <CalendarDays className="mr-2 h-4 w-4 opacity-80 text-slate-100" />
           <SelectValue placeholder="Select Year" />
         </SelectTrigger>
         <SelectContent>
