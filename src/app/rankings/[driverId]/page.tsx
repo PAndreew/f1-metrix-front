@@ -1,4 +1,4 @@
-// app/drivers/[driverId]/page.tsx
+// app/rankings/[driverId]/page.tsx
 import prisma from "@/lib/prisma";
 import { notFound } from 'next/navigation';
 // import Image from 'next/image';
@@ -10,11 +10,26 @@ import { DriverCareerEffects, DriverYearlyPerformanceRankings } from "@prisma/cl
 
 // --- Data Fetching (can be moved to a lib/driverData.ts) ---
 interface DriverProfilePageData {
+    driverId: string; // Include driverId for potential future use
   driverInfo: DriverCareerEffects;
   careerRankings: { year: number; rank: number | null; score: number | null }[];
   attributesForSelectedYear: DriverYearlyPerformanceRankings | null;
   participationYears: number[];
   selectedAttributeYear: number;
+}
+
+interface ResolvedPageParams {
+  driverId: string;
+}
+
+// Define the type for the params prop as it's received by the async page/metadata function
+// This indicates that Next.js might be providing it as a Promise that resolves to ResolvedPageParams
+type AsyncPageParamsProp = Promise<ResolvedPageParams>; // Or Promise<{ slug: string; }> directly
+
+// Define the overall props for the page component
+interface DriverPageProps {
+  params: AsyncPageParamsProp; // params itself is a Promise
+  // searchParams?: { [key: string]: string | string[] | undefined };
 }
 
 // Keep this function signature as is
@@ -62,6 +77,7 @@ async function getDriverPageData(driverIdParam: string, attributeYearParam?: str
   });
 
   return {
+    driverId, // Include driverId for potential future use
     driverInfo,
     careerRankings,
     attributesForSelectedYear,
@@ -70,15 +86,17 @@ async function getDriverPageData(driverIdParam: string, attributeYearParam?: str
   };
 }
 
+export async function generateMetadata({ params: paramsPromise }: DriverPageProps) {
+  const params = await paramsPromise; // Await the promise to get the actual slug object
+  const pageData = await getDriverPageData(params.driverId);
 
-export async function generateMetadata({ params }: { params: { driverId: string } }) {
-  // Access params.driverId *inside* the async function
-  const driverIdStr = params.driverId;
-  const driverId = driverIdStr;
+   if (!pageData) { // Check for null first
+    notFound(); // This will correctly throw and stop execution
+  }
 
-  if (!driverId) return { title: 'Driver Not Found - Invalid ID' };
+  if (!pageData.driverId) return { title: 'Driver Not Found - Invalid ID' };
 
-  const driverInfo = await prisma.driverCareerEffects.findUnique({ where: { driverid: driverId }});
+  const driverInfo = await prisma.driverCareerEffects.findUnique({ where: { driverid: pageData.driverId } });
   if (!driverInfo) return { title: 'Driver Not Found' };
   return {
     title: `${driverInfo.forename} ${driverInfo.surname} - F1 Profile`,

@@ -30,7 +30,7 @@ export const yearlyRankingsColumns: ColumnDef<RankingData>[] = [
       const driverId = row.original.driverId;
       const year = row.original.year;
       return driverId ? (
-        <Link href={`/rankings/${driverId}?year=${year}`} className="hover:underline">
+        <Link href={`/rankings/${driverId}?attr_year=${year}`} className="hover:underline">
             {row.getValue("driverName")}
         </Link>
       ) : (
@@ -83,8 +83,9 @@ export const allTimeRankingsColumns: ColumnDef<RankingData>[] = [
     ),
     cell: ({ row }) => {
       const driverId = row.original.driverId;
+      const year = row.original.year;
       return driverId ? (
-        <Link href={`/drivers/${driverId}`} className="hover:underline">
+        <Link href={`/rankings/${driverId}?attr_year=${year}`} className="hover:underline">
             {row.getValue("driverName")}
         </Link>
       ) : (
