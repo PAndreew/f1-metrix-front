@@ -3,25 +3,10 @@ import prisma from '@/lib/prisma';
 import { getAllArticlesMetadata, ArticleMetadata } from '@/lib/mdx'; // Ensure path is correct
 import { Footer } from '@/components/footer'; // Ensure path is correct
 import { ArticlePreviewCard } from '@/components/article-preview-card'; // Ensure path is correct
-import { RankingSidebar } from '@/components/ranking-sidebar'; // Ensure path is correct
 import { DriverYearlyPerformanceRankings } from '@prisma/client';
 
 async function getArticles(count?: number): Promise<ArticleMetadata[]> {
   return getAllArticlesMetadata(count); // This already sorts by date
-}
-
-async function getYtdRankings(year: number, count: number = 5): Promise<DriverYearlyPerformanceRankings[]> {
-  try {
-    const rankings = await prisma.driverYearlyPerformanceRankings.findMany({
-      where: { year: year },
-      orderBy: { yearly_rank: 'asc' },
-      take: count,
-    });
-    return rankings;
-  } catch (error) {
-    console.error("Failed to fetch YTD rankings:", error);
-    return [];
-  }
 }
 
 export default async function HomePage() {
