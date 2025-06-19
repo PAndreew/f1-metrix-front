@@ -1,7 +1,7 @@
 // app/drivers/[driverId]/page.tsx
 import prisma from "@/lib/prisma";
 import { notFound } from 'next/navigation';
-import Image from 'next/image';
+// import Image from 'next/image';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { CareerRankingsChart } from "@/components/career-rankings-chart";
 import { DriverAttributesChart, AttributeData } from "@/components/driver-attributes-chart";
@@ -108,7 +108,7 @@ export default async function DriverProfilePage({
   const { driverInfo, careerRankings, attributesForSelectedYear, participationYears, selectedAttributeYear } = driverPageData;
 
   const driverFullName = `${driverInfo.forename || ''} ${driverInfo.surname || ''}`.trim();
-  const avatarUrl = `https://via.placeholder.com/150/475569/FFFFFF?Text=${driverInfo.forename?.[0]}${driverInfo.surname?.[0]}`;
+//   const avatarUrl = `https://via.placeholder.com/150/475569/FFFFFF?Text=${driverInfo.forename?.[0]}${driverInfo.surname?.[0]}`;
 
   const attributeChartData: AttributeData | null = attributesForSelectedYear ? {
     u0_contrib: attributesForSelectedYear.u0_contrib,
