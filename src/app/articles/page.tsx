@@ -1,9 +1,7 @@
 // app/page.tsx
-import prisma from '@/lib/prisma';
 import { getAllArticlesMetadata, ArticleMetadata } from '@/lib/mdx'; // Ensure path is correct
 import { Footer } from '@/components/footer'; // Ensure path is correct
 import { ArticlePreviewCard } from '@/components/article-preview-card'; // Ensure path is correct
-import { DriverYearlyPerformanceRankings } from '@prisma/client';
 
 async function getArticles(count?: number): Promise<ArticleMetadata[]> {
   return getAllArticlesMetadata(count); // This already sorts by date
