@@ -30,7 +30,7 @@ export const yearlyRankingsColumns: ColumnDef<RankingData>[] = [
       const driverId = row.original.driverId;
       const year = row.original.year;
       return driverId ? (
-        <Link href={`/drivers/${driverId}?year=${year}`} className="hover:underline">
+        <Link href={`/rankings/${driverId}?year=${year}`} className="hover:underline">
             {row.getValue("driverName")}
         </Link>
       ) : (
