@@ -7,6 +7,7 @@ import { CareerRankingsChart } from "@/components/career-rankings-chart";
 import { DriverAttributesChart, AttributeData } from "@/components/driver-attributes-chart";
 import { YearSelector } from "@/components/year-selector";
 import { DriverCareerEffects, DriverYearlyPerformanceRankings } from "@prisma/client";
+import { Metadata } from 'next';
 
 // --- Data Fetching (can be moved to a lib/driverData.ts) ---
 interface DriverProfilePageData {
@@ -18,23 +19,26 @@ interface DriverProfilePageData {
   selectedAttributeYear: number;
 }
 
+// interface ResolvedPageParams {
+//   driverId: string;
+// }
+
+// interface ResolvedSearchParams {
+//   [key: string]: string | string[] | undefined;
+// }
+
 interface ResolvedPageParams {
   driverId: string;
 }
 
-// Define the type for the params prop as it's received by the async page/metadata function
-// This indicates that Next.js might be providing it as a Promise that resolves to ResolvedPageParams
-type AsyncPageParamsProp = Promise<ResolvedPageParams>; // Or Promise<{ slug: string; }> directly
-
-// Define the overall props for the page component
-interface DriverPageProps {
-  params: AsyncPageParamsProp; // params itself is a Promise
-  // searchParams?: { [key: string]: string | string[] | undefined };
+interface ResolvedSearchParams {
+  attr_year?: string; // Explicitly define expected search params
+  [key: string]: string | string[] | undefined; // Allow others
 }
 
-interface DriverProfilePageProps {
-  params: AsyncPageParamsProp;
-  searchParams: { [key: string]: string | string[] | undefined }; // General type for searchParams
+interface PromisedProps {
+  params: Promise<ResolvedPageParams>;
+  searchParams?: Promise<ResolvedSearchParams>; // searchParams promise itself can be optional
 }
 
 // Keep this function signature as is
@@ -91,8 +95,10 @@ async function getDriverPageData(driverIdParam: string, attributeYearParam?: str
   };
 }
 
-export async function generateMetadata({ params: paramsPromise }: DriverPageProps) {
-  const params = await paramsPromise; // Await the promise to get the actual slug object
+export async function generateMetadata(
+  { params: paramsPromise }: Pick<PromisedProps, 'params'>,
+): Promise<Metadata> {
+  const params = await paramsPromise;
   const pageData = await getDriverPageData(params.driverId);
 
    if (!pageData) { // Check for null first
@@ -111,12 +117,17 @@ export async function generateMetadata({ params: paramsPromise }: DriverPageProp
 
 
 export default async function DriverProfilePage({
-  params: paramsPromise, // params itself is a Promise
-  searchParams = {}, // Default to an empty object if not provided
-}: DriverProfilePageProps) { // Use the defined props type
-    const params = await paramsPromise; // Await the promise to get the actual slug object
-  const driverIdParam = params.driverId; // `params` is an object, not a promise
-  const attributeYearParam = searchParams?.attr_year as string | undefined; // Access directly
+  params: paramsPromise,
+  searchParams: searchParamsPromise, // Destructure searchParamsPromise correctly
+}: PromisedProps) { // Use PromisedProps
+  const params = await paramsPromise;
+  
+  // Await searchParamsPromise IF it's provided. If not, default to an empty object.
+  const resolvedSearchParams = searchParamsPromise ? await searchParamsPromise : {};
+
+  const driverIdParam = params.driverId;
+  const attributeYearParam = resolvedSearchParams?.attr_year as string | undefined;
+
 
 
   const driverPageData = await getDriverPageData(driverIdParam, attributeYearParam);
