@@ -33,7 +33,7 @@ interface DriverPageProps {
 }
 
 interface DriverProfilePageProps {
-  params: { driverId: string };
+  params: AsyncPageParamsProp;
   searchParams: { [key: string]: string | string[] | undefined }; // General type for searchParams
 }
 
