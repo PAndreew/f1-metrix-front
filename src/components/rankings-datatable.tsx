@@ -167,7 +167,7 @@ export function RankingsDataTable<TData extends RankingData>({
                 </DropdownMenuRadioGroup>
               </DropdownMenuContent>
             </DropdownMenu>
-          ) : tableType === 'all-time' && numBatches > 0 ? (
+          ) : tableType === 'all-time' && numBatches > 1 ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="outline" size="sm" className="h-9 bg-slate-700 text-slate-300 hover:bg-slate-600">

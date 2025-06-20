@@ -7,7 +7,7 @@ import { DriverYearlyPerformanceRankings, DriverAllTimeRankingU0 } from "@prisma
 import { RankingsDataTable, RankingData } from "@/components/rankings-datatable";
 import { yearlyRankingsColumns, allTimeRankingsColumns } from "@/components/rankings-columns";
 
-const BATCH_SIZE_ALL_TIME = 30; // Define batch size for all-time
+const BATCH_SIZE_ALL_TIME = 800; // Define batch size for all-time
 
 interface ResolvedSearchParams {
   year?: string;
