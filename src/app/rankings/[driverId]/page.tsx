@@ -32,6 +32,11 @@ interface DriverPageProps {
   // searchParams?: { [key: string]: string | string[] | undefined };
 }
 
+interface DriverProfilePageProps {
+  params: { driverId: string };
+  searchParams: { [key: string]: string | string[] | undefined }; // General type for searchParams
+}
+
 // Keep this function signature as is
 async function getDriverPageData(driverIdParam: string, attributeYearParam?: string): Promise<DriverProfilePageData | null> {
   const driverId = driverIdParam; // Parse inside the async function
@@ -108,14 +113,10 @@ export async function generateMetadata({ params: paramsPromise }: DriverPageProp
 export default async function DriverProfilePage({
   params,
   searchParams,
-}: {
-  params: { driverId: string }; // Keep the type here
-  searchParams?: { attr_year?: string }; // Keep the type here
-}) {
-  // IMPORTANT: Access params.driverId and searchParams.attr_year *here*
-  // before passing them to the async data fetching function.
-  const driverIdParam = params.driverId;
-  const attributeYearParam = searchParams?.attr_year;
+}: DriverProfilePageProps) { // Use the defined props type
+  const driverIdParam = params.driverId; // `params` is an object, not a promise
+  const attributeYearParam = searchParams?.attr_year as string | undefined; // Access directly
+
 
   const driverPageData = await getDriverPageData(driverIdParam, attributeYearParam);
 
