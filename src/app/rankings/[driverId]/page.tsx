@@ -111,9 +111,10 @@ export async function generateMetadata({ params: paramsPromise }: DriverPageProp
 
 
 export default async function DriverProfilePage({
-  params,
-  searchParams,
+  params: paramsPromise, // params itself is a Promise
+  searchParams = {}, // Default to an empty object if not provided
 }: DriverProfilePageProps) { // Use the defined props type
+    const params = await paramsPromise; // Await the promise to get the actual slug object
   const driverIdParam = params.driverId; // `params` is an object, not a promise
   const attributeYearParam = searchParams?.attr_year as string | undefined; // Access directly
 
