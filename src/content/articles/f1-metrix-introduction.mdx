@@ -9,23 +9,19 @@ imageUrl: "/images/red-bull.webp"
 
 ## Foreword
 
-Welcome to **F1 Metrix**! We're launching a new Formula 1 blog dedicated to data-driven analysis. At its core is a multilevel Bayesian model designed to untangle the contributions of drivers, teams, and other crucial factors to F1 performance from 1950 to the present day. This first post dives into our methodology, which draws inspiration from the excellent work of Dr. Andrew Philips at [f1metrics.wordpress.blog](https://f1metrics.wordpress.blog) and academic research. We'll explain how our model accounts for driver skill (and its evolution), team strength, the impact of age and experience, car-specific effects, and the ever-changing competitive landscape of F1. Read on to see how we're building our analytical engine!
-
+Welcome to the **F1 Metrix** blog - a tribute to the excellent work of Dr. Andrew Philips at [f1metrics.wordpress.blog](https://f1metrics.wordpress.blog)! I was an avid reader of Dr. Philips' analytical articles but unfortunately we haven't seen any new content since 2021. The F1 Metrix blog is a humble attempt to emulate that approach - with some modifications and some additional features that will hopefully provide a delightful experience for our dear readers. What that means is that at the core of F1 Metrix is a multilevel Bayesian model designed to untangle the contributions of drivers, teams, and other crucial factors to F1 performance from 1950 to the present day. The articles will be grounded in this model but they will also incorporate my subjective interpretations. I'll strive to maintain an unbiased stance throughout but I'm just a mere human... So please forgive my errors or if I seem enamored or too harsh with certain drivers. Now let's dive into some details on how our model accounts for driver skill (and its evolution), team strength, the impact of age and experience, car-specific effects, and the ever-changing competitive landscape of F1. The following sections will contain relatively technical explanations of the model and the data preparation steps. If you're not interested in the details, feel free to skip ahead to the "Join the Conversation!" section at the end, where I'll outline the kinds of analyses and insights you can expect from this blog. 
 ---
 
-## Peeling Back the Carbon Fibre: An Introduction
+## Peeling Back the Carbon Fibre
 
-If you're passionate about Formula 1 and love to see data uncover deeper insights, you've come to the right place. Our mission is to go beyond the headlines and lap times, employing rigorous statistical modeling to dissect the elements that contribute to success in this complex and exhilarating sport.
+If you're passionate about Formula 1 and love to see data uncover deeper insights, you've come to the right place.
 
-At the heart of our analysis is a multilevel mathematical model, built using Python and the PyMC library. This approach allows us to simultaneously consider the myriad factors influencing race outcomes – from individual driver talent and constructor prowess to the effects of aging and experience.
-
-We believe in building upon strong foundations. Our work is heavily inspired by the pioneering analyses found on [f1metrics.wordpress.blog](https://f1metrics.wordpress.blog) – a fantastic resource for any F1 analytics enthusiast. We also draw upon academic research, notably the study "Formula for success: Multilevel modelling of Formula One Driver and Constructor performance, 1950–2014" by Andrew Bell, James Smith, Clive Sabel, and Kelvyn Jones. Every model needs data - ours comes from the comprehensive [f1db project on GitHub](https://github.com/f1db/f1db).
-
-This inaugural post will walk you through the 'why' and 'how' of our model, setting the stage for future analyses where we'll explore driver rankings, team dynamics, the evolution of F1, and more.
+At the heart of our analysis is a multilevel mathematical model, built using Python and the PyMC library. Since I could not access Dr. Philips original paper I was trying to implement the model described in "Formula for success: Multilevel modelling of Formula One Driver and Constructor performance, 1950–2014" by Andrew Bell, James Smith, Clive Sabel, and Kelvyn Jones. I incorporated several ideas presented in the updated f1metrics model - taking driver age and experience into account and also factoring out a few outstanding results to mitigate the effects of outliers (looking at you Stroll podiums).
+And not to forget: every model needs data - ours comes from the comprehensive [f1db project on GitHub](https://github.com/f1db/f1db).
 
 ## Why a Multilevel Model? The Quest for Clarity
 
-Modeling Formula 1 performance is, to put it mildly, a challenge. As Dr. Philips puts it, the "inherently uneven playing ground" means raw results can be highly misleading. Was a stunning victory down to the driver's genius, a dominant car, or a perfect storm of circumstances? How do we fairly compare a fresh-faced rookie to a seasoned world champion, or a car from the turbo era to a modern hybrid marvel?
+Modeling Formula 1 performance is, to put it mildly, a challenge. As Dr. Philips puts it, the "inherently uneven playing ground" means raw results can be highly misleading. Was a stunning victory down to the driver's genius, a dominant car, or a perfect storm of circumstances? How do we fairly compare a fresh-faced rookie to a seasoned world champion, or a car from the turbo era to a modern hybrid precision machine?
 
 Simple comparisons, like looking at total wins or championship points, often struggle to disentangle these intertwined effects. They can lead to potentially "spurious results." For example, earlier models that fail to adequately account for car competitiveness might erroneously conclude that "David Coulthard and Mark Webber were better drivers than Fernando Alonso and Jenson Button, almost solely by virtue of having spent more time sitting in top cars." This highlights the need for a more nuanced approach.
 
@@ -38,21 +34,18 @@ This is where multilevel modeling (MLM), also known as hierarchical modeling, en
 
 It's a powerful statistical toolkit that allows us to tackle the complexities of F1, building on the sophisticated approaches demonstrated by Bell et al. and f1metrics.
 
-## Our Model: A Glimpse Under the Hood
-
-So, what does our model actually *do*? At its core, it aims to explain a driver's performance in any given race. We quantify this performance using **"Rankit Points."** First, we assign "robust points" based on finishing positions (using our `calculate_points_robust` function, which gives significant weight to the top 10 but also assigns decaying fractional points for positions beyond P10). Then, these points are transformed within each race using the 'Rankit' method (`rankit` function), converting raw ranks into normal scores (z-scores). This standardization helps normalize for different points systems across eras and varying numbers of race finishers, making performances more comparable.
+So, what does our model actually *do*? At its core, it aims to explain a driver's performance in any given race. We quantify this performance using **"Rankit Points."** First, we assign "robust points" based on finishing positions (we give significant weight to the top 10 but also assigns decaying fractional points for positions beyond P10). Then, these points are transformed within each race using the 'Rankit' method, converting raw ranks into normal scores. This standardization helps normalize for different points systems across eras and varying numbers of race finishers, making performances more comparable.
 
 The model then describes these Rankit Points as a combination of several key components:
 
 *   `Driver Effect (u):` Each driver is characterized by a baseline skill level (`u0_driver_params`) and a personalized career trajectory (`u1_driver_params`). This second term interacts with the (centered) year, allowing a driver's performance to evolve over their career relative to the average. This helps us distinguish inherent talent from year-on-year development or decline.
 *   `Team Effect (v):` Similarly, each constructor has a baseline performance level (`v0_team_params`) and its own unique performance trajectory (`v1_team_params`) over the years.
 *   `Team-Year Effect (w):` F1 car performance can change dramatically from one year to the next, even for the same team. To capture this vital aspect, we include an effect for each specific team in each specific year (`w0_team_year_params`), along with its own short-term trend (`w1_team_year_params`). This acknowledges that, for example, the Red Bull RB19 in 2023 was a different proposition to its predecessors, even within the same regulatory era.
-*   `Age Effect:` We model how performance typically changes with a driver's age. The model uses binned age categories (e.g., \<20, 20-23, 23-26, ..., 47+) to estimate an average "age curve," capturing the phases of youthful ascent, peak performance, and eventual decline, akin to the age curves f1metrics has discussed for various sports.
-*   `Experience Effect:` Distinct from chronological age, we account for a driver's recent F1 experience. Specifically, our model considers the number of F1 seasons a driver participated in over the preceding four years (0 to 4 years). A 25-year-old rookie is clearly different from a 25-year-old with three F1 seasons under their belt.
+*   `Age Effect:` We model how performance typically changes with a driver's age. The model uses binned age categories (e.g., \<20, 20-23, 23-26, ..., 47+) to estimate an average "age curve," capturing the phases of youthful ascent, peak performance, and eventual decline, akin to the age curves f1metrics has discussed for various sports. This binning approach might be revised because one can argue that modern drivers with their strict training regimes and nutrition might not follow the same age curve as drivers from earlier eras.
+*   `Experience Effect:` Distinct from chronological age, we account for a driver's recent F1 experience. Specifically, our model considers the number of F1 seasons a driver participated in over the preceding four years (0 to 4 years). A 25-year-old rookie is clearly different from a 25-year-old with three F1 seasons under their belt...
 *   `Other Factors (Fixed Effects):`
     *   **Global Intercept & Trend (`beta_0`, `beta_3`):** A starting point for performance across all entities and an overall linear trend across F1 history (relative to the centered year).
     *   **Race Characteristics (`beta_1`, `beta_2`):** Adjustments for the number of drivers participating in a race (`num_drivers_in_race`) and the overall competitiveness of the field in that specific race (`race_competitiveness`).
-    *   **Customer Cars (`beta_customer`):** A specific adjustment for entries identified as "customer cars," an effect particularly relevant in earlier F1 eras (our model applies this between 1950-1980 if `is_customer_car_raw` is flagged).
 
 Mathematically, the expected performance (`μ`) for a driver in a race can be thought of (in a simplified way) as:
 RankitPoints ~ Normal(μ, σ_e)
@@ -64,7 +57,6 @@ RankitPoints ~ Normal(μ, σ_e)
 + ExperienceEffect_for_driver_experience_level
 + Effect_of_NumDriversInRace
 + Effect_of_RaceCompetitiveness
-+ Effect_of_CustomerCarStatus
 All these components are estimated simultaneously within a Bayesian framework using PyMC. The random effects for driver, team, and team-year (the terms like `Driver_BaselineSkill` and `Driver_SkillTrend`) are drawn from distributions whose variances and correlations are also estimated, allowing us to see, for example, if skilled drivers also tend to improve at a different rate. This dynamic approach, where effects can vary with time (the `Year` interaction), is crucial for capturing the evolving nature of F1 and is inspired by the variance functions discussed in the Bell et al. paper.
 
 ## Data: The Fuel for Our Engine
@@ -86,27 +78,24 @@ Several key data preparation steps are undertaken before the data meets the mode
     *   For the very early years of the championship (1950-1953), we also incorporate whether a driver had participated in Grands Prix between 1946-1949 to give a rudimentary "experience" score, acknowledging that many drivers in 1950 were far from true motorsport rookies.
 *   **Defining Performance - Rankit Points:** As mentioned, this is a two-step process:
     1.  Our `calculate_points_robust` function assigns points for finishing positions. This system gives 25-18-15... for the top 10, then provides very small, exponentially decaying points for finishers beyond 10th. This ensures every classified finisher contributes some information.
-    2.  A subtle data preparation step, `robustify_points_season`, slightly tempers a driver's single best and single worst points hauls (from `calculate_points_robust`) within each of their seasons. This is done before the points are rank-transformed.
+    2.  A subtle data preparation step slightly tempers a driver's single best and single worst points hauls within each of their seasons. This is done before the points are rank-transformed.
     3.  Finally, these (potentially adjusted) points are transformed within each race using the `rankit` method. This converts each driver's rank (based on their points in that race) into a normal score. This standardization is crucial for comparing performances across different eras, points systems, and field sizes.
 *   **Handling DNFs:** We explicitly flag Did Not Finish (DNF) events (`is_dnf` column). While our primary performance metric (`rankit_points`) is based on classified finishing position, the model implicitly learns about the general reliability context through the overall pattern of results.
 *   **Accounting for Context:**
     *   `num_drivers_in_race`: The number of starters in a race.
     *   `race_competitiveness`: A metric derived from the average normalized finishing position of all drivers participating in a given race, aiming to capture the overall strength of the field.
     *   `year_centered`: The race year is mean-centered before being used in interactions. This helps with model stability and interpretation of baseline effects.
-    *   `is_customer_car_effect_active`: A flag indicating if a car was likely a "customer car" during the 1950-1980 period, where this practice was more common.
 
-This careful preparation aims to create a clean, informative, and appropriately scaled dataset to power our statistical engine.
+This careful preparation aims to create a clean, informative, and appropriately scaled dataset to power the statistical engine.
 
 ## The Iterative Process & What's Next
 
-The renowned statistician George Box famously stated, "All models are wrong, but some are useful." We wholeheartedly embrace this philosophy. The model described here is our first comprehensive iteration. Like any model, it is a simplification of an incredibly complex reality.
+The renowned statistician George Box famously stated, "All models are wrong, but some are useful." The model described here is the first comprehensive iteration. Like any model, it is a simplification of an incredibly complex reality.
 
-The f1metrics blog eloquently illustrates that modeling is an iterative journey: "A model is defined, its performance is evaluated, and the lessons learned are fed back into the model definition." We are committed to this very process – continuously refining, testing, and expanding our approach based on the insights we glean and the valuable feedback we hope to receive from you, our readers.
+So, what kinds of analyses can you expect from **F1 Metrix** using this model? Here’s a taste:
 
-So, what kinds of analyses can you expect from **[Your Blog Name]** using this model? Here’s a taste:
-
-*   **Driver Rankings:** We'll explore all-time rankings based on estimated inherent skill (the `u0_skill_intercept` from our model) and examine how overall driver performance (`yearly_performance_score` which combines baseline skill, trend, age, and experience effects) evolves year-by-year.
-    For a very preliminary peek, here are the **Top 5 Drivers from our initial model run based purely on their estimated baseline skill (`u0_skill_intercept`)**:
+*   **Driver Rankings:** We'll explore all-time rankings based on estimated inherent skill (the `u0_skill_intercept` from the model) and examine how overall driver performance (`yearly_performance_score` which combines baseline skill, trend, age, and experience effects) evolves year-by-year.
+    For a very preliminary peek, here are the **Top 5 Drivers from the initial model run based purely on their estimated baseline skill (`u0_skill_intercept`)**:
 
     > 1.  Alain Prost (u0_skill_intercept: 0.576)
     > 2.  Jim Clark (u0_skill_intercept: 0.535)
@@ -117,15 +106,15 @@ So, what kinds of analyses can you expect from **[Your Blog Name]** using this m
 *   **Team Performance Deep Dives:** Which teams consistently punched above their weight, or perhaps underperformed relative to their resources, once driver effects are accounted for?
 *   **The Impact of Age and Experience:** We'll visualize the estimated age and experience curves from the model (the `age_binned_coeffs` and `experience_coeffs`) and discuss their implications for driver development and career longevity.
 *   **Individual Career Trajectories:** We can trace the modeled performance of individual drivers across their careers, identifying peaks, troughs, and periods of rapid development.
-*   **Evolving Variances:** How has the relative importance of driver skill versus team performance (`Driver_Variance`, `Team_Variance`, `Team_Year_Variance`) shifted across the different eras of Formula 1? Our model estimates these changing variances over time.
+*   **Evolving Variances:** How has the relative importance of driver skill versus team performance (`Driver_Variance`, `Team_Variance`, `Team_Year_Variance`) shifted across the different eras of Formula 1? The model estimates these changing variances over time.
 
-This journey of discovery is just beginning. We're incredibly excited to share our findings, visualizations, and interpretations with you.
+To make the results more accessible and the whole experience a bit more fun I included - and will include more - graphs and charts that you can access in the "Rankings" menu. This journey of discovery is just beginning. I'm incredibly excited to share these findings, visualizations, and interpretations with you.
 
 ## Join the Conversation!
 
-This model, and its outputs, are intended as tools to spark discussion, challenge assumptions, and inspire further inquiry – not as the definitive last word on any debate. We eagerly await your thoughts, critiques, questions, and suggestions. What burning F1 questions would you like to see tackled with a data-driven lens?
+This model, and its outputs, are intended as tools to spark discussion, challenge assumptions, and inspire further inquiry – not as the definitive last word on any debate. I eagerly await your thoughts, critiques, questions, and suggestions. What burning F1 questions would you like to see tackled with a data-driven lens? Please contact me via f1metrix.blog@gmail.com.
 
-Stay tuned for our upcoming posts, where we'll start diving into specific results, rankings, and insights generated by our model!
+Stay tuned for the upcoming posts, where we'll start diving into specific results, rankings, and insights generated by this model!
 
 ---
 
