@@ -57,7 +57,7 @@ export default async function ArticlePage({ params: paramsPromise }: ArticlePage
   return (
     <div className="flex flex-col min-h-screen">
       <main className="flex-grow container mx-auto px-4 py-8">
-        <article className="prose-invert lg:prose-xl max-w-none dark:prose-invert">
+        <article className="prose prose-sm prose-invert lg:prose-base max-w-none">
           <header className="mb-8">
             <h1 className="text-4xl text-white font-extrabold tracking-tight lg:text-5xl font-highlight">{frontmatter.title}</h1>
             <p className="text-lg text-slate-500 mt-2">
