@@ -1,0 +1,107 @@
+import { DatabaseSync } from "node:sqlite";
+import {
+  existsSync,
+  mkdirSync,
+  readFileSync,
+  writeFileSync,
+  readdirSync,
+  copyFileSync,
+  rmSync,
+} from "node:fs";
+import { dirname, join, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
+
+export function validateFit(model) {
+  const d = model?.metadata?.diagnostics;
+  if (
+    !d ||
+    ![d.maxRhat, d.minEssBulk, d.divergences].every(
+      (v) => typeof v === "number" && Number.isFinite(v),
+    ) ||
+    d.maxRhat <= 0 ||
+    d.maxRhat > 1.01 ||
+    d.minEssBulk < 400 ||
+    d.divergences !== 0
+  ) {
+    throw new Error(
+      "Publication model has not passed the MCMC diagnostic gate",
+    );
+  }
+}
+
+export function exportPublication(root) {
+  const path = join(root, "publication", "model.json");
+  const validated = existsSync(path);
+  const model = JSON.parse(
+    readFileSync(
+      validated ? path : join(root, "data", "bootstrap.json"),
+      "utf8",
+    ),
+  );
+  if (validated) validateFit(model);
+  const dir = join(root, "site", "public", "data");
+  mkdirSync(dir, { recursive: true });
+  const articlesDir = join(root, "publication", "articles");
+  const articles = existsSync(articlesDir)
+    ? readdirSync(articlesDir)
+        .filter((n) => n.endsWith(".json"))
+        .map((n) => JSON.parse(readFileSync(join(articlesDir, n), "utf8")))
+    : [];
+  articles.sort((a, b) => b.date.localeCompare(a.date));
+  const data = {
+    model,
+    articles,
+    validated,
+    notice: validated
+      ? ""
+      : "Historical preview only · legacy fit · not converged. These are not current, validated rankings.",
+  };
+  writeFileSync(join(dir, "publication.json"), JSON.stringify(data));
+  const sqlite = join(dir, "rankings.sqlite");
+  rmSync(sqlite, { force: true });
+  const db = new DatabaseSync(sqlite);
+  try {
+    db.exec(
+      "CREATE TABLE drivers(id TEXT PRIMARY KEY,name TEXT,nationality TEXT,races INTEGER,first_year INTEGER,last_year INTEGER,skill REAL,low REAL,high REAL,rank INTEGER); CREATE TABLE metadata(key TEXT PRIMARY KEY,value TEXT);",
+    );
+    db.exec("BEGIN");
+    const insert = db.prepare(
+      "INSERT INTO drivers VALUES(?,?,?,?,?,?,?,?,?,?)",
+    );
+    for (const d of model.drivers)
+      insert.run(
+        d.id,
+        d.name,
+        d.nationality ?? "",
+        d.races,
+        d.firstYear,
+        d.lastYear,
+        d.skill,
+        d.low,
+        d.high,
+        d.rank,
+      );
+    db.prepare("INSERT INTO metadata VALUES(?,?)").run(
+      "model",
+      model.metadata.model,
+    );
+    db.prepare("INSERT INTO metadata VALUES(?,?)").run(
+      "validated",
+      String(validated),
+    );
+    db.exec("COMMIT");
+  } finally {
+    db.close();
+  }
+  const wasm = join(root, "node_modules", "sql.js", "dist", "sql-wasm.wasm");
+  if (existsSync(wasm))
+    copyFileSync(wasm, join(root, "site", "public", "sql-wasm.wasm"));
+  console.log(
+    `Exported ${model.drivers.length} drivers, ${articles.length} articles; validated=${validated}`,
+  );
+  return data;
+}
+
+const here = fileURLToPath(import.meta.url);
+if (process.argv[1] && resolve(process.argv[1]) === here)
+  exportPublication(dirname(dirname(here)));

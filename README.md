@@ -1,36 +1,50 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# F1 Metrix — frontend
 
-## Getting Started
+The existing `PAndreew/f1-metrix-front` repository, updated into a static analytical journal. No new GitHub repository was created for this implementation.
 
-First, run the development server:
+## Deployment boundary
 
-```bash
+- **Vercel:** HTML, CSS, Chart.js, browser-local SQLite/WASM and published articles.
+- **Existing F1 Metrix VPS backend:** F1DB watcher, source validation, full PyMC fits, held-out simulations, evidence collection and LLM generation.
+- **GitHub Actions:** frontend tests only. No production fitting or editorial generation.
+
+The previous Next.js/Supabase frontend is retained under `legacy/next-app/` and in Git history. The active site no longer needs Supabase, Prisma, a live SQL server or serverless functions. Its Bearblog-inspired design uses system typography, muted backgrounds and red accents.
+
+## Development
+
+Node 22 is required. Standard-library `node:sqlite` builds the small read-only browser database; no Python installation is required on Vercel.
+
+```sh
+npm ci --include=dev
+npm test
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run build
+npm run preview
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The explorer runs SQLite in a Web Worker. It supports search, minimum-race and active-era filters, sortable columns, pagination and CSV export. If WASM fails it falls back to the same published JSON dataset. Charts include numerical data tables and uncertainty captions.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+For browser tests, first install Chromium with `npx playwright install chromium`, start the production preview on port 5178, then run `npm run test:browser`. `BASE_URL` can select another preview URL.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Publication contract
 
-## Learn More
+The VPS publishes a consistent commit containing:
 
-To learn more about Next.js, take a look at the following resources:
+- `publication/model.json`: validated model snapshot, including diagnostics and provenance.
+- `publication/articles/<race-id>.json`: source-linked, validated article documents and deterministic numerical chart data.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The frontend build converts those files into static artifacts and a small SQLite database. Bad model diagnostics fail the build; they do not silently fall back to legacy rankings. In the absence of any validated publication, `data/bootstrap.json` supplies an explicitly labelled, non-converged historical **preview**, not current scientific results.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+The worker must finish validating every file before committing a publication. Vercel deploys the complete commit, so visitors do not see mixed releases. This repo does not poll F1DB or call an LLM during a build or visitor request.
 
-## Deploy on Vercel
+Model gate: finite R-hat at most 1.01, bulk ESS at least 400, zero divergences. These diagnostics do not establish predictive calibration. Race simulations are retrospective held-out reconstructions conditional on avoiding technical retirement, not live forecasts or pure driver-skill ratings.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Vercel
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Import this existing repository, using its root. `vercel.json` configures `npm run build` and `site/dist`, with the Vite framework. No database environment variables are needed. The initial version uses hash routes. Per-article prerendering, RSS and richer social metadata remain follow-up work.
+
+Vercel authentication is managed outside the repository. Never commit API credentials or deployment hooks. Worker credentials belong on the VPS, not Vercel or the browser.
+
+## Data and legacy material
+
+Code licensing does not relicense third-party timing, journalism, branding or radio. The legacy database/articles are preserved as historical material, not presented as a validated current publication. No journalism scraping or radio transcription is implied by the UI. Nothing from the legacy database is sent to visitors unless deliberately exported into the publication contract.
