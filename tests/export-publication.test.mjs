@@ -67,6 +67,50 @@ test("fallback is visibly unvalidated and creates the browser database", () => {
     rmSync(root, { recursive: true, force: true });
   }
 });
+test("research preview discloses incomplete validation despite passing sampler gates", () => {
+  const root = mkdtempSync(join(tmpdir(), "f1metrix-research-"));
+  try {
+    mkdirSync(join(root, "publication"));
+    const m = model();
+    Object.assign(m.metadata, {
+      validationStatus: "research_preview",
+      validationNotice: "Research preview: held-out scoring incomplete",
+      reliabilityDiagnostics: { passed: true },
+    });
+    Object.assign(m.metadata.diagnostics, {
+      passed: true,
+      smoke: false,
+      minEssTail: 500,
+      minBfmi: 0.6,
+      maxTreeDepth: 7,
+    });
+    writeFileSync(join(root, "publication", "model.json"), JSON.stringify(m));
+    const result = exportPublication(root);
+    assert.equal(result.samplerPassed, true);
+    assert.equal(result.validated, false);
+    assert.match(result.notice, /held-out scoring incomplete/);
+    assert.deepEqual(result.articles, []);
+    const db = new DatabaseSync(
+      join(root, "site", "public", "data", "rankings.sqlite"),
+      { readOnly: true },
+    );
+    assert.equal(
+      db.prepare("SELECT value FROM metadata WHERE key='validated'").get()
+        .value,
+      "false",
+    );
+    db.close();
+    m.metadata.diagnostics.minBfmi = 0.1;
+    assert.throws(() => validateFit(m));
+    m.metadata.diagnostics.minBfmi = 0.6;
+    m.drivers.push({ ...m.drivers[0] });
+    writeFileSync(join(root, "publication", "model.json"), JSON.stringify(m));
+    assert.throws(() => exportPublication(root), /duplicate/);
+  } finally {
+    rmSync(root, { recursive: true, force: true });
+  }
+});
+
 test("bad publication fails rather than falling back silently", () => {
   const root = mkdtempSync(join(tmpdir(), "f1metrix-bad-"));
   try {

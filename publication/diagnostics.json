@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "smoke": false,
+  "maxRhat": 1.0067347150540178,
+  "minEssBulk": 934.9850653859208,
+  "minEssTail": 1369.67378256491,
+  "minBfmi": 0.6578352199848896,
+  "divergences": 0,
+  "maxTreeDepth": 7
+}

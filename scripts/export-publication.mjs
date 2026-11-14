@@ -14,6 +14,23 @@ import { fileURLToPath } from "node:url";
 export function validateFit(model) {
   const d = model?.metadata?.diagnostics;
   if (
+    model?.metadata?.validationStatus === "research_preview" &&
+    (!d ||
+      d.passed !== true ||
+      d.smoke !== false ||
+      !Number.isFinite(d.minEssTail) ||
+      d.minEssTail < 400 ||
+      !Number.isFinite(d.minBfmi) ||
+      d.minBfmi < 0.3 ||
+      !Number.isFinite(d.maxTreeDepth) ||
+      d.maxTreeDepth >= 10 ||
+      model.metadata.reliabilityDiagnostics?.passed !== true ||
+      !model.metadata.validationNotice)
+  )
+    throw new Error(
+      "Research preview requires full diagnostics and an explicit disclosure",
+    );
+  if (
     !d ||
     ![d.maxRhat, d.minEssBulk, d.divergences].every(
       (v) => typeof v === "number" && Number.isFinite(v),
@@ -38,7 +55,32 @@ export function exportPublication(root) {
       "utf8",
     ),
   );
-  if (validated) validateFit(model);
+  if (validated) {
+    validateFit(model);
+    const ids = new Set();
+    for (const d of model.drivers) {
+      if (
+        !d.id ||
+        ids.has(d.id) ||
+        !d.name ||
+        ![
+          d.skill,
+          d.low,
+          d.high,
+          d.races,
+          d.firstYear,
+          d.lastYear,
+          d.rank,
+        ].every(Number.isFinite) ||
+        d.low > d.skill ||
+        d.skill > d.high ||
+        d.races < 1 ||
+        d.firstYear > d.lastYear
+      )
+        throw new Error("Invalid or duplicate driver summary");
+      ids.add(d.id);
+    }
+  }
   const dir = join(root, "site", "public", "data");
   mkdirSync(dir, { recursive: true });
   const articlesDir = join(root, "publication", "articles");
@@ -51,9 +93,11 @@ export function exportPublication(root) {
   const data = {
     model,
     articles,
-    validated,
+    samplerPassed: validated,
+    validated:
+      validated && model.metadata.validationStatus !== "research_preview",
     notice: validated
-      ? ""
+      ? (model.metadata.validationNotice ?? "")
       : "Historical preview only · legacy fit · not converged. These are not current, validated rankings.",
   };
   writeFileSync(join(dir, "publication.json"), JSON.stringify(data));
@@ -87,7 +131,7 @@ export function exportPublication(root) {
     );
     db.prepare("INSERT INTO metadata VALUES(?,?)").run(
       "validated",
-      String(validated),
+      String(data.validated),
     );
     db.exec("COMMIT");
   } finally {
@@ -97,7 +141,7 @@ export function exportPublication(root) {
   if (existsSync(wasm))
     copyFileSync(wasm, join(root, "site", "public", "sql-wasm.wasm"));
   console.log(
-    `Exported ${model.drivers.length} drivers, ${articles.length} articles; validated=${validated}`,
+    `Exported ${model.drivers.length} drivers, ${articles.length} articles; samplerPassed=${data.samplerPassed}; validated=${data.validated}`,
   );
   return data;
 }

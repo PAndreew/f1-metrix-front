@@ -1,0 +1,8 @@
+{
+  "release": "v2026.20.0",
+  "sourceSha256": "421ddc95ed8edee7a1eabb84100eb156e930501d3367ec44c48691f5c80be298",
+  "modelSha256": "c8d907d3d01e721d011da8e0b96b5b6093aad5a67d4b3d5dd9beb9676e5e9a7a",
+  "startedAt": "20261113T223551Z",
+  "full": true,
+  "output": "/var/lib/f1metrix/runs/v2026.20.0-20261113T223551Z"
+}
