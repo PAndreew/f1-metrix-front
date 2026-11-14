@@ -1,7 +1,15 @@
+@font-face {
+  font-family: "Asimovian";
+  src: url("/fonts/asimovian.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   font-family: Georgia, "Times New Roman", serif;
   color: #292725;
-  background: #faf9f6;
+  background: #fff;
   font-synthesis: none;
   --red: #b52c2a;
   --muted: #76716b;
@@ -94,6 +102,13 @@ main {
 }
 .eyebrow .dot {
   color: var(--red);
+}
+h1,
+h2,
+h3,
+.brand {
+  font-family: "Asimovian", system-ui, sans-serif;
+  font-weight: 400;
 }
 h1 {
   font-size: clamp(38px, 6vw, 62px);

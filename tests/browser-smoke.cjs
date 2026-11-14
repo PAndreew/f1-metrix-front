@@ -17,7 +17,22 @@ const { chromium } = require(process.env.PLAYWRIGHT_MODULE || "playwright");
     const base = process.env.BASE_URL || "http://localhost:5178";
     await page.goto(base);
     await page
-      .getByRole("heading", { name: "Beyond the finishing order." })
+      .getByRole("heading", { name: "F1 Metrix", exact: true })
+      .waitFor();
+    await page.evaluate(() => document.fonts.ready);
+    const appearance = await page.evaluate(() => ({
+      background: getComputedStyle(document.documentElement).backgroundColor,
+      headingFont: getComputedStyle(document.querySelector("h1")).fontFamily,
+      fontLoaded: document.fonts.check("16px Asimovian"),
+      hasEmoji: /\p{Extended_Pictographic}/u.test(document.body.innerText),
+    }));
+    assert.equal(appearance.background, "rgb(255, 255, 255)");
+    assert.match(appearance.headingFont, /Asimovian/);
+    assert.equal(appearance.fontLoaded, true);
+    assert.equal(appearance.hasEmoji, false);
+    await page
+      .getByRole("link", { name: "f1metrics", exact: true })
+      .first()
       .waitFor();
     await page.getByRole("link", { name: "The model", exact: true }).click();
     await page.locator("#search").fill("alonso");
@@ -51,7 +66,7 @@ const { chromium } = require(process.env.PLAYWRIGHT_MODULE || "playwright");
       ),
       "Mobile page overflows viewport",
     );
-    await page.getByRole("link", { name: "Journal", exact: true }).click();
+    await page.getByRole("link", { name: "Home", exact: true }).click();
     await page.screenshot({ path: "/tmp/f1metrix-mobile.png", fullPage: true });
     // Test article rendering with a clearly synthetic, intercepted fixture, never published data.
     await page.route("**/data/publication.json", async (route) => {
