@@ -31,9 +31,12 @@ self.onmessage = async ({ data }) => {
     const sort = columns[data.sort] || "rank";
     const direction = data.direction === "desc" ? "DESC" : "ASC";
     const stmt = database.prepare(
-      `SELECT * FROM drivers ${where} ORDER BY ${sort} ${direction}, id ASC LIMIT 25 OFFSET ?`,
+      `SELECT * FROM drivers ${where} ORDER BY ${sort} ${direction}, id ASC LIMIT ?`,
     );
-    stmt.bind([...params, Math.max(0, Number(data.page) || 0) * 25]);
+    stmt.bind([
+      ...params,
+      Math.max(1, Math.min(2000, Number(data.limit) || 25)),
+    ]);
     const rows = [];
     while (stmt.step()) rows.push(stmt.getAsObject());
     stmt.free();

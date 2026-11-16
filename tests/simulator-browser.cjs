@@ -47,9 +47,7 @@ const assert = require("node:assert/strict");
     await page.waitForSelector("#rankings tbody tr");
     await page.evaluate(() => document.fonts.ready);
     assert.match(
-      await page
-        .locator(".brand")
-        .evaluate((e) => getComputedStyle(e).fontFamily),
+      await page.locator("h1").evaluate((e) => getComputedStyle(e).fontFamily),
       /Orbitron/,
     );
     assert(

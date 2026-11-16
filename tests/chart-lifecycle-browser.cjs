@@ -10,7 +10,7 @@ const assert = require("node:assert/strict");
     const errors = [];
     p.on("pageerror", (e) => errors.push(e.message));
     await p.goto((process.env.BASE_URL || "http://localhost:5178") + "/#/");
-    await p.waitForSelector("#drivers-chart");
+    await p.waitForSelector("#drivers-chart", { state: "attached" });
     const inspect = () =>
       p.evaluate(async () => {
         return [...document.querySelectorAll("canvas")].map((el) => {
@@ -53,9 +53,10 @@ const assert = require("node:assert/strict");
       "qualifying chart must not initialise hidden",
     );
     assert.equal(await p.locator("#section-career #teams-chart").count(), 0);
-    assert.match(
-      await p.locator("#results-career").innerText(),
-      /All-time driver career baselines/,
+    assert.equal(
+      state.find((c) => c.id === "drivers-chart").created,
+      false,
+      "driver plot must not initialise in its hidden tab",
     );
     for (const width of [1280, 375, 768]) {
       await p.setViewportSize({ width, height: 900 });

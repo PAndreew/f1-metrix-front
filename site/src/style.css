@@ -10,7 +10,8 @@
   font-family: Georgia, "Times New Roman", serif;
   color: #292725;
   background: #fff;
-  font-synthesis: none;
+  /* Orbitron has no italic face; allow the browser to slant it. */
+  font-synthesis: style;
   --red: #b52c2a;
   --muted: #76716b;
   --line: #e4e0d9;
@@ -56,39 +57,6 @@ select:focus-visible {
   margin: auto;
   padding: 0 40px;
 }
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 34px 0;
-  border-bottom: 1px solid var(--line);
-  gap: 24px;
-}
-.brand {
-  font-size: 29px;
-  font-weight: bold;
-  letter-spacing: -1.6px;
-  text-decoration: none;
-}
-.brand span {
-  font-weight: normal;
-}
-.brand sup {
-  color: var(--red);
-  font-size: 20px;
-  margin-left: 5px;
-}
-nav {
-  display: flex;
-  gap: 25px;
-  font: 13px var(--sans);
-}
-nav a {
-  text-decoration: none;
-}
-nav a[aria-current="page"] {
-  color: var(--red);
-}
 main {
   min-height: 70vh;
   padding: 58px 0 64px;
@@ -106,7 +74,6 @@ main {
 h1,
 h2,
 h3,
-.brand,
 footer strong {
   font-family: "Orbitron", system-ui, sans-serif;
   font-weight: 400;
@@ -122,7 +89,7 @@ h1 {
 }
 h1 em {
   color: var(--red);
-  font-style: normal;
+  font-style: italic;
 }
 h2 {
   font-size: 27px;
@@ -196,7 +163,7 @@ p {
 .chart-card {
   min-width: 0;
   border: 1px solid var(--line);
-  background: #fffefa;
+  background: #fff;
   padding: 24px;
   border-radius: 4px;
 }
@@ -453,21 +420,6 @@ small {
   .page {
     padding: 0 22px;
   }
-  header {
-    padding: 24px 0;
-    align-items: start;
-    gap: 15px;
-  }
-  .brand {
-    font-size: 25px;
-  }
-  nav {
-    gap: 15px;
-    flex-wrap: wrap;
-    justify-content: end;
-    font-size: 11px;
-    max-width: 220px;
-  }
   main {
     padding-top: 38px;
   }
@@ -539,17 +491,52 @@ small {
 
 .results-section,
 .race-accordion {
-  border: 1px solid var(--line);
-  border-radius: 5px;
   margin: 16px 0;
 }
 .results-section > summary,
 .race-accordion > summary {
-  padding: 18px;
+  padding: 18px 0;
   cursor: pointer;
   font-family: var(--sans);
   font-weight: 600;
   overflow-wrap: anywhere;
+}
+.results-section > summary {
+  font:
+    italic 400 22px/1.3 "Orbitron",
+    system-ui,
+    sans-serif;
+}
+.results-section > .accordion-body {
+  padding: 0 0 18px;
+}
+.tabs {
+  display: flex;
+  gap: 24px;
+  border-bottom: 1px solid var(--line);
+}
+.tabs button {
+  border: 0;
+  border-bottom: 2px solid transparent;
+  background: none;
+  padding: 10px 0;
+  margin-bottom: -1px;
+  font:
+    italic 400 14px "Orbitron",
+    system-ui,
+    sans-serif;
+  color: var(--muted);
+}
+.tabs button[aria-selected="true"] {
+  color: #1f1f1f;
+  border-bottom-color: var(--red);
+}
+td.rank {
+  font-weight: 700;
+  color: var(--red);
+}
+.pagination [hidden] {
+  display: none;
 }
 .race-accordion > summary span {
   display: block;
@@ -564,9 +551,6 @@ small {
 .chart-card canvas {
   max-width: 100%;
 }
-.brand,
-.brand *,
-footer .brand,
 h1 {
   font-family: "Orbitron", system-ui, sans-serif;
 }

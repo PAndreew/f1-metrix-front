@@ -38,23 +38,30 @@ const { chromium } = require(process.env.PLAYWRIGHT_MODULE || "playwright");
     await page.locator("#search").fill("alonso");
     await page.waitForFunction(
       () =>
-        document.querySelector("#count")?.textContent === "1–1 of 1 drivers",
+        document.querySelector("#count")?.textContent ===
+        "Showing 1 of 1 drivers",
     );
     assert.match(await page.locator("#rows").textContent(), /Fernando Alonso/);
-    assert.match(
-      await page.locator("#db-status").textContent(),
-      /SQLite runs locally/,
-    );
+    assert(await page.locator("#more").isHidden());
     await page.locator("#search").fill("no_such_driver");
-    await page.getByText("No matching drivers. Try fewer filters.").waitFor();
+    await page.getByText("No matching drivers.").waitFor();
     await page.locator("#search").fill("");
     await page.waitForFunction(
       () => document.querySelectorAll("#rows tr").length === 25,
     );
-    await page.locator("#next").click();
-    await page.waitForFunction(() =>
-      document.querySelector("#count")?.textContent.startsWith("26–"),
+    assert.match(await page.locator("#rows tr").first().textContent(), /^1\./);
+    await page.locator("#more").click();
+    await page.waitForFunction(
+      () => document.querySelectorAll("#rows tr").length === 50,
     );
+    await page.locator("#tab-plot").click();
+    await page.waitForFunction(
+      () =>
+        document.querySelector("#drivers-chart")?.getAttribute("aria-busy") ===
+        "false",
+    );
+    assert(await page.locator("#panel-table").isHidden());
+    await page.locator("#tab-table").click();
     await page.setViewportSize({ width: 390, height: 844 });
     await page.waitForFunction(
       () => document.documentElement.scrollWidth <= innerWidth,
@@ -66,7 +73,6 @@ const { chromium } = require(process.env.PLAYWRIGHT_MODULE || "playwright");
       ),
       "Mobile page overflows viewport",
     );
-    await page.getByRole("link", { name: "Results", exact: true }).click();
     await page.screenshot({ path: "/tmp/f1metrix-mobile.png", fullPage: true });
     // Test article rendering with a clearly synthetic, intercepted fixture, never published data.
     await page.route("**/data/publication.json", async (route) => {
@@ -124,7 +130,7 @@ const { chromium } = require(process.env.PLAYWRIGHT_MODULE || "playwright");
     );
     assert.deepEqual(errors, []);
     console.log(
-      "Browser smoke passed: SQLite/WASM, search, empty state, pagination, mobile layout, article chart.",
+      "Browser smoke passed: SQLite/WASM, search, empty state, load more, plot tab, mobile layout, article chart.",
     );
   } catch (error) {
     console.error(
@@ -133,7 +139,6 @@ const { chromium } = require(process.env.PLAYWRIGHT_MODULE || "playwright");
         url: location.href,
         search: document.querySelector("#search")?.value,
         count: document.querySelector("#count")?.textContent,
-        status: document.querySelector("#db-status")?.textContent,
         rows: document.querySelector("#rows")?.textContent,
       })),
     );

@@ -6,7 +6,7 @@ import { Chart, registerables } from "chart.js";
 Chart.register(...registerables);
 Chart.defaults.font.family = "system-ui, sans-serif";
 Chart.defaults.font.size = 11;
-Chart.defaults.color = "#76716b";
+Chart.defaults.color = "#1f1f1f";
 Chart.defaults.animation = window.matchMedia("(prefers-reduced-motion: reduce)")
   .matches
   ? false
@@ -39,8 +39,8 @@ let publication,
   worker,
   queryId = 0,
   renderVersion = 0;
-const red = "#b52c2a",
-  neutral = "#a69e92";
+const red = "#e10600",
+  blue = "#4d8dff";
 const note = () =>
   publication.notice
     ? `<aside class="notice" role="note">${escape(publication.model.metadata.validationStatus === "research_preview" ? "Research preview. Fits converged; predictive validation is incomplete." : publication.notice)}</aside>`
@@ -55,7 +55,7 @@ function addChart(id, config) {
   const el = document.getElementById(id);
   if (el) charts.push(createChart(el, config));
 }
-function intervalChart(id, rows, label) {
+function intervalChart(id, rows, label, details = true) {
   addChart(id, {
     type: "bar",
     data: {
@@ -64,18 +64,23 @@ function intervalChart(id, rows, label) {
         {
           label: `${publication.model.metadata.intervalPercent ?? 94}% posterior interval`,
           data: rows.map((r) => [r.low, r.high]),
-          backgroundColor: "#d9b8b1",
-          barThickness: 10,
+          backgroundColor: blue,
+          barThickness: 12,
           borderRadius: 2,
+          order: 1,
         },
         {
           type: "scatter",
           label: "Posterior median",
           data: rows.map((r) => ({ x: r.score, y: r.name })),
           pointBackgroundColor: red,
-          pointBorderColor: red,
-          pointStyle: "rect",
-          pointRadius: 4,
+          pointBorderColor: "#fff",
+          pointBorderWidth: 1.5,
+          pointStyle: "rectRot",
+          pointRadius: 6,
+          pointHoverRadius: 7,
+          // Lower order draws on top, so medians stay visible over the bars.
+          order: 0,
         },
       ],
     },
@@ -94,99 +99,89 @@ function intervalChart(id, rows, label) {
       },
       scales: {
         x: {
-          title: { display: true, text: "Latent outcome score · not seconds" },
-          grid: { color: "#eeeae3" },
+          position: "top",
+          grid: { color: "#e6e6e6" },
           border: { display: false },
         },
-        y: { grid: { display: false }, border: { display: false } },
+        y: {
+          grid: { display: false },
+          border: { display: false },
+          ticks: { autoSkip: false },
+        },
       },
     },
   });
-  tableDetails(
-    id,
-    ["Name", "Median", "Lower bound", "Upper bound"],
-    rows.map((r) => [r.name, number(r.score), number(r.low), number(r.high)]),
-    `Bars show ${publication.model.metadata.intervalPercent ?? 94}% posterior intervals; red marks show medians. Overlap matters. Scores are model units, not lap times.`,
-  );
-}
-function rankingRows() {
-  return [...publication.model.drivers]
-    .sort((a, b) => a.rank - b.rank)
-    .slice(0, 8)
-    .map((d) => ({ name: d.name, score: d.skill, low: d.low, high: d.high }));
-}
-function journal() {
-  const m = publication.model;
-  main.innerHTML = `<h1>F1 <em>Metrix</em></h1><p class="intro">An homage to <a href="https://f1metrics.wordpress.com/">f1metrics</a> and Andrew Phillips’s work on separating driver performance from the car.</p><p>Independent work, inspired by the original. Not affiliated with f1metrics.</p><p><a class="link" href="#/results">Explore all results</a></p>${note()}${chartCard("overview", "Driver estimates", "Career baseline")}<div class="stats"><div class="stat"><b>${m.drivers.length}</b><span>drivers</span></div><div class="stat"><b>${Number(m.metadata.observations).toLocaleString()}</b><span>eligible race observations</span></div><div class="stat"><b>${m.metadata.intervalPercent ?? 94}%</b><span>posterior intervals</span></div></div>`;
-  intervalChart("overview", rankingRows(), "Median");
+  if (details)
+    tableDetails(
+      id,
+      ["Name", "Median", "Lower bound", "Upper bound"],
+      rows.map((r) => [r.name, number(r.score), number(r.low), number(r.high)]),
+      `Bars show ${publication.model.metadata.intervalPercent ?? 94}% posterior intervals; red marks show medians.`,
+    );
 }
 function rankings(target = main) {
   const m = publication.model,
-    year = Math.max(...m.drivers.map((d) => d.lastYear));
-  target.innerHTML = `<p class="eyebrow">The model / driver explorer</p><h1>Model <em>results</em></h1>${note()}<div class="section-label"><span>${escape(m.metadata.model)}</span><span>Through ${escape(m.metadata.lastRaceDate)}</span></div><p>All-time driver career baselines across historical seasons—not 2026 driver form. Constructor estimates are separate, season-specific results in the section below.</p>${chartCard("drivers-chart", "All-time driver career estimates", "Historical career baseline · not a season ranking", true)}<div class="controls"><label>Search drivers or nationality<input id="search" type="search" placeholder="e.g. Alonso, British…" maxlength="100"></label><label>Minimum races<select id="minimum"><option value="0">All experience levels</option><option value="25">25+ races</option><option value="100">100+ races</option><option value="200">200+ races</option></select></label><label>Era<select id="era"><option value="all">All years</option><option value="active">Active in ${year}</option></select></label><button class="quiet" id="download">Download CSV</button></div><div class="table-wrap"><table id="rankings"><thead><tr><th><button data-sort="rank">Rank</button></th><th><button data-sort="name">Driver</button></th><th class="num"><button data-sort="skill">Median</button></th><th class="num">${m.metadata.intervalPercent ?? 94}% interval</th><th class="num"><button data-sort="races">Races</button></th><th><button data-sort="last_year">Seasons</button></th></tr></thead><tbody id="rows"><tr><td colspan="6">Loading explorer…</td></tr></tbody></table></div><div class="pagination"><span id="count" aria-live="polite"></span><div><button class="quiet" id="previous">Previous</button><button class="quiet" id="next">Next</button></div></div><p class="caption" id="db-status">SQLite runs locally in your browser. No queries leave your device.</p><details><summary>How to read this table</summary>Career baseline skill is a latent log-strength in the joint Plackett–Luce ordering model, not seconds or points. Ranks sort posterior medians. Ages, experience and constructor-season effects are adjusted for; these values are career baselines, not season performance. Races count eligible completion-order observations, not every start. Rankings remain exploratory pending predictive validation.</details>`;
-  intervalChart("drivers-chart", rankingRows(), "Median");
-  let state = {
-      search: "",
-      minimum: 0,
-      active: false,
-      year,
-      page: 0,
-      sort: "rank",
-      direction: "asc",
-    },
-    currentRows = [],
-    total = 0;
+    interval = m.metadata.intervalPercent ?? 94;
+  target.innerHTML = `<div class="tabs" role="tablist"><button role="tab" id="tab-table" aria-controls="panel-table" aria-selected="true">Table</button><button role="tab" id="tab-plot" aria-controls="panel-plot" aria-selected="false">Plot</button></div><div role="tabpanel" id="panel-table" aria-labelledby="tab-table"><div class="controls"><input id="search" type="search" placeholder="Search drivers…" aria-label="Search drivers" maxlength="100"></div><div class="table-wrap"><table id="rankings"><thead><tr><th class="num">#</th><th>Driver</th><th class="num">Score</th><th class="num">${interval}% range</th><th class="num">Races</th><th>Seasons</th></tr></thead><tbody id="rows"><tr><td colspan="6">Loading…</td></tr></tbody></table></div><div class="pagination"><span id="count" aria-live="polite"></span><button class="quiet" id="more">Load more drivers</button></div></div><div role="tabpanel" id="panel-plot" aria-labelledby="tab-plot" hidden><div class="chart-card"><div class="chart-wrap" id="drivers-plot"></div></div></div>`;
+  let state = { search: "", limit: 25 },
+    plot = null;
   const version = renderVersion;
+  target.querySelectorAll('[role="tab"]').forEach(
+    (tab) =>
+      (tab.onclick = () =>
+        target.querySelectorAll('[role="tab"]').forEach((t) => {
+          const selected = t === tab;
+          t.setAttribute("aria-selected", String(selected));
+          document.getElementById(t.getAttribute("aria-controls")).hidden =
+            !selected;
+        })),
+  );
   function fallback() {
-    let rows = m.drivers
+    const rows = m.drivers
       .map((d) => ({ ...d, first_year: d.firstYear, last_year: d.lastYear }))
-      .filter(
-        (d) =>
-          (d.name + " " + d.nationality)
-            .toLowerCase()
-            .includes(state.search.toLowerCase()) &&
-          d.races >= state.minimum &&
-          (!state.active || d.last_year >= year),
-      );
-    rows.sort((a, b) => {
-      const x = a[state.sort],
-        y = b[state.sort];
-      return (
-        (typeof x === "string" ? x.localeCompare(y) : x - y) *
-        (state.direction === "asc" ? 1 : -1)
-      );
-    });
-    return {
-      total: rows.length,
-      rows: rows.slice(state.page * 25, state.page * 25 + 25),
-    };
+      .filter((d) =>
+        (d.name + " " + d.nationality)
+          .toLowerCase()
+          .includes(state.search.toLowerCase()),
+      )
+      .sort((a, b) => a.rank - b.rank);
+    return { total: rows.length, rows: rows.slice(0, state.limit) };
   }
-  function draw(response) {
+  function drawPlot(rows) {
+    if (plot) {
+      plot.destroy();
+      charts.splice(charts.indexOf(plot), 1);
+    }
+    const host = document.getElementById("drivers-plot");
+    host.style.height = `${Math.max(160, rows.length * 24 + 50)}px`;
+    host.innerHTML = `<canvas id="drivers-chart" role="img" aria-label="Driver score medians with ${interval}% intervals"></canvas>`;
+    intervalChart(
+      "drivers-chart",
+      rows.map((d) => ({
+        name: `${d.rank}. ${d.name}`,
+        score: d.skill,
+        low: d.low,
+        high: d.high,
+      })),
+      "Score",
+      false,
+    );
+    plot = charts.at(-1);
+  }
+  function draw({ rows, total }) {
     if (version !== renderVersion) return;
-    total = response.total;
-    currentRows = response.rows;
-    document.getElementById("rows").innerHTML = currentRows.length
-      ? currentRows
+    document.getElementById("rows").innerHTML = rows.length
+      ? rows
           .map(
             (d) =>
-              `<tr><td class="red">${escape(d.rank)}</td><td class="name">${escape(d.name)}<span class="sub">${escape(d.nationality || "Nationality unavailable")}</span></td><td class="num">${number(d.skill, 3)}</td><td class="num">${number(d.low, 3)} — ${number(d.high, 3)}</td><td class="num">${escape(d.races)}</td><td>${escape(d.first_year)}–${escape(d.last_year)}</td></tr>`,
+              `<tr><td class="num rank">${escape(d.rank)}.</td><td class="name">${escape(d.name)}</td><td class="num">${number(d.skill)}</td><td class="num">${number(d.low)} – ${number(d.high)}</td><td class="num">${escape(d.races)}</td><td>${escape(d.first_year)}–${escape(d.last_year)}</td></tr>`,
           )
           .join("")
-      : '<tr><td colspan="6">No matching drivers. Try fewer filters.</td></tr>';
+      : '<tr><td colspan="6">No matching drivers.</td></tr>';
     document.getElementById("count").textContent =
-      `${total ? state.page * 25 + 1 : 0}–${Math.min((state.page + 1) * 25, total)} of ${total} drivers`;
-    document.getElementById("previous").disabled = state.page === 0;
-    document.getElementById("next").disabled = (state.page + 1) * 25 >= total;
-    document
-      .querySelectorAll("th")
-      .forEach((th) => th.removeAttribute("aria-sort"));
-    document
-      .querySelector(`[data-sort="${state.sort}"]`)
-      .closest("th")
-      .setAttribute(
-        "aria-sort",
-        state.direction === "asc" ? "ascending" : "descending",
-      );
+      `Showing ${rows.length} of ${total} drivers`;
+    document.getElementById("more").hidden = rows.length >= total;
+    drawPlot(rows);
   }
   function query() {
     const id = ++queryId;
@@ -196,11 +191,7 @@ function rankings(target = main) {
     }
     worker.onmessage = ({ data }) => {
       if (data.id !== id) return;
-      if (data.error) {
-        document.getElementById("db-status").textContent =
-          "SQLite unavailable; using the identical published JSON dataset locally.";
-        draw(fallback());
-      } else draw(data);
+      draw(data.error ? fallback() : data);
     };
     worker.postMessage({ ...state, id });
   }
@@ -211,11 +202,7 @@ function rankings(target = main) {
     worker.onerror = () => {
       worker.terminate();
       worker = null;
-      if (version === renderVersion) {
-        document.getElementById("db-status").textContent =
-          "Using local JSON fallback.";
-        draw(fallback());
-      }
+      if (version === renderVersion) draw(fallback());
     };
   } catch {
     worker = null;
@@ -225,70 +212,13 @@ function rankings(target = main) {
     clearTimeout(timer);
     timer = setTimeout(() => {
       state.search = e.target.value;
-      state.page = 0;
+      state.limit = 25;
       query();
     }, 120);
   };
-  document.getElementById("minimum").onchange = (e) => {
-    state.minimum = Number(e.target.value);
-    state.page = 0;
+  document.getElementById("more").onclick = () => {
+    state.limit += 25;
     query();
-  };
-  document.getElementById("era").onchange = (e) => {
-    state.active = e.target.value === "active";
-    state.page = 0;
-    query();
-  };
-  document.querySelectorAll("[data-sort]").forEach(
-    (b) =>
-      (b.onclick = () => {
-        state.direction =
-          state.sort === b.dataset.sort && state.direction === "asc"
-            ? "desc"
-            : "asc";
-        state.sort = b.dataset.sort;
-        state.page = 0;
-        query();
-      }),
-  );
-  document.getElementById("previous").onclick = () => {
-    state.page--;
-    query();
-  };
-  document.getElementById("next").onclick = () => {
-    state.page++;
-    query();
-  };
-  document.getElementById("download").onclick = () => {
-    const old = state.page;
-    state.page = 0;
-    const rows = [];
-    do {
-      rows.push(...fallback().rows);
-      state.page++;
-    } while (state.page * 25 < total);
-    state.page = old;
-    const fields = [
-      "rank",
-      "name",
-      "skill",
-      "low",
-      "high",
-      "races",
-      "first_year",
-      "last_year",
-    ];
-    const csv = [fields, ...rows.map((d) => fields.map((k) => d[k]))]
-      .map((r) =>
-        r.map((v) => '"' + String(v ?? "").replace(/"/g, '""') + '"').join(","),
-      )
-      .join("\n");
-    const url = URL.createObjectURL(new Blob([csv], { type: "text/csv" }));
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "f1metrix-filtered-drivers.csv";
-    a.click();
-    setTimeout(() => URL.revokeObjectURL(url), 1000);
   };
   query();
 }
@@ -409,7 +339,7 @@ function constructorResults(target) {
 }
 
 function allResults() {
-  main.innerHTML = `<h1>F1 <em>Metrix</em></h1><p class="intro">An homage to <a href="https://f1metrics.wordpress.com/">f1metrics</a> by Andrew Phillips.</p><details class="results-section" id="section-career" open><summary>All-time historical driver rankings</summary><section id="results-career" class="accordion-body"></section></details><details class="results-section" id="section-constructors"><summary>Constructor strength by season</summary><section id="results-constructors" class="accordion-body"></section></details><details class="results-section" id="section-simulations"><summary>2026 race simulations and weekend comparisons</summary><section id="results-simulations" class="accordion-body"></section></details>${[
+  main.innerHTML = `<h1>F1 <em>Metrix</em></h1><p class="intro">An homage to <a href="https://f1metrics.wordpress.com/">f1metrics</a> by Andrew Phillips.</p><details class="results-section" id="section-career" open><summary>All time historical driver rankings</summary><section id="results-career" class="accordion-body"></section></details><details class="results-section" id="section-constructors"><summary>Constructor strength by season</summary><section id="results-constructors" class="accordion-body"></section></details><details class="results-section" id="section-simulations"><summary>2026 race simulations and weekend comparisons</summary><section id="results-simulations" class="accordion-body"></section></details>${[
     ["qualifying", "Season qualifying comparisons"],
     ["method", "Method and limitations"],
   ]
@@ -456,11 +386,6 @@ function render() {
   charts.forEach((c) => c.destroy());
   charts = [];
   const route = location.hash.slice(2) || "";
-  document.querySelectorAll("nav a").forEach((a) => {
-    a.removeAttribute("aria-current");
-    if (a.hash === (location.hash || "#/"))
-      a.setAttribute("aria-current", "page");
-  });
   if (route.startsWith("article/")) {
     article(decodeURIComponent(route.slice(8)));
     document.title = "Article — F1 Metrix";
