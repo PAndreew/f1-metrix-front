@@ -29,6 +29,9 @@ const assert = require("node:assert/strict");
             height: el.height / window.devicePixelRatio,
             parentWidth: el.parentElement.clientWidth,
             painted:
+              !hidden &&
+              el.width > 0 &&
+              el.height > 0 &&
               el.getAttribute("aria-busy") === "false" &&
               el
                 .getContext("2d")
