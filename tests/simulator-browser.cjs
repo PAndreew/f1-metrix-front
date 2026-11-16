@@ -25,6 +25,14 @@ const assert = require("node:assert/strict");
       await page.selectOption("#simulation-race", String(i));
       assert.equal(await page.locator(".race-panel:visible").count(), 1);
       assert(await panel.isVisible());
+      if (i >= 4) {
+        assert.match(
+          await panel.innerText(),
+          /Sequential expectations are not published/,
+        );
+        assert.equal(await panel.locator("canvas").count(), 0);
+        continue;
+      }
       const select = panel.locator("select");
       const count = await select.locator("option").count();
       assert(count >= 2);
@@ -49,6 +57,7 @@ const assert = require("node:assert/strict");
     assert(
       await page.evaluate(() => document.fonts.check("400 16px Orbitron")),
     );
+    await page.selectOption("#simulation-race", "3");
     await page.setViewportSize({ width: 375, height: 812 });
     await page.waitForTimeout(600);
     assert(
@@ -57,7 +66,7 @@ const assert = require("node:assert/strict");
       ),
       "mobile overflow",
     );
-    const last = page.locator(".race-panel").last();
+    const last = page.locator(".race-panel").nth(3);
     const cells = await last
       .locator("table")
       .first()
@@ -66,10 +75,23 @@ const assert = require("node:assert/strict");
       .locator("td")
       .allTextContents();
     assert.equal(cells[1], "1");
-    assert.equal(cells[3], "6.09");
+    const preview = JSON.parse(
+      require("node:fs").readFileSync(
+        require("node:path").join(
+          __dirname,
+          "../publication/sequential-preview.json",
+        ),
+      ),
+    );
+    assert.equal(
+      cells[3],
+      preview.races[3].drivers[0].expectedEligibleRank.toFixed(2),
+    );
     assert.equal(await page.locator("#section-performance").count(), 0);
     assert(await page.locator("#section-career").evaluate((e) => e.open));
-    for (const panel of await page.locator(".race-panel").all()) {
+    for (const panel of await page
+      .locator(".race-panel:not([data-status=pending])")
+      .all()) {
       const order = await panel
         .locator("table")
         .first()

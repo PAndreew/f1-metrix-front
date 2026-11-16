@@ -1,0 +1,5244 @@
+{
+  "kind": "sequential-preview-eligible-finisher",
+  "validatedForecast": false,
+  "researchPreview": true,
+  "model": "Sequential MCMC pilot v1 \u00b7 partial 2026 preview",
+  "year": 2026,
+  "seed": 1949,
+  "simulationsPerRace": 40000,
+  "fitThroughDate": "2025-12-07",
+  "availableRounds": [
+    1,
+    2,
+    3,
+    4
+  ],
+  "sourceResultSha256": "6ca62983f1ac426f7f6e784fe3cdd1073160818a59d105507e52f5b52c39f96a",
+  "sourceCodeSha256": "38b465fdb3b1914031feb3e5427f697141eccd17009387efb1e96382c5d7e3ab",
+  "priorMetadataSha256": "27150faaa8e50124139f810d3b7768a3a68a0c29712c220cca574e305d27315d",
+  "priorApproximation": "Joint Gaussian moment match on active preseason driver and previous-team strengths; mean-only small within-season age delta",
+  "priorApproximationCheck": {
+    "maxExpectedRankDifference": 0.01051000000000002,
+    "maxPositionProbabilityDifference": 0.0024200000000000055,
+    "maximumOmittedAgeDeltaSd": 0.009130470225907062,
+    "passed": true
+  },
+  "limitations": [
+    "Only the first four rounds are available in this completed pilot; later rounds are pending, not filled with old simulations.",
+    "Each forecast uses earlier race orders only, but its participant set is retrospectively conditioned on actual eligible finishers. Not a full-grid pre-race forecast.",
+    "Driver baseline, season form and team strength are inferred jointly; this is not isolated driving quality.",
+    "This early pilot uses a Gaussian approximation to the historical prior and mean within-season age adjustment. The continuing full-season model propagates age uncertainty explicitly.",
+    "Reset/form/process settings are research choices. Related eight-round historical checks are encouraging, not full validation of this exact preview.",
+    "Model-derived ranges and descriptive tail frequencies are not calibrated confidence guarantees or p-values."
+  ],
+  "races": [
+    {
+      "id": 1150,
+      "round": 1,
+      "date": "2026-03-08",
+      "name": "Formula 1 Qatar Airways Australian Grand Prix 2026",
+      "eligibleCount": 17,
+      "excluded": [
+        {
+          "driverId": "fernando-alonso",
+          "name": "Fernando Alonso",
+          "reason": "Mechanical"
+        },
+        {
+          "driverId": "isack-hadjar",
+          "name": "Isack Hadjar",
+          "reason": "Engine"
+        },
+        {
+          "driverId": "nico-hulkenberg",
+          "name": "Nico H\u00fclkenberg",
+          "reason": "Hydraulics"
+        },
+        {
+          "driverId": "oscar-piastri",
+          "name": "Oscar Piastri",
+          "reason": "Accident"
+        },
+        {
+          "driverId": "valtteri-bottas",
+          "name": "Valtteri Bottas",
+          "reason": "Fuel system"
+        }
+      ],
+      "status": "ready",
+      "trainingThroughRound": 0,
+      "trainingThroughDate": "2025-12-07",
+      "originDiagnostics": {
+        "maxRhat": 1.0052768451315692,
+        "minEss": 1375.8346225217022,
+        "minBfmi": 0.6139486601575341,
+        "divergences": 0,
+        "treeDepthSaturations": 0,
+        "passed": true
+      },
+      "drivers": [
+        {
+          "driverId": "george-russell",
+          "name": "George Russell",
+          "constructorId": "mercedes",
+          "officialPosition": 1,
+          "officialPositionText": "1",
+          "actualEligibleRank": 1,
+          "expectedEligibleRank": 7.93855,
+          "predictive80": [
+            2,
+            14
+          ],
+          "positionsAboveExpectation": 6.93855,
+          "probabilityAtLeastAsGood": 0.0653,
+          "probabilityAtLeastAsBad": 1.0,
+          "positionProbabilities": [
+            0.0653,
+            0.07045,
+            0.0725,
+            0.068375,
+            0.0721,
+            0.069725,
+            0.068825,
+            0.0678,
+            0.0667,
+            0.064075,
+            0.0617,
+            0.057725,
+            0.0543,
+            0.049775,
+            0.04225,
+            0.033425,
+            0.014975
+          ]
+        },
+        {
+          "driverId": "kimi-antonelli",
+          "name": "Kimi Antonelli",
+          "constructorId": "mercedes",
+          "officialPosition": 2,
+          "officialPositionText": "2",
+          "actualEligibleRank": 2,
+          "expectedEligibleRank": 11.09395,
+          "predictive80": [
+            4,
+            17
+          ],
+          "positionsAboveExpectation": 9.09395,
+          "probabilityAtLeastAsGood": 0.051775,
+          "probabilityAtLeastAsBad": 0.9764999999999999,
+          "positionProbabilities": [
+            0.0235,
+            0.028275,
+            0.028525,
+            0.03575,
+            0.0388,
+            0.041675,
+            0.0477,
+            0.04965,
+            0.05495,
+            0.057325,
+            0.063475,
+            0.06955,
+            0.074175,
+            0.08225,
+            0.090675,
+            0.099675,
+            0.11405
+          ]
+        },
+        {
+          "driverId": "charles-leclerc",
+          "name": "Charles Leclerc",
+          "constructorId": "ferrari",
+          "officialPosition": 3,
+          "officialPositionText": "3",
+          "actualEligibleRank": 3,
+          "expectedEligibleRank": 6.8332250000000005,
+          "predictive80": [
+            2,
+            13
+          ],
+          "positionsAboveExpectation": 3.8332250000000005,
+          "probabilityAtLeastAsGood": 0.276825,
+          "probabilityAtLeastAsBad": 0.81375,
+          "positionProbabilities": [
+            0.0938,
+            0.09245,
+            0.090575,
+            0.088075,
+            0.079875,
+            0.076125,
+            0.07285,
+            0.065125,
+            0.064175,
+            0.056625,
+            0.049225,
+            0.045475,
+            0.038475,
+            0.033475,
+            0.0254,
+            0.018075,
+            0.0102
+          ]
+        },
+        {
+          "driverId": "lewis-hamilton",
+          "name": "Lewis Hamilton",
+          "constructorId": "ferrari",
+          "officialPosition": 4,
+          "officialPositionText": "4",
+          "actualEligibleRank": 4,
+          "expectedEligibleRank": 8.23335,
+          "predictive80": [
+            2,
+            15
+          ],
+          "positionsAboveExpectation": 4.23335,
+          "probabilityAtLeastAsGood": 0.25727500000000003,
+          "probabilityAtLeastAsBad": 0.81165,
+          "positionProbabilities": [
+            0.05795,
+            0.06275,
+            0.06765,
+            0.068925,
+            0.0684,
+            0.0721,
+            0.067725,
+            0.06815,
+            0.06555,
+            0.064175,
+            0.062175,
+            0.05955,
+            0.05635,
+            0.050325,
+            0.045975,
+            0.037825,
+            0.024425
+          ]
+        },
+        {
+          "driverId": "lando-norris",
+          "name": "Lando Norris",
+          "constructorId": "mclaren",
+          "officialPosition": 5,
+          "officialPositionText": "5",
+          "actualEligibleRank": 5,
+          "expectedEligibleRank": 5.592975,
+          "predictive80": [
+            1,
+            12
+          ],
+          "positionsAboveExpectation": 0.592975,
+          "probabilityAtLeastAsGood": 0.5721750000000001,
+          "probabilityAtLeastAsBad": 0.5117499999999999,
+          "positionProbabilities": [
+            0.15225,
+            0.128375,
+            0.1106,
+            0.097025,
+            0.083925,
+            0.074725,
+            0.06465,
+            0.056075,
+            0.048825,
+            0.0429,
+            0.03655,
+            0.030825,
+            0.023975,
+            0.0189,
+            0.014,
+            0.0105,
+            0.0059
+          ]
+        },
+        {
+          "driverId": "max-verstappen",
+          "name": "Max Verstappen",
+          "constructorId": "red-bull",
+          "officialPosition": 6,
+          "officialPositionText": "6",
+          "actualEligibleRank": 6,
+          "expectedEligibleRank": 5.321300000000001,
+          "predictive80": [
+            1,
+            11
+          ],
+          "positionsAboveExpectation": -0.6786999999999992,
+          "probabilityAtLeastAsGood": 0.6729,
+          "probabilityAtLeastAsBad": 0.3992,
+          "positionProbabilities": [
+            0.163825,
+            0.139725,
+            0.1138,
+            0.0974,
+            0.08605,
+            0.0721,
+            0.063225,
+            0.053925,
+            0.047,
+            0.03905,
+            0.03305,
+            0.027375,
+            0.022775,
+            0.0172,
+            0.0122,
+            0.007325,
+            0.003975
+          ]
+        },
+        {
+          "driverId": "oliver-bearman",
+          "name": "Oliver Bearman",
+          "constructorId": "haas",
+          "officialPosition": 7,
+          "officialPositionText": "7",
+          "actualEligibleRank": 7,
+          "expectedEligibleRank": 8.056000000000001,
+          "predictive80": [
+            2,
+            15
+          ],
+          "positionsAboveExpectation": 1.056000000000001,
+          "probabilityAtLeastAsGood": 0.480425,
+          "probabilityAtLeastAsBad": 0.58855,
+          "positionProbabilities": [
+            0.06855,
+            0.065775,
+            0.0693,
+            0.068025,
+            0.069675,
+            0.070125,
+            0.068975,
+            0.066775,
+            0.065025,
+            0.061275,
+            0.062725,
+            0.05805,
+            0.055375,
+            0.050125,
+            0.0427,
+            0.03485,
+            0.022675
+          ]
+        },
+        {
+          "driverId": "arvid-lindblad",
+          "name": "Arvid Lindblad",
+          "constructorId": "racing-bulls",
+          "officialPosition": 8,
+          "officialPositionText": "8",
+          "actualEligibleRank": 8,
+          "expectedEligibleRank": 12.252300000000002,
+          "predictive80": [
+            5,
+            17
+          ],
+          "positionsAboveExpectation": 4.252300000000002,
+          "probabilityAtLeastAsGood": 0.22299999999999998,
+          "probabilityAtLeastAsBad": 0.81515,
+          "positionProbabilities": [
+            0.0199,
+            0.020275,
+            0.0241,
+            0.027375,
+            0.028375,
+            0.030575,
+            0.03425,
+            0.03815,
+            0.0413,
+            0.04615,
+            0.052325,
+            0.05815,
+            0.0673,
+            0.076025,
+            0.094,
+            0.1258,
+            0.21595
+          ]
+        },
+        {
+          "driverId": "gabriel-bortoleto",
+          "name": "Gabriel Bortoleto",
+          "constructorId": "audi",
+          "officialPosition": 9,
+          "officialPositionText": "9",
+          "actualEligibleRank": 9,
+          "expectedEligibleRank": 11.221,
+          "predictive80": [
+            4,
+            17
+          ],
+          "positionsAboveExpectation": 2.221,
+          "probabilityAtLeastAsGood": 0.339475,
+          "probabilityAtLeastAsBad": 0.71255,
+          "positionProbabilities": [
+            0.024475,
+            0.02745,
+            0.03075,
+            0.0331,
+            0.035925,
+            0.0417,
+            0.046225,
+            0.047825,
+            0.052025,
+            0.056475,
+            0.062175,
+            0.0656,
+            0.0728,
+            0.07965,
+            0.092475,
+            0.1047,
+            0.12665
+          ]
+        },
+        {
+          "driverId": "pierre-gasly",
+          "name": "Pierre Gasly",
+          "constructorId": "alpine",
+          "officialPosition": 10,
+          "officialPositionText": "10",
+          "actualEligibleRank": 10,
+          "expectedEligibleRank": 9.710374999999999,
+          "predictive80": [
+            3,
+            16
+          ],
+          "positionsAboveExpectation": -0.2896250000000009,
+          "probabilityAtLeastAsGood": 0.5322749999999999,
+          "probabilityAtLeastAsBad": 0.5348499999999999,
+          "positionProbabilities": [
+            0.035025,
+            0.0422,
+            0.044125,
+            0.0491,
+            0.05295,
+            0.054775,
+            0.060075,
+            0.0622,
+            0.0647,
+            0.067125,
+            0.0659,
+            0.06935,
+            0.07175,
+            0.072625,
+            0.07125,
+            0.0647,
+            0.05215
+          ]
+        },
+        {
+          "driverId": "esteban-ocon",
+          "name": "Esteban Ocon",
+          "constructorId": "haas",
+          "officialPosition": 11,
+          "officialPositionText": "11",
+          "actualEligibleRank": 11,
+          "expectedEligibleRank": 9.351474999999999,
+          "predictive80": [
+            3,
+            16
+          ],
+          "positionsAboveExpectation": -1.6485250000000011,
+          "probabilityAtLeastAsGood": 0.6323000000000001,
+          "probabilityAtLeastAsBad": 0.43532499999999996,
+          "positionProbabilities": [
+            0.040375,
+            0.045875,
+            0.0496,
+            0.053375,
+            0.056075,
+            0.0594,
+            0.060925,
+            0.0656,
+            0.0657,
+            0.06775,
+            0.067625,
+            0.068575,
+            0.06715,
+            0.066075,
+            0.063,
+            0.058875,
+            0.044025
+          ]
+        },
+        {
+          "driverId": "alexander-albon",
+          "name": "Alexander Albon",
+          "constructorId": "williams",
+          "officialPosition": 12,
+          "officialPositionText": "12",
+          "actualEligibleRank": 12,
+          "expectedEligibleRank": 8.281099999999999,
+          "predictive80": [
+            2,
+            15
+          ],
+          "positionsAboveExpectation": -3.7189000000000014,
+          "probabilityAtLeastAsGood": 0.783075,
+          "probabilityAtLeastAsBad": 0.27562500000000006,
+          "positionProbabilities": [
+            0.05725,
+            0.06375,
+            0.064075,
+            0.067675,
+            0.06995,
+            0.06905,
+            0.068475,
+            0.068225,
+            0.066275,
+            0.06645,
+            0.0632,
+            0.0587,
+            0.054375,
+            0.051625,
+            0.04625,
+            0.039175,
+            0.0255
+          ]
+        },
+        {
+          "driverId": "liam-lawson",
+          "name": "Liam Lawson",
+          "constructorId": "racing-bulls",
+          "officialPosition": 13,
+          "officialPositionText": "13",
+          "actualEligibleRank": 13,
+          "expectedEligibleRank": 9.423275000000002,
+          "predictive80": [
+            3,
+            16
+          ],
+          "positionsAboveExpectation": -3.576724999999998,
+          "probabilityAtLeastAsGood": 0.7575999999999999,
+          "probabilityAtLeastAsBad": 0.31137499999999996,
+          "positionProbabilities": [
+            0.041675,
+            0.046175,
+            0.0505,
+            0.052475,
+            0.052575,
+            0.058975,
+            0.058525,
+            0.06065,
+            0.064175,
+            0.065725,
+            0.066175,
+            0.071,
+            0.068975,
+            0.070825,
+            0.06915,
+            0.0652,
+            0.037225
+          ]
+        },
+        {
+          "driverId": "franco-colapinto",
+          "name": "Franco Colapinto",
+          "constructorId": "alpine",
+          "officialPosition": 14,
+          "officialPositionText": "14",
+          "actualEligibleRank": 14,
+          "expectedEligibleRank": 8.8973,
+          "predictive80": [
+            2,
+            15
+          ],
+          "positionsAboveExpectation": -5.1027000000000005,
+          "probabilityAtLeastAsGood": 0.85855,
+          "probabilityAtLeastAsBad": 0.202025,
+          "positionProbabilities": [
+            0.0509,
+            0.051725,
+            0.0568,
+            0.058025,
+            0.06005,
+            0.064425,
+            0.0626,
+            0.065525,
+            0.06465,
+            0.065775,
+            0.067975,
+            0.066125,
+            0.0634,
+            0.060575,
+            0.058425,
+            0.049625,
+            0.0334
+          ]
+        },
+        {
+          "driverId": "carlos-sainz-jr",
+          "name": "Carlos Sainz Jr.",
+          "constructorId": "williams",
+          "officialPosition": 15,
+          "officialPositionText": "15",
+          "actualEligibleRank": 15,
+          "expectedEligibleRank": 8.29985,
+          "predictive80": [
+            2,
+            15
+          ],
+          "positionsAboveExpectation": -6.700150000000001,
+          "probabilityAtLeastAsGood": 0.9361749999999998,
+          "probabilityAtLeastAsBad": 0.110425,
+          "positionProbabilities": [
+            0.05915,
+            0.06145,
+            0.066525,
+            0.065975,
+            0.06865,
+            0.067225,
+            0.067225,
+            0.069325,
+            0.067125,
+            0.065375,
+            0.063325,
+            0.05815,
+            0.056225,
+            0.05385,
+            0.0466,
+            0.03855,
+            0.025275
+          ]
+        },
+        {
+          "driverId": "sergio-perez",
+          "name": "Sergio P\u00e9rez",
+          "constructorId": "cadillac",
+          "officialPosition": 16,
+          "officialPositionText": "16",
+          "actualEligibleRank": 16,
+          "expectedEligibleRank": 11.7605,
+          "predictive80": [
+            5,
+            17
+          ],
+          "positionsAboveExpectation": -4.2395,
+          "probabilityAtLeastAsGood": 0.8503249999999999,
+          "probabilityAtLeastAsBad": 0.268725,
+          "positionProbabilities": [
+            0.019075,
+            0.0225,
+            0.025525,
+            0.02985,
+            0.032575,
+            0.033725,
+            0.03945,
+            0.04485,
+            0.046825,
+            0.0525,
+            0.0569,
+            0.065325,
+            0.07595,
+            0.08595,
+            0.100275,
+            0.11905,
+            0.149675
+          ]
+        },
+        {
+          "driverId": "lance-stroll",
+          "name": "Lance Stroll",
+          "constructorId": "aston-martin",
+          "officialPosition": null,
+          "officialPositionText": "NC",
+          "actualEligibleRank": 17,
+          "expectedEligibleRank": 10.733475000000002,
+          "predictive80": [
+            4,
+            16
+          ],
+          "positionsAboveExpectation": -6.266524999999998,
+          "probabilityAtLeastAsGood": 0.9999999999999999,
+          "probabilityAtLeastAsBad": 0.09395,
+          "positionProbabilities": [
+            0.027,
+            0.0308,
+            0.03505,
+            0.039475,
+            0.04405,
+            0.043575,
+            0.0483,
+            0.05015,
+            0.055,
+            0.06125,
+            0.0655,
+            0.070475,
+            0.07665,
+            0.08075,
+            0.085375,
+            0.09265,
+            0.09395
+          ]
+        }
+      ]
+    },
+    {
+      "id": 1151,
+      "round": 2,
+      "date": "2026-03-15",
+      "name": "Formula 1 Heineken Chinese Grand Prix 2026",
+      "eligibleCount": 15,
+      "excluded": [
+        {
+          "driverId": "alexander-albon",
+          "name": "Alexander Albon",
+          "reason": "Hydraulics"
+        },
+        {
+          "driverId": "fernando-alonso",
+          "name": "Fernando Alonso",
+          "reason": "Vibrations"
+        },
+        {
+          "driverId": "gabriel-bortoleto",
+          "name": "Gabriel Bortoleto",
+          "reason": "Hydraulics"
+        },
+        {
+          "driverId": "lance-stroll",
+          "name": "Lance Stroll",
+          "reason": "Battery"
+        },
+        {
+          "driverId": "lando-norris",
+          "name": "Lando Norris",
+          "reason": "Electrical"
+        },
+        {
+          "driverId": "max-verstappen",
+          "name": "Max Verstappen",
+          "reason": "Coolant leak"
+        },
+        {
+          "driverId": "oscar-piastri",
+          "name": "Oscar Piastri",
+          "reason": "Electrical"
+        }
+      ],
+      "status": "ready",
+      "trainingThroughRound": 1,
+      "trainingThroughDate": "2026-03-08",
+      "originDiagnostics": {
+        "maxRhat": 1.0033410626985717,
+        "minEss": 3929.4368146316524,
+        "minBfmi": 0.9813113543698683,
+        "divergences": 0,
+        "treeDepthSaturations": 0,
+        "passed": true
+      },
+      "drivers": [
+        {
+          "driverId": "kimi-antonelli",
+          "name": "Kimi Antonelli",
+          "constructorId": "mercedes",
+          "officialPosition": 1,
+          "officialPositionText": "1",
+          "actualEligibleRank": 1,
+          "expectedEligibleRank": 5.648725,
+          "predictive80": [
+            2,
+            11
+          ],
+          "positionsAboveExpectation": 4.648725,
+          "probabilityAtLeastAsGood": 0.099025,
+          "probabilityAtLeastAsBad": 1.0,
+          "positionProbabilities": [
+            0.099025,
+            0.11825,
+            0.116375,
+            0.111875,
+            0.10265,
+            0.090575,
+            0.07725,
+            0.067175,
+            0.0576,
+            0.046925,
+            0.0359,
+            0.028625,
+            0.02275,
+            0.01545,
+            0.009575
+          ]
+        },
+        {
+          "driverId": "george-russell",
+          "name": "George Russell",
+          "constructorId": "mercedes",
+          "officialPosition": 2,
+          "officialPositionText": "2",
+          "actualEligibleRank": 2,
+          "expectedEligibleRank": 3.481125,
+          "predictive80": [
+            1,
+            7
+          ],
+          "positionsAboveExpectation": 1.481125,
+          "probabilityAtLeastAsGood": 0.46172500000000005,
+          "probabilityAtLeastAsBad": 0.73705,
+          "positionProbabilities": [
+            0.26295,
+            0.198775,
+            0.150125,
+            0.115125,
+            0.08345,
+            0.05965,
+            0.043425,
+            0.030325,
+            0.0196,
+            0.01385,
+            0.009825,
+            0.00635,
+            0.00345,
+            0.0025,
+            0.0006
+          ]
+        },
+        {
+          "driverId": "lewis-hamilton",
+          "name": "Lewis Hamilton",
+          "constructorId": "ferrari",
+          "officialPosition": 3,
+          "officialPositionText": "3",
+          "actualEligibleRank": 3,
+          "expectedEligibleRank": 5.036300000000001,
+          "predictive80": [
+            1,
+            10
+          ],
+          "positionsAboveExpectation": 2.0363000000000007,
+          "probabilityAtLeastAsGood": 0.381425,
+          "probabilityAtLeastAsBad": 0.7490750000000002,
+          "positionProbabilities": [
+            0.12,
+            0.130925,
+            0.1305,
+            0.124325,
+            0.10975,
+            0.091825,
+            0.076775,
+            0.061175,
+            0.05015,
+            0.03775,
+            0.02725,
+            0.0177,
+            0.0116,
+            0.0068,
+            0.003475
+          ]
+        },
+        {
+          "driverId": "charles-leclerc",
+          "name": "Charles Leclerc",
+          "constructorId": "ferrari",
+          "officialPosition": 4,
+          "officialPositionText": "4",
+          "actualEligibleRank": 4,
+          "expectedEligibleRank": 4.0501499999999995,
+          "predictive80": [
+            1,
+            8
+          ],
+          "positionsAboveExpectation": 0.05014999999999947,
+          "probabilityAtLeastAsGood": 0.6414249999999999,
+          "probabilityAtLeastAsBad": 0.48655,
+          "positionProbabilities": [
+            0.1917,
+            0.1731,
+            0.14865,
+            0.127975,
+            0.099275,
+            0.07825,
+            0.055875,
+            0.0424,
+            0.0307,
+            0.02085,
+            0.01435,
+            0.0088,
+            0.004375,
+            0.002425,
+            0.001275
+          ]
+        },
+        {
+          "driverId": "oliver-bearman",
+          "name": "Oliver Bearman",
+          "constructorId": "haas",
+          "officialPosition": 5,
+          "officialPositionText": "5",
+          "actualEligibleRank": 5,
+          "expectedEligibleRank": 6.932925000000001,
+          "predictive80": [
+            2,
+            12
+          ],
+          "positionsAboveExpectation": 1.932925000000001,
+          "probabilityAtLeastAsGood": 0.37660000000000005,
+          "probabilityAtLeastAsBad": 0.7166250000000001,
+          "positionProbabilities": [
+            0.057025,
+            0.065525,
+            0.07845,
+            0.082375,
+            0.093225,
+            0.09545,
+            0.097775,
+            0.0905,
+            0.0826,
+            0.07455,
+            0.063625,
+            0.049225,
+            0.034425,
+            0.023,
+            0.01225
+          ]
+        },
+        {
+          "driverId": "pierre-gasly",
+          "name": "Pierre Gasly",
+          "constructorId": "alpine",
+          "officialPosition": 6,
+          "officialPositionText": "6",
+          "actualEligibleRank": 6,
+          "expectedEligibleRank": 9.6732,
+          "predictive80": [
+            4,
+            14
+          ],
+          "positionsAboveExpectation": 3.6731999999999996,
+          "probabilityAtLeastAsGood": 0.219,
+          "probabilityAtLeastAsBad": 0.8357,
+          "positionProbabilities": [
+            0.023925,
+            0.024175,
+            0.032175,
+            0.03755,
+            0.046475,
+            0.0547,
+            0.063925,
+            0.0728,
+            0.0794,
+            0.0876,
+            0.093375,
+            0.102325,
+            0.105275,
+            0.09495,
+            0.08135
+          ]
+        },
+        {
+          "driverId": "liam-lawson",
+          "name": "Liam Lawson",
+          "constructorId": "racing-bulls",
+          "officialPosition": 7,
+          "officialPositionText": "7",
+          "actualEligibleRank": 7,
+          "expectedEligibleRank": 8.621225,
+          "predictive80": [
+            3,
+            14
+          ],
+          "positionsAboveExpectation": 1.6212250000000008,
+          "probabilityAtLeastAsGood": 0.38034999999999997,
+          "probabilityAtLeastAsBad": 0.69775,
+          "positionProbabilities": [
+            0.0326,
+            0.039375,
+            0.046225,
+            0.0518,
+            0.062125,
+            0.070125,
+            0.0781,
+            0.082675,
+            0.090025,
+            0.09165,
+            0.089725,
+            0.084075,
+            0.07905,
+            0.062475,
+            0.039975
+          ]
+        },
+        {
+          "driverId": "isack-hadjar",
+          "name": "Isack Hadjar",
+          "constructorId": "red-bull",
+          "officialPosition": 8,
+          "officialPositionText": "8",
+          "actualEligibleRank": 8,
+          "expectedEligibleRank": 8.099425,
+          "predictive80": [
+            3,
+            13
+          ],
+          "positionsAboveExpectation": 0.0994250000000001,
+          "probabilityAtLeastAsGood": 0.528575,
+          "probabilityAtLeastAsBad": 0.55455,
+          "positionProbabilities": [
+            0.0447,
+            0.050775,
+            0.0566,
+            0.064425,
+            0.0736,
+            0.074625,
+            0.080725,
+            0.083125,
+            0.0805,
+            0.082475,
+            0.076975,
+            0.070975,
+            0.061525,
+            0.052275,
+            0.0467
+          ]
+        },
+        {
+          "driverId": "carlos-sainz-jr",
+          "name": "Carlos Sainz Jr.",
+          "constructorId": "williams",
+          "officialPosition": 9,
+          "officialPositionText": "9",
+          "actualEligibleRank": 9,
+          "expectedEligibleRank": 9.704575,
+          "predictive80": [
+            4,
+            14
+          ],
+          "positionsAboveExpectation": 0.7045750000000002,
+          "probabilityAtLeastAsGood": 0.43102499999999994,
+          "probabilityAtLeastAsBad": 0.6508,
+          "positionProbabilities": [
+            0.021275,
+            0.024975,
+            0.030825,
+            0.039425,
+            0.0448,
+            0.054275,
+            0.063875,
+            0.06975,
+            0.081825,
+            0.08615,
+            0.096525,
+            0.105775,
+            0.10605,
+            0.096375,
+            0.0781
+          ]
+        },
+        {
+          "driverId": "franco-colapinto",
+          "name": "Franco Colapinto",
+          "constructorId": "alpine",
+          "officialPosition": 10,
+          "officialPositionText": "10",
+          "actualEligibleRank": 10,
+          "expectedEligibleRank": 9.178875,
+          "predictive80": [
+            4,
+            14
+          ],
+          "positionsAboveExpectation": -0.8211250000000003,
+          "probabilityAtLeastAsGood": 0.581725,
+          "probabilityAtLeastAsBad": 0.511225,
+          "positionProbabilities": [
+            0.02595,
+            0.030475,
+            0.037175,
+            0.044375,
+            0.052875,
+            0.063075,
+            0.071025,
+            0.07955,
+            0.084275,
+            0.09295,
+            0.096775,
+            0.09735,
+            0.089775,
+            0.07685,
+            0.057525
+          ]
+        },
+        {
+          "driverId": "nico-hulkenberg",
+          "name": "Nico H\u00fclkenberg",
+          "constructorId": "audi",
+          "officialPosition": 11,
+          "officialPositionText": "11",
+          "actualEligibleRank": 11,
+          "expectedEligibleRank": 8.1841,
+          "predictive80": [
+            3,
+            14
+          ],
+          "positionsAboveExpectation": -2.815899999999999,
+          "probabilityAtLeastAsGood": 0.759175,
+          "probabilityAtLeastAsBad": 0.317275,
+          "positionProbabilities": [
+            0.0419,
+            0.0486,
+            0.0569,
+            0.064325,
+            0.07045,
+            0.077175,
+            0.0786,
+            0.08245,
+            0.0821,
+            0.080225,
+            0.07645,
+            0.071375,
+            0.0656,
+            0.05725,
+            0.0466
+          ]
+        },
+        {
+          "driverId": "arvid-lindblad",
+          "name": "Arvid Lindblad",
+          "constructorId": "racing-bulls",
+          "officialPosition": 12,
+          "officialPositionText": "12",
+          "actualEligibleRank": 12,
+          "expectedEligibleRank": 10.011025,
+          "predictive80": [
+            4,
+            15
+          ],
+          "positionsAboveExpectation": -1.988975,
+          "probabilityAtLeastAsGood": 0.65835,
+          "probabilityAtLeastAsBad": 0.43432499999999996,
+          "positionProbabilities": [
+            0.0216,
+            0.02655,
+            0.033375,
+            0.03605,
+            0.043975,
+            0.05235,
+            0.0585,
+            0.063275,
+            0.0702,
+            0.076425,
+            0.083375,
+            0.092675,
+            0.101925,
+            0.10385,
+            0.135875
+          ]
+        },
+        {
+          "driverId": "valtteri-bottas",
+          "name": "Valtteri Bottas",
+          "constructorId": "cadillac",
+          "officialPosition": 13,
+          "officialPositionText": "13",
+          "actualEligibleRank": 13,
+          "expectedEligibleRank": 11.314350000000001,
+          "predictive80": [
+            6,
+            15
+          ],
+          "positionsAboveExpectation": -1.685649999999999,
+          "probabilityAtLeastAsGood": 0.6278999999999999,
+          "probabilityAtLeastAsBad": 0.498025,
+          "positionProbabilities": [
+            0.01285,
+            0.014525,
+            0.0175,
+            0.02285,
+            0.02835,
+            0.03225,
+            0.0372,
+            0.0451,
+            0.0543,
+            0.062425,
+            0.077875,
+            0.09675,
+            0.125925,
+            0.177,
+            0.1951
+          ]
+        },
+        {
+          "driverId": "esteban-ocon",
+          "name": "Esteban Ocon",
+          "constructorId": "haas",
+          "officialPosition": 14,
+          "officialPositionText": "14",
+          "actualEligibleRank": 14,
+          "expectedEligibleRank": 8.2474,
+          "predictive80": [
+            3,
+            13
+          ],
+          "positionsAboveExpectation": -5.752599999999999,
+          "probabilityAtLeastAsGood": 0.9687999999999998,
+          "probabilityAtLeastAsBad": 0.08,
+          "positionProbabilities": [
+            0.035725,
+            0.042375,
+            0.050275,
+            0.060475,
+            0.0679,
+            0.079025,
+            0.0832,
+            0.089975,
+            0.089775,
+            0.08895,
+            0.085725,
+            0.0791,
+            0.0675,
+            0.0488,
+            0.0312
+          ]
+        },
+        {
+          "driverId": "sergio-perez",
+          "name": "Sergio P\u00e9rez",
+          "constructorId": "cadillac",
+          "officialPosition": 15,
+          "officialPositionText": "15",
+          "actualEligibleRank": 15,
+          "expectedEligibleRank": 11.816600000000001,
+          "predictive80": [
+            6,
+            15
+          ],
+          "positionsAboveExpectation": -3.183399999999999,
+          "probabilityAtLeastAsGood": 1.0,
+          "probabilityAtLeastAsBad": 0.2604,
+          "positionProbabilities": [
+            0.008775,
+            0.0116,
+            0.01485,
+            0.01705,
+            0.0211,
+            0.02665,
+            0.03375,
+            0.039725,
+            0.04695,
+            0.057225,
+            0.07225,
+            0.0889,
+            0.120775,
+            0.18,
+            0.2604
+          ]
+        }
+      ]
+    },
+    {
+      "id": 1152,
+      "round": 3,
+      "date": "2026-03-29",
+      "name": "Formula 1 Aramco Japanese Grand Prix 2026",
+      "eligibleCount": 20,
+      "excluded": [
+        {
+          "driverId": "lance-stroll",
+          "name": "Lance Stroll",
+          "reason": "Mechanical"
+        },
+        {
+          "driverId": "oliver-bearman",
+          "name": "Oliver Bearman",
+          "reason": "Accident"
+        }
+      ],
+      "status": "ready",
+      "trainingThroughRound": 2,
+      "trainingThroughDate": "2026-03-15",
+      "originDiagnostics": {
+        "maxRhat": 1.0041223671662673,
+        "minEss": 3083.8909804559885,
+        "minBfmi": 0.9383939461471343,
+        "divergences": 0,
+        "treeDepthSaturations": 0,
+        "passed": true
+      },
+      "drivers": [
+        {
+          "driverId": "kimi-antonelli",
+          "name": "Kimi Antonelli",
+          "constructorId": "mercedes",
+          "officialPosition": 1,
+          "officialPositionText": "1",
+          "actualEligibleRank": 1,
+          "expectedEligibleRank": 5.250725000000001,
+          "predictive80": [
+            1,
+            10
+          ],
+          "positionsAboveExpectation": 4.250725000000001,
+          "probabilityAtLeastAsGood": 0.1195,
+          "probabilityAtLeastAsBad": 1.0000000000000002,
+          "positionProbabilities": [
+            0.1195,
+            0.133775,
+            0.129775,
+            0.118325,
+            0.1017,
+            0.087675,
+            0.074575,
+            0.060475,
+            0.046625,
+            0.03645,
+            0.027875,
+            0.020225,
+            0.014725,
+            0.0105,
+            0.00725,
+            0.00455,
+            0.00255,
+            0.0021,
+            0.0009,
+            0.00045
+          ]
+        },
+        {
+          "driverId": "oscar-piastri",
+          "name": "Oscar Piastri",
+          "constructorId": "mclaren",
+          "officialPosition": 2,
+          "officialPositionText": "2",
+          "actualEligibleRank": 2,
+          "expectedEligibleRank": 7.018825,
+          "predictive80": [
+            2,
+            13
+          ],
+          "positionsAboveExpectation": 5.018825,
+          "probabilityAtLeastAsGood": 0.1479,
+          "probabilityAtLeastAsBad": 0.9303750000000001,
+          "positionProbabilities": [
+            0.069625,
+            0.078275,
+            0.084175,
+            0.0881,
+            0.09055,
+            0.0921,
+            0.086125,
+            0.0786,
+            0.072225,
+            0.06065,
+            0.0466,
+            0.0379,
+            0.03205,
+            0.024975,
+            0.017775,
+            0.015375,
+            0.01035,
+            0.007125,
+            0.00485,
+            0.002575
+          ]
+        },
+        {
+          "driverId": "charles-leclerc",
+          "name": "Charles Leclerc",
+          "constructorId": "ferrari",
+          "officialPosition": 3,
+          "officialPositionText": "3",
+          "actualEligibleRank": 3,
+          "expectedEligibleRank": 4.963025,
+          "predictive80": [
+            1,
+            9
+          ],
+          "positionsAboveExpectation": 1.963025,
+          "probabilityAtLeastAsGood": 0.39062500000000006,
+          "probabilityAtLeastAsBad": 0.7373,
+          "positionProbabilities": [
+            0.131475,
+            0.131225,
+            0.127925,
+            0.1248,
+            0.109575,
+            0.093275,
+            0.076825,
+            0.0632,
+            0.045275,
+            0.031125,
+            0.02395,
+            0.0157,
+            0.0102,
+            0.00725,
+            0.003825,
+            0.002275,
+            0.001425,
+            0.000325,
+            0.0003,
+            5e-05
+          ]
+        },
+        {
+          "driverId": "george-russell",
+          "name": "George Russell",
+          "constructorId": "mercedes",
+          "officialPosition": 4,
+          "officialPositionText": "4",
+          "actualEligibleRank": 4,
+          "expectedEligibleRank": 3.1986999999999997,
+          "predictive80": [
+            1,
+            7
+          ],
+          "positionsAboveExpectation": -0.8013000000000003,
+          "probabilityAtLeastAsGood": 0.7685000000000001,
+          "probabilityAtLeastAsBad": 0.3429749999999999,
+          "positionProbabilities": [
+            0.289875,
+            0.214775,
+            0.152375,
+            0.111475,
+            0.076175,
+            0.05395,
+            0.03835,
+            0.0233,
+            0.015325,
+            0.009625,
+            0.005575,
+            0.00415,
+            0.002225,
+            0.001225,
+            0.000825,
+            0.000325,
+            0.00025,
+            0.000175,
+            2.5e-05,
+            0.0
+          ]
+        },
+        {
+          "driverId": "lando-norris",
+          "name": "Lando Norris",
+          "constructorId": "mclaren",
+          "officialPosition": 5,
+          "officialPositionText": "5",
+          "actualEligibleRank": 5,
+          "expectedEligibleRank": 6.595449999999999,
+          "predictive80": [
+            2,
+            12
+          ],
+          "positionsAboveExpectation": 1.5954499999999987,
+          "probabilityAtLeastAsGood": 0.45095,
+          "probabilityAtLeastAsBad": 0.6462499999999998,
+          "positionProbabilities": [
+            0.0811,
+            0.086025,
+            0.091725,
+            0.0949,
+            0.0972,
+            0.092775,
+            0.087225,
+            0.07475,
+            0.06655,
+            0.05655,
+            0.0441,
+            0.0348,
+            0.02765,
+            0.0208,
+            0.0155,
+            0.010975,
+            0.0081,
+            0.004825,
+            0.00315,
+            0.0013
+          ]
+        },
+        {
+          "driverId": "lewis-hamilton",
+          "name": "Lewis Hamilton",
+          "constructorId": "ferrari",
+          "officialPosition": 6,
+          "officialPositionText": "6",
+          "actualEligibleRank": 6,
+          "expectedEligibleRank": 6.141475,
+          "predictive80": [
+            2,
+            11
+          ],
+          "positionsAboveExpectation": 0.1414749999999998,
+          "probabilityAtLeastAsGood": 0.5857,
+          "probabilityAtLeastAsBad": 0.512625,
+          "positionProbabilities": [
+            0.0821,
+            0.091775,
+            0.101825,
+            0.1056,
+            0.106075,
+            0.098325,
+            0.087875,
+            0.078125,
+            0.065775,
+            0.0523,
+            0.03995,
+            0.0296,
+            0.0212,
+            0.0151,
+            0.01075,
+            0.0062,
+            0.00455,
+            0.0018,
+            0.000825,
+            0.00025
+          ]
+        },
+        {
+          "driverId": "pierre-gasly",
+          "name": "Pierre Gasly",
+          "constructorId": "alpine",
+          "officialPosition": 7,
+          "officialPositionText": "7",
+          "actualEligibleRank": 7,
+          "expectedEligibleRank": 12.332474999999999,
+          "predictive80": [
+            6,
+            18
+          ],
+          "positionsAboveExpectation": 5.332474999999999,
+          "probabilityAtLeastAsGood": 0.17065,
+          "probabilityAtLeastAsBad": 0.8694999999999999,
+          "positionProbabilities": [
+            0.0129,
+            0.015975,
+            0.018675,
+            0.023825,
+            0.0262,
+            0.032925,
+            0.04015,
+            0.04865,
+            0.054075,
+            0.062125,
+            0.065325,
+            0.0721,
+            0.075925,
+            0.07775,
+            0.079025,
+            0.077675,
+            0.0721,
+            0.06305,
+            0.0495,
+            0.03205
+          ]
+        },
+        {
+          "driverId": "max-verstappen",
+          "name": "Max Verstappen",
+          "constructorId": "red-bull",
+          "officialPosition": 8,
+          "officialPositionText": "8",
+          "actualEligibleRank": 8,
+          "expectedEligibleRank": 6.750750000000001,
+          "predictive80": [
+            2,
+            12
+          ],
+          "positionsAboveExpectation": -1.249249999999999,
+          "probabilityAtLeastAsGood": 0.6915,
+          "probabilityAtLeastAsBad": 0.39552499999999996,
+          "positionProbabilities": [
+            0.069,
+            0.077525,
+            0.087325,
+            0.08975,
+            0.095,
+            0.095225,
+            0.09065,
+            0.087025,
+            0.0732,
+            0.06205,
+            0.051,
+            0.036575,
+            0.02895,
+            0.019875,
+            0.01545,
+            0.0092,
+            0.006425,
+            0.003575,
+            0.0017,
+            0.0005
+          ]
+        },
+        {
+          "driverId": "liam-lawson",
+          "name": "Liam Lawson",
+          "constructorId": "racing-bulls",
+          "officialPosition": 9,
+          "officialPositionText": "9",
+          "actualEligibleRank": 9,
+          "expectedEligibleRank": 11.310225,
+          "predictive80": [
+            5,
+            17
+          ],
+          "positionsAboveExpectation": 2.310225000000001,
+          "probabilityAtLeastAsGood": 0.346325,
+          "probabilityAtLeastAsBad": 0.720275,
+          "positionProbabilities": [
+            0.018725,
+            0.0208,
+            0.02605,
+            0.029625,
+            0.035825,
+            0.04315,
+            0.0478,
+            0.05775,
+            0.0666,
+            0.068975,
+            0.076575,
+            0.07655,
+            0.078125,
+            0.072425,
+            0.069175,
+            0.062125,
+            0.05545,
+            0.04435,
+            0.0321,
+            0.017825
+          ]
+        },
+        {
+          "driverId": "esteban-ocon",
+          "name": "Esteban Ocon",
+          "constructorId": "haas",
+          "officialPosition": 10,
+          "officialPositionText": "10",
+          "actualEligibleRank": 10,
+          "expectedEligibleRank": 12.928275000000001,
+          "predictive80": [
+            6,
+            19
+          ],
+          "positionsAboveExpectation": 2.928275000000001,
+          "probabilityAtLeastAsGood": 0.28955,
+          "probabilityAtLeastAsBad": 0.764825,
+          "positionProbabilities": [
+            0.010775,
+            0.01325,
+            0.0167,
+            0.019025,
+            0.024775,
+            0.0286,
+            0.032975,
+            0.039375,
+            0.0497,
+            0.054375,
+            0.061425,
+            0.06755,
+            0.072275,
+            0.077825,
+            0.0808,
+            0.08325,
+            0.08425,
+            0.078925,
+            0.06285,
+            0.0413
+          ]
+        },
+        {
+          "driverId": "nico-hulkenberg",
+          "name": "Nico H\u00fclkenberg",
+          "constructorId": "audi",
+          "officialPosition": 11,
+          "officialPositionText": "11",
+          "actualEligibleRank": 11,
+          "expectedEligibleRank": 12.098925000000001,
+          "predictive80": [
+            5,
+            18
+          ],
+          "positionsAboveExpectation": 1.0989250000000013,
+          "probabilityAtLeastAsGood": 0.422925,
+          "probabilityAtLeastAsBad": 0.6438750000000001,
+          "positionProbabilities": [
+            0.0154,
+            0.018,
+            0.02005,
+            0.024775,
+            0.03035,
+            0.03475,
+            0.0443,
+            0.051775,
+            0.0552,
+            0.061525,
+            0.0668,
+            0.071175,
+            0.07605,
+            0.074075,
+            0.0733,
+            0.07305,
+            0.0685,
+            0.0633,
+            0.047625,
+            0.03
+          ]
+        },
+        {
+          "driverId": "isack-hadjar",
+          "name": "Isack Hadjar",
+          "constructorId": "red-bull",
+          "officialPosition": 12,
+          "officialPositionText": "12",
+          "actualEligibleRank": 12,
+          "expectedEligibleRank": 10.71615,
+          "predictive80": [
+            4,
+            17
+          ],
+          "positionsAboveExpectation": -1.2838499999999993,
+          "probabilityAtLeastAsGood": 0.6259,
+          "probabilityAtLeastAsBad": 0.446825,
+          "positionProbabilities": [
+            0.0214,
+            0.02615,
+            0.031225,
+            0.0362,
+            0.0419,
+            0.0521,
+            0.0579,
+            0.065725,
+            0.071825,
+            0.0739,
+            0.07485,
+            0.072725,
+            0.067675,
+            0.0662,
+            0.057,
+            0.054175,
+            0.045625,
+            0.037,
+            0.0292,
+            0.017225
+          ]
+        },
+        {
+          "driverId": "gabriel-bortoleto",
+          "name": "Gabriel Bortoleto",
+          "constructorId": "audi",
+          "officialPosition": 13,
+          "officialPositionText": "13",
+          "actualEligibleRank": 13,
+          "expectedEligibleRank": 13.185,
+          "predictive80": [
+            6,
+            19
+          ],
+          "positionsAboveExpectation": 0.1850000000000005,
+          "probabilityAtLeastAsGood": 0.46967499999999995,
+          "probabilityAtLeastAsBad": 0.5981000000000001,
+          "positionProbabilities": [
+            0.010975,
+            0.013975,
+            0.016025,
+            0.020125,
+            0.023725,
+            0.027775,
+            0.033575,
+            0.038575,
+            0.04575,
+            0.05185,
+            0.0576,
+            0.06195,
+            0.067775,
+            0.07175,
+            0.0753,
+            0.078575,
+            0.0824,
+            0.080525,
+            0.076675,
+            0.0651
+          ]
+        },
+        {
+          "driverId": "arvid-lindblad",
+          "name": "Arvid Lindblad",
+          "constructorId": "racing-bulls",
+          "officialPosition": 14,
+          "officialPositionText": "14",
+          "actualEligibleRank": 14,
+          "expectedEligibleRank": 13.69255,
+          "predictive80": [
+            7,
+            19
+          ],
+          "positionsAboveExpectation": -0.30744999999999933,
+          "probabilityAtLeastAsGood": 0.495925,
+          "probabilityAtLeastAsBad": 0.576275,
+          "positionProbabilities": [
+            0.00935,
+            0.0112,
+            0.013525,
+            0.0178,
+            0.0211,
+            0.023425,
+            0.028975,
+            0.033975,
+            0.03965,
+            0.047825,
+            0.053,
+            0.060175,
+            0.063725,
+            0.0722,
+            0.07765,
+            0.0803,
+            0.086225,
+            0.0891,
+            0.08625,
+            0.08455
+          ]
+        },
+        {
+          "driverId": "carlos-sainz-jr",
+          "name": "Carlos Sainz Jr.",
+          "constructorId": "williams",
+          "officialPosition": 15,
+          "officialPositionText": "15",
+          "actualEligibleRank": 15,
+          "expectedEligibleRank": 12.742774999999998,
+          "predictive80": [
+            6,
+            18
+          ],
+          "positionsAboveExpectation": -2.257225000000002,
+          "probabilityAtLeastAsGood": 0.6676250000000001,
+          "probabilityAtLeastAsBad": 0.41457499999999997,
+          "positionProbabilities": [
+            0.012275,
+            0.0146,
+            0.0177,
+            0.0194,
+            0.025025,
+            0.03135,
+            0.035175,
+            0.042525,
+            0.0474,
+            0.0548,
+            0.0633,
+            0.070875,
+            0.0729,
+            0.0781,
+            0.0822,
+            0.083325,
+            0.078225,
+            0.0716,
+            0.060875,
+            0.03835
+          ]
+        },
+        {
+          "driverId": "franco-colapinto",
+          "name": "Franco Colapinto",
+          "constructorId": "alpine",
+          "officialPosition": 16,
+          "officialPositionText": "16",
+          "actualEligibleRank": 16,
+          "expectedEligibleRank": 11.810575000000002,
+          "predictive80": [
+            5,
+            18
+          ],
+          "positionsAboveExpectation": -4.189424999999998,
+          "probabilityAtLeastAsGood": 0.8249500000000001,
+          "probabilityAtLeastAsBad": 0.2475,
+          "positionProbabilities": [
+            0.01565,
+            0.0182,
+            0.0219,
+            0.025875,
+            0.030375,
+            0.037825,
+            0.044625,
+            0.0489,
+            0.0601,
+            0.06855,
+            0.072525,
+            0.07695,
+            0.0792,
+            0.076875,
+            0.07495,
+            0.07245,
+            0.061925,
+            0.0541,
+            0.036975,
+            0.02205
+          ]
+        },
+        {
+          "driverId": "sergio-perez",
+          "name": "Sergio P\u00e9rez",
+          "constructorId": "cadillac",
+          "officialPosition": 17,
+          "officialPositionText": "17",
+          "actualEligibleRank": 17,
+          "expectedEligibleRank": 16.616500000000002,
+          "predictive80": [
+            11,
+            20
+          ],
+          "positionsAboveExpectation": -0.38349999999999795,
+          "probabilityAtLeastAsGood": 0.422775,
+          "probabilityAtLeastAsBad": 0.657675,
+          "positionProbabilities": [
+            0.0029,
+            0.003775,
+            0.004825,
+            0.006075,
+            0.008075,
+            0.00995,
+            0.011675,
+            0.014525,
+            0.017,
+            0.0211,
+            0.02605,
+            0.029525,
+            0.033975,
+            0.040575,
+            0.05005,
+            0.06225,
+            0.08045,
+            0.115275,
+            0.17365,
+            0.2883
+          ]
+        },
+        {
+          "driverId": "fernando-alonso",
+          "name": "Fernando Alonso",
+          "constructorId": "aston-martin",
+          "officialPosition": 18,
+          "officialPositionText": "18",
+          "actualEligibleRank": 18,
+          "expectedEligibleRank": 14.0155,
+          "predictive80": [
+            7,
+            20
+          ],
+          "positionsAboveExpectation": -3.9845000000000006,
+          "probabilityAtLeastAsGood": 0.791175,
+          "probabilityAtLeastAsBad": 0.30195,
+          "positionProbabilities": [
+            0.009425,
+            0.011,
+            0.013275,
+            0.0155,
+            0.0196,
+            0.021875,
+            0.0284,
+            0.03165,
+            0.039275,
+            0.042925,
+            0.0513,
+            0.055625,
+            0.060625,
+            0.064625,
+            0.072,
+            0.0767,
+            0.08425,
+            0.093125,
+            0.0986,
+            0.110225
+          ]
+        },
+        {
+          "driverId": "valtteri-bottas",
+          "name": "Valtteri Bottas",
+          "constructorId": "cadillac",
+          "officialPosition": 19,
+          "officialPositionText": "19",
+          "actualEligibleRank": 19,
+          "expectedEligibleRank": 16.024475000000002,
+          "predictive80": [
+            10,
+            20
+          ],
+          "positionsAboveExpectation": -2.9755249999999975,
+          "probabilityAtLeastAsGood": 0.78785,
+          "probabilityAtLeastAsBad": 0.38825,
+          "positionProbabilities": [
+            0.0048,
+            0.004725,
+            0.00685,
+            0.007925,
+            0.0096,
+            0.0119,
+            0.01405,
+            0.01835,
+            0.01945,
+            0.026175,
+            0.029425,
+            0.0358,
+            0.040975,
+            0.0482,
+            0.0564,
+            0.069025,
+            0.089225,
+            0.118875,
+            0.1761,
+            0.21215
+          ]
+        },
+        {
+          "driverId": "alexander-albon",
+          "name": "Alexander Albon",
+          "constructorId": "williams",
+          "officialPosition": 20,
+          "officialPositionText": "20",
+          "actualEligibleRank": 20,
+          "expectedEligibleRank": 12.607624999999999,
+          "predictive80": [
+            6,
+            18
+          ],
+          "positionsAboveExpectation": -7.392375000000001,
+          "probabilityAtLeastAsGood": 0.9999999999999999,
+          "probabilityAtLeastAsBad": 0.03575,
+          "positionProbabilities": [
+            0.01275,
+            0.014975,
+            0.018075,
+            0.0209,
+            0.027175,
+            0.03105,
+            0.038775,
+            0.04275,
+            0.049,
+            0.057125,
+            0.062775,
+            0.07005,
+            0.073775,
+            0.079675,
+            0.080775,
+            0.0782,
+            0.077725,
+            0.07085,
+            0.05785,
+            0.03575
+          ]
+        }
+      ]
+    },
+    {
+      "id": 1153,
+      "round": 4,
+      "date": "2026-05-03",
+      "name": "Formula 1 Crypto.com Miami Grand Prix 2026",
+      "eligibleCount": 18,
+      "excluded": [
+        {
+          "driverId": "isack-hadjar",
+          "name": "Isack Hadjar",
+          "reason": "Accident"
+        },
+        {
+          "driverId": "liam-lawson",
+          "name": "Liam Lawson",
+          "reason": "Gearbox"
+        },
+        {
+          "driverId": "nico-hulkenberg",
+          "name": "Nico H\u00fclkenberg",
+          "reason": "Overheating"
+        },
+        {
+          "driverId": "pierre-gasly",
+          "name": "Pierre Gasly",
+          "reason": "Collision"
+        }
+      ],
+      "status": "ready",
+      "trainingThroughRound": 3,
+      "trainingThroughDate": "2026-03-29",
+      "originDiagnostics": {
+        "maxRhat": 1.0055515318069668,
+        "minEss": 3122.1976026200446,
+        "minBfmi": 0.9445674209093575,
+        "divergences": 0,
+        "treeDepthSaturations": 0,
+        "passed": true
+      },
+      "drivers": [
+        {
+          "driverId": "kimi-antonelli",
+          "name": "Kimi Antonelli",
+          "constructorId": "mercedes",
+          "officialPosition": 1,
+          "officialPositionText": "1",
+          "actualEligibleRank": 1,
+          "expectedEligibleRank": 4.316875,
+          "predictive80": [
+            1,
+            8
+          ],
+          "positionsAboveExpectation": 3.3168749999999996,
+          "probabilityAtLeastAsGood": 0.13865,
+          "probabilityAtLeastAsBad": 0.9999999999999998,
+          "positionProbabilities": [
+            0.13865,
+            0.15335,
+            0.147275,
+            0.139825,
+            0.118875,
+            0.1026,
+            0.075475,
+            0.05465,
+            0.0334,
+            0.017225,
+            0.009525,
+            0.004625,
+            0.002475,
+            0.00135,
+            0.0005,
+            0.0002,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "driverId": "lando-norris",
+          "name": "Lando Norris",
+          "constructorId": "mclaren",
+          "officialPosition": 2,
+          "officialPositionText": "2",
+          "actualEligibleRank": 2,
+          "expectedEligibleRank": 4.874974999999999,
+          "predictive80": [
+            1,
+            9
+          ],
+          "positionsAboveExpectation": 2.874974999999999,
+          "probabilityAtLeastAsGood": 0.2274,
+          "probabilityAtLeastAsBad": 0.888725,
+          "positionProbabilities": [
+            0.111275,
+            0.116125,
+            0.124875,
+            0.1276,
+            0.130275,
+            0.119675,
+            0.098475,
+            0.06915,
+            0.046125,
+            0.027225,
+            0.01405,
+            0.008675,
+            0.00355,
+            0.00185,
+            0.000825,
+            0.000225,
+            2.5e-05,
+            0.0
+          ]
+        },
+        {
+          "driverId": "oscar-piastri",
+          "name": "Oscar Piastri",
+          "constructorId": "mclaren",
+          "officialPosition": 3,
+          "officialPositionText": "3",
+          "actualEligibleRank": 3,
+          "expectedEligibleRank": 5.081500000000002,
+          "predictive80": [
+            1,
+            9
+          ],
+          "positionsAboveExpectation": 2.081500000000002,
+          "probabilityAtLeastAsGood": 0.329375,
+          "probabilityAtLeastAsBad": 0.7892750000000002,
+          "positionProbabilities": [
+            0.101225,
+            0.1095,
+            0.11865,
+            0.123525,
+            0.126125,
+            0.12255,
+            0.10385,
+            0.07595,
+            0.05,
+            0.030775,
+            0.01805,
+            0.0101,
+            0.00515,
+            0.0028,
+            0.001175,
+            0.000375,
+            0.000125,
+            7.5e-05
+          ]
+        },
+        {
+          "driverId": "george-russell",
+          "name": "George Russell",
+          "constructorId": "mercedes",
+          "officialPosition": 4,
+          "officialPositionText": "4",
+          "actualEligibleRank": 4,
+          "expectedEligibleRank": 2.840725000000001,
+          "predictive80": [
+            1,
+            6
+          ],
+          "positionsAboveExpectation": -1.1592749999999992,
+          "probabilityAtLeastAsGood": 0.8188000000000001,
+          "probabilityAtLeastAsBad": 0.29732499999999995,
+          "positionProbabilities": [
+            0.302775,
+            0.231775,
+            0.168125,
+            0.116125,
+            0.078875,
+            0.048625,
+            0.02855,
+            0.014175,
+            0.0063,
+            0.002925,
+            0.001125,
+            0.0004,
+            0.00015,
+            5e-05,
+            2.5e-05,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "driverId": "max-verstappen",
+          "name": "Max Verstappen",
+          "constructorId": "red-bull",
+          "officialPosition": 5,
+          "officialPositionText": "5",
+          "actualEligibleRank": 5,
+          "expectedEligibleRank": 6.659650000000001,
+          "predictive80": [
+            2,
+            11
+          ],
+          "positionsAboveExpectation": 1.659650000000001,
+          "probabilityAtLeastAsGood": 0.35665,
+          "probabilityAtLeastAsBad": 0.74035,
+          "positionProbabilities": [
+            0.050125,
+            0.058875,
+            0.0688,
+            0.08185,
+            0.097,
+            0.111475,
+            0.130525,
+            0.124825,
+            0.099125,
+            0.071025,
+            0.0466,
+            0.027025,
+            0.016775,
+            0.008975,
+            0.004225,
+            0.00195,
+            0.000575,
+            0.00025
+          ]
+        },
+        {
+          "driverId": "lewis-hamilton",
+          "name": "Lewis Hamilton",
+          "constructorId": "ferrari",
+          "officialPosition": 6,
+          "officialPositionText": "6",
+          "actualEligibleRank": 6,
+          "expectedEligibleRank": 5.32435,
+          "predictive80": [
+            2,
+            9
+          ],
+          "positionsAboveExpectation": -0.6756500000000001,
+          "probabilityAtLeastAsGood": 0.6649499999999999,
+          "probabilityAtLeastAsBad": 0.4625999999999999,
+          "positionProbabilities": [
+            0.085725,
+            0.0975,
+            0.10875,
+            0.118875,
+            0.12655,
+            0.12755,
+            0.115625,
+            0.086925,
+            0.0586,
+            0.03425,
+            0.020575,
+            0.0108,
+            0.0047,
+            0.00215,
+            0.001025,
+            0.000225,
+            0.0001,
+            7.5e-05
+          ]
+        },
+        {
+          "driverId": "franco-colapinto",
+          "name": "Franco Colapinto",
+          "constructorId": "alpine",
+          "officialPosition": 7,
+          "officialPositionText": "7",
+          "actualEligibleRank": 7,
+          "expectedEligibleRank": 10.807525000000002,
+          "predictive80": [
+            6,
+            15
+          ],
+          "positionsAboveExpectation": 3.807525000000002,
+          "probabilityAtLeastAsGood": 0.1718,
+          "probabilityAtLeastAsBad": 0.8774500000000001,
+          "positionProbabilities": [
+            0.010475,
+            0.01205,
+            0.01715,
+            0.0205,
+            0.027,
+            0.035375,
+            0.04925,
+            0.07115,
+            0.093375,
+            0.1044,
+            0.107725,
+            0.106775,
+            0.1009,
+            0.086625,
+            0.0673,
+            0.048625,
+            0.02815,
+            0.013175
+          ]
+        },
+        {
+          "driverId": "charles-leclerc",
+          "name": "Charles Leclerc",
+          "constructorId": "ferrari",
+          "officialPosition": 8,
+          "officialPositionText": "8",
+          "actualEligibleRank": 8,
+          "expectedEligibleRank": 4.339149999999999,
+          "predictive80": [
+            1,
+            8
+          ],
+          "positionsAboveExpectation": -3.660850000000001,
+          "probabilityAtLeastAsGood": 0.9396000000000001,
+          "probabilityAtLeastAsBad": 0.114925,
+          "positionProbabilities": [
+            0.13445,
+            0.14175,
+            0.143925,
+            0.142475,
+            0.12975,
+            0.1088,
+            0.083925,
+            0.054525,
+            0.03165,
+            0.0157,
+            0.007525,
+            0.00335,
+            0.0013,
+            0.0006,
+            0.000225,
+            5e-05,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "driverId": "carlos-sainz-jr",
+          "name": "Carlos Sainz Jr.",
+          "constructorId": "williams",
+          "officialPosition": 9,
+          "officialPositionText": "9",
+          "actualEligibleRank": 9,
+          "expectedEligibleRank": 12.838125,
+          "predictive80": [
+            8,
+            17
+          ],
+          "positionsAboveExpectation": 3.838125,
+          "probabilityAtLeastAsGood": 0.17325000000000002,
+          "probabilityAtLeastAsBad": 0.8754,
+          "positionProbabilities": [
+            0.00515,
+            0.006125,
+            0.007825,
+            0.010375,
+            0.0121,
+            0.018475,
+            0.027025,
+            0.037525,
+            0.04865,
+            0.06685,
+            0.0799,
+            0.08975,
+            0.102175,
+            0.107925,
+            0.112125,
+            0.1097,
+            0.093375,
+            0.06495
+          ]
+        },
+        {
+          "driverId": "alexander-albon",
+          "name": "Alexander Albon",
+          "constructorId": "williams",
+          "officialPosition": 10,
+          "officialPositionText": "10",
+          "actualEligibleRank": 10,
+          "expectedEligibleRank": 13.07695,
+          "predictive80": [
+            8,
+            17
+          ],
+          "positionsAboveExpectation": 3.07695,
+          "probabilityAtLeastAsGood": 0.21989999999999998,
+          "probabilityAtLeastAsBad": 0.8421,
+          "positionProbabilities": [
+            0.0048,
+            0.006225,
+            0.0074,
+            0.008975,
+            0.011875,
+            0.01705,
+            0.0225,
+            0.033575,
+            0.0455,
+            0.062,
+            0.075325,
+            0.0882,
+            0.099575,
+            0.107625,
+            0.112475,
+            0.116,
+            0.1032,
+            0.0777
+          ]
+        },
+        {
+          "driverId": "oliver-bearman",
+          "name": "Oliver Bearman",
+          "constructorId": "haas",
+          "officialPosition": 11,
+          "officialPositionText": "11",
+          "actualEligibleRank": 11,
+          "expectedEligibleRank": 9.481824999999997,
+          "predictive80": [
+            5,
+            14
+          ],
+          "positionsAboveExpectation": -1.518175000000003,
+          "probabilityAtLeastAsGood": 0.7122999999999999,
+          "probabilityAtLeastAsBad": 0.398,
+          "positionProbabilities": [
+            0.017025,
+            0.020275,
+            0.026225,
+            0.032175,
+            0.041225,
+            0.054125,
+            0.0735,
+            0.100625,
+            0.1175,
+            0.119325,
+            0.1103,
+            0.090175,
+            0.072175,
+            0.0534,
+            0.0358,
+            0.0211,
+            0.011025,
+            0.004025
+          ]
+        },
+        {
+          "driverId": "gabriel-bortoleto",
+          "name": "Gabriel Bortoleto",
+          "constructorId": "audi",
+          "officialPosition": 12,
+          "officialPositionText": "12",
+          "actualEligibleRank": 12,
+          "expectedEligibleRank": 11.19645,
+          "predictive80": [
+            6,
+            16
+          ],
+          "positionsAboveExpectation": -0.8035499999999995,
+          "probabilityAtLeastAsGood": 0.609425,
+          "probabilityAtLeastAsBad": 0.4946,
+          "positionProbabilities": [
+            0.009075,
+            0.011725,
+            0.014975,
+            0.01885,
+            0.02535,
+            0.031875,
+            0.045,
+            0.0655,
+            0.08465,
+            0.095875,
+            0.102525,
+            0.104025,
+            0.0984,
+            0.090275,
+            0.074825,
+            0.0606,
+            0.04165,
+            0.024825
+          ]
+        },
+        {
+          "driverId": "esteban-ocon",
+          "name": "Esteban Ocon",
+          "constructorId": "haas",
+          "officialPosition": 13,
+          "officialPositionText": "13",
+          "actualEligibleRank": 13,
+          "expectedEligibleRank": 11.047175,
+          "predictive80": [
+            6,
+            16
+          ],
+          "positionsAboveExpectation": -1.9528250000000007,
+          "probabilityAtLeastAsGood": 0.734,
+          "probabilityAtLeastAsBad": 0.366975,
+          "positionProbabilities": [
+            0.009,
+            0.01185,
+            0.0154,
+            0.01955,
+            0.0244,
+            0.03195,
+            0.047125,
+            0.064075,
+            0.0869,
+            0.101325,
+            0.1094,
+            0.11205,
+            0.100975,
+            0.08815,
+            0.07215,
+            0.05285,
+            0.035375,
+            0.017475
+          ]
+        },
+        {
+          "driverId": "arvid-lindblad",
+          "name": "Arvid Lindblad",
+          "constructorId": "racing-bulls",
+          "officialPosition": 14,
+          "officialPositionText": "14",
+          "actualEligibleRank": 14,
+          "expectedEligibleRank": 11.756425,
+          "predictive80": [
+            7,
+            16
+          ],
+          "positionsAboveExpectation": -2.243575,
+          "probabilityAtLeastAsGood": 0.740075,
+          "probabilityAtLeastAsBad": 0.35757500000000003,
+          "positionProbabilities": [
+            0.00805,
+            0.0094,
+            0.01235,
+            0.0156,
+            0.020225,
+            0.028425,
+            0.037875,
+            0.0554,
+            0.070575,
+            0.0871,
+            0.09645,
+            0.10255,
+            0.098425,
+            0.09765,
+            0.088225,
+            0.0752,
+            0.0578,
+            0.0387
+          ]
+        },
+        {
+          "driverId": "fernando-alonso",
+          "name": "Fernando Alonso",
+          "constructorId": "aston-martin",
+          "officialPosition": 15,
+          "officialPositionText": "15",
+          "actualEligibleRank": 15,
+          "expectedEligibleRank": 13.263275,
+          "predictive80": [
+            8,
+            17
+          ],
+          "positionsAboveExpectation": -1.7367249999999999,
+          "probabilityAtLeastAsGood": 0.673225,
+          "probabilityAtLeastAsBad": 0.4415,
+          "positionProbabilities": [
+            0.004375,
+            0.005275,
+            0.007075,
+            0.008675,
+            0.011275,
+            0.015675,
+            0.0221,
+            0.032575,
+            0.04585,
+            0.05925,
+            0.06915,
+            0.08195,
+            0.09295,
+            0.102325,
+            0.114725,
+            0.120625,
+            0.124975,
+            0.081175
+          ]
+        },
+        {
+          "driverId": "sergio-perez",
+          "name": "Sergio P\u00e9rez",
+          "constructorId": "cadillac",
+          "officialPosition": 16,
+          "officialPositionText": "16",
+          "actualEligibleRank": 16,
+          "expectedEligibleRank": 14.660624999999998,
+          "predictive80": [
+            10,
+            18
+          ],
+          "positionsAboveExpectation": -1.3393750000000022,
+          "probabilityAtLeastAsGood": 0.613825,
+          "probabilityAtLeastAsBad": 0.521075,
+          "positionProbabilities": [
+            0.002475,
+            0.002775,
+            0.00415,
+            0.004975,
+            0.006425,
+            0.007825,
+            0.013425,
+            0.020425,
+            0.02865,
+            0.03505,
+            0.043875,
+            0.052625,
+            0.0669,
+            0.0847,
+            0.10465,
+            0.1349,
+            0.173475,
+            0.2127
+          ]
+        },
+        {
+          "driverId": "lance-stroll",
+          "name": "Lance Stroll",
+          "constructorId": "aston-martin",
+          "officialPosition": 17,
+          "officialPositionText": "17",
+          "actualEligibleRank": 17,
+          "expectedEligibleRank": 15.220600000000001,
+          "predictive80": [
+            11,
+            18
+          ],
+          "positionsAboveExpectation": -1.779399999999999,
+          "probabilityAtLeastAsGood": 0.691925,
+          "probabilityAtLeastAsBad": 0.48065,
+          "positionProbabilities": [
+            0.00215,
+            0.002,
+            0.002975,
+            0.004175,
+            0.0047,
+            0.007,
+            0.0103,
+            0.015425,
+            0.0224,
+            0.027075,
+            0.03655,
+            0.04425,
+            0.056025,
+            0.070475,
+            0.093275,
+            0.120575,
+            0.172575,
+            0.308075
+          ]
+        },
+        {
+          "driverId": "valtteri-bottas",
+          "name": "Valtteri Bottas",
+          "constructorId": "cadillac",
+          "officialPosition": 18,
+          "officialPositionText": "18",
+          "actualEligibleRank": 18,
+          "expectedEligibleRank": 14.2138,
+          "predictive80": [
+            9,
+            18
+          ],
+          "positionsAboveExpectation": -3.786199999999999,
+          "probabilityAtLeastAsGood": 1.0000000000000002,
+          "probabilityAtLeastAsBad": 0.1568,
+          "positionProbabilities": [
+            0.0032,
+            0.003425,
+            0.004075,
+            0.005875,
+            0.007975,
+            0.01095,
+            0.015475,
+            0.023525,
+            0.03075,
+            0.042625,
+            0.05135,
+            0.062675,
+            0.0774,
+            0.093075,
+            0.11645,
+            0.1368,
+            0.157575,
+            0.1568
+          ]
+        }
+      ]
+    },
+    {
+      "id": 1154,
+      "round": 5,
+      "date": "2026-05-24",
+      "name": "Formula 1 Lenovo Grand Prix du Canada 2026",
+      "eligibleCount": 16,
+      "excluded": [
+        {
+          "driverId": "alexander-albon",
+          "name": "Alexander Albon",
+          "reason": "Collision"
+        },
+        {
+          "driverId": "arvid-lindblad",
+          "name": "Arvid Lindblad",
+          "reason": "Gearbox"
+        },
+        {
+          "driverId": "fernando-alonso",
+          "name": "Fernando Alonso",
+          "reason": "Broken seat"
+        },
+        {
+          "driverId": "george-russell",
+          "name": "George Russell",
+          "reason": "Engine"
+        },
+        {
+          "driverId": "lando-norris",
+          "name": "Lando Norris",
+          "reason": "Gearbox"
+        },
+        {
+          "driverId": "sergio-perez",
+          "name": "Sergio P\u00e9rez",
+          "reason": "Suspension"
+        }
+      ],
+      "status": "pending",
+      "drivers": [],
+      "observedDrivers": [
+        {
+          "driverId": "kimi-antonelli",
+          "name": "Kimi Antonelli",
+          "officialPosition": 1,
+          "officialPositionText": "1",
+          "actualEligibleRank": 1
+        },
+        {
+          "driverId": "lewis-hamilton",
+          "name": "Lewis Hamilton",
+          "officialPosition": 2,
+          "officialPositionText": "2",
+          "actualEligibleRank": 2
+        },
+        {
+          "driverId": "max-verstappen",
+          "name": "Max Verstappen",
+          "officialPosition": 3,
+          "officialPositionText": "3",
+          "actualEligibleRank": 3
+        },
+        {
+          "driverId": "charles-leclerc",
+          "name": "Charles Leclerc",
+          "officialPosition": 4,
+          "officialPositionText": "4",
+          "actualEligibleRank": 4
+        },
+        {
+          "driverId": "isack-hadjar",
+          "name": "Isack Hadjar",
+          "officialPosition": 5,
+          "officialPositionText": "5",
+          "actualEligibleRank": 5
+        },
+        {
+          "driverId": "franco-colapinto",
+          "name": "Franco Colapinto",
+          "officialPosition": 6,
+          "officialPositionText": "6",
+          "actualEligibleRank": 6
+        },
+        {
+          "driverId": "liam-lawson",
+          "name": "Liam Lawson",
+          "officialPosition": 7,
+          "officialPositionText": "7",
+          "actualEligibleRank": 7
+        },
+        {
+          "driverId": "pierre-gasly",
+          "name": "Pierre Gasly",
+          "officialPosition": 8,
+          "officialPositionText": "8",
+          "actualEligibleRank": 8
+        },
+        {
+          "driverId": "carlos-sainz-jr",
+          "name": "Carlos Sainz Jr.",
+          "officialPosition": 9,
+          "officialPositionText": "9",
+          "actualEligibleRank": 9
+        },
+        {
+          "driverId": "oliver-bearman",
+          "name": "Oliver Bearman",
+          "officialPosition": 10,
+          "officialPositionText": "10",
+          "actualEligibleRank": 10
+        },
+        {
+          "driverId": "oscar-piastri",
+          "name": "Oscar Piastri",
+          "officialPosition": 11,
+          "officialPositionText": "11",
+          "actualEligibleRank": 11
+        },
+        {
+          "driverId": "nico-hulkenberg",
+          "name": "Nico H\u00fclkenberg",
+          "officialPosition": 12,
+          "officialPositionText": "12",
+          "actualEligibleRank": 12
+        },
+        {
+          "driverId": "gabriel-bortoleto",
+          "name": "Gabriel Bortoleto",
+          "officialPosition": 13,
+          "officialPositionText": "13",
+          "actualEligibleRank": 13
+        },
+        {
+          "driverId": "esteban-ocon",
+          "name": "Esteban Ocon",
+          "officialPosition": 14,
+          "officialPositionText": "14",
+          "actualEligibleRank": 14
+        },
+        {
+          "driverId": "lance-stroll",
+          "name": "Lance Stroll",
+          "officialPosition": 15,
+          "officialPositionText": "15",
+          "actualEligibleRank": 15
+        },
+        {
+          "driverId": "valtteri-bottas",
+          "name": "Valtteri Bottas",
+          "officialPosition": 16,
+          "officialPositionText": "16",
+          "actualEligibleRank": 16
+        }
+      ]
+    },
+    {
+      "id": 1155,
+      "round": 6,
+      "date": "2026-06-07",
+      "name": "Formula 1 Louis Vuitton Grand Prix de Monaco 2026",
+      "eligibleCount": 15,
+      "excluded": [
+        {
+          "driverId": "carlos-sainz-jr",
+          "name": "Carlos Sainz Jr.",
+          "reason": "Collision damage"
+        },
+        {
+          "driverId": "charles-leclerc",
+          "name": "Charles Leclerc",
+          "reason": "Accident"
+        },
+        {
+          "driverId": "lance-stroll",
+          "name": "Lance Stroll",
+          "reason": "Accident"
+        },
+        {
+          "driverId": "lando-norris",
+          "name": "Lando Norris",
+          "reason": "Battery"
+        },
+        {
+          "driverId": "max-verstappen",
+          "name": "Max Verstappen",
+          "reason": "Engine"
+        },
+        {
+          "driverId": "oliver-bearman",
+          "name": "Oliver Bearman",
+          "reason": "Brakes"
+        },
+        {
+          "driverId": "valtteri-bottas",
+          "name": "Valtteri Bottas",
+          "reason": "Brakes"
+        }
+      ],
+      "status": "pending",
+      "drivers": [],
+      "observedDrivers": [
+        {
+          "driverId": "kimi-antonelli",
+          "name": "Kimi Antonelli",
+          "officialPosition": 1,
+          "officialPositionText": "1",
+          "actualEligibleRank": 1
+        },
+        {
+          "driverId": "lewis-hamilton",
+          "name": "Lewis Hamilton",
+          "officialPosition": 2,
+          "officialPositionText": "2",
+          "actualEligibleRank": 2
+        },
+        {
+          "driverId": "isack-hadjar",
+          "name": "Isack Hadjar",
+          "officialPosition": 3,
+          "officialPositionText": "3",
+          "actualEligibleRank": 3
+        },
+        {
+          "driverId": "oscar-piastri",
+          "name": "Oscar Piastri",
+          "officialPosition": 4,
+          "officialPositionText": "4",
+          "actualEligibleRank": 4
+        },
+        {
+          "driverId": "liam-lawson",
+          "name": "Liam Lawson",
+          "officialPosition": 5,
+          "officialPositionText": "5",
+          "actualEligibleRank": 5
+        },
+        {
+          "driverId": "arvid-lindblad",
+          "name": "Arvid Lindblad",
+          "officialPosition": 6,
+          "officialPositionText": "6",
+          "actualEligibleRank": 6
+        },
+        {
+          "driverId": "pierre-gasly",
+          "name": "Pierre Gasly",
+          "officialPosition": 7,
+          "officialPositionText": "7",
+          "actualEligibleRank": 7
+        },
+        {
+          "driverId": "alexander-albon",
+          "name": "Alexander Albon",
+          "officialPosition": 8,
+          "officialPositionText": "8",
+          "actualEligibleRank": 8
+        },
+        {
+          "driverId": "esteban-ocon",
+          "name": "Esteban Ocon",
+          "officialPosition": 9,
+          "officialPositionText": "9",
+          "actualEligibleRank": 9
+        },
+        {
+          "driverId": "fernando-alonso",
+          "name": "Fernando Alonso",
+          "officialPosition": 10,
+          "officialPositionText": "10",
+          "actualEligibleRank": 10
+        },
+        {
+          "driverId": "gabriel-bortoleto",
+          "name": "Gabriel Bortoleto",
+          "officialPosition": 11,
+          "officialPositionText": "11",
+          "actualEligibleRank": 11
+        },
+        {
+          "driverId": "george-russell",
+          "name": "George Russell",
+          "officialPosition": 12,
+          "officialPositionText": "12",
+          "actualEligibleRank": 12
+        },
+        {
+          "driverId": "nico-hulkenberg",
+          "name": "Nico H\u00fclkenberg",
+          "officialPosition": 13,
+          "officialPositionText": "13",
+          "actualEligibleRank": 13
+        },
+        {
+          "driverId": "franco-colapinto",
+          "name": "Franco Colapinto",
+          "officialPosition": 14,
+          "officialPositionText": "14",
+          "actualEligibleRank": 14
+        },
+        {
+          "driverId": "sergio-perez",
+          "name": "Sergio P\u00e9rez",
+          "officialPosition": 15,
+          "officialPositionText": "15",
+          "actualEligibleRank": 15
+        }
+      ]
+    },
+    {
+      "id": 1156,
+      "round": 7,
+      "date": "2026-06-14",
+      "name": "Formula 1 MSC Cruises Gran Premio de Barcelona-Catalunya 2026",
+      "eligibleCount": 15,
+      "excluded": [
+        {
+          "driverId": "charles-leclerc",
+          "name": "Charles Leclerc",
+          "reason": "Hydraulics"
+        },
+        {
+          "driverId": "fernando-alonso",
+          "name": "Fernando Alonso",
+          "reason": "Battery"
+        },
+        {
+          "driverId": "kimi-antonelli",
+          "name": "Kimi Antonelli",
+          "reason": "Electrical"
+        },
+        {
+          "driverId": "lance-stroll",
+          "name": "Lance Stroll",
+          "reason": "Gearbox"
+        },
+        {
+          "driverId": "nico-hulkenberg",
+          "name": "Nico H\u00fclkenberg",
+          "reason": "Safety switch"
+        },
+        {
+          "driverId": "oliver-bearman",
+          "name": "Oliver Bearman",
+          "reason": "Engine"
+        },
+        {
+          "driverId": "valtteri-bottas",
+          "name": "Valtteri Bottas",
+          "reason": "Overheating"
+        }
+      ],
+      "status": "pending",
+      "drivers": [],
+      "observedDrivers": [
+        {
+          "driverId": "lewis-hamilton",
+          "name": "Lewis Hamilton",
+          "officialPosition": 1,
+          "officialPositionText": "1",
+          "actualEligibleRank": 1
+        },
+        {
+          "driverId": "george-russell",
+          "name": "George Russell",
+          "officialPosition": 2,
+          "officialPositionText": "2",
+          "actualEligibleRank": 2
+        },
+        {
+          "driverId": "lando-norris",
+          "name": "Lando Norris",
+          "officialPosition": 3,
+          "officialPositionText": "3",
+          "actualEligibleRank": 3
+        },
+        {
+          "driverId": "max-verstappen",
+          "name": "Max Verstappen",
+          "officialPosition": 4,
+          "officialPositionText": "4",
+          "actualEligibleRank": 4
+        },
+        {
+          "driverId": "oscar-piastri",
+          "name": "Oscar Piastri",
+          "officialPosition": 5,
+          "officialPositionText": "5",
+          "actualEligibleRank": 5
+        },
+        {
+          "driverId": "isack-hadjar",
+          "name": "Isack Hadjar",
+          "officialPosition": 6,
+          "officialPositionText": "6",
+          "actualEligibleRank": 6
+        },
+        {
+          "driverId": "pierre-gasly",
+          "name": "Pierre Gasly",
+          "officialPosition": 7,
+          "officialPositionText": "7",
+          "actualEligibleRank": 7
+        },
+        {
+          "driverId": "liam-lawson",
+          "name": "Liam Lawson",
+          "officialPosition": 8,
+          "officialPositionText": "8",
+          "actualEligibleRank": 8
+        },
+        {
+          "driverId": "arvid-lindblad",
+          "name": "Arvid Lindblad",
+          "officialPosition": 9,
+          "officialPositionText": "9",
+          "actualEligibleRank": 9
+        },
+        {
+          "driverId": "franco-colapinto",
+          "name": "Franco Colapinto",
+          "officialPosition": 10,
+          "officialPositionText": "10",
+          "actualEligibleRank": 10
+        },
+        {
+          "driverId": "gabriel-bortoleto",
+          "name": "Gabriel Bortoleto",
+          "officialPosition": 11,
+          "officialPositionText": "11",
+          "actualEligibleRank": 11
+        },
+        {
+          "driverId": "carlos-sainz-jr",
+          "name": "Carlos Sainz Jr.",
+          "officialPosition": 12,
+          "officialPositionText": "12",
+          "actualEligibleRank": 12
+        },
+        {
+          "driverId": "esteban-ocon",
+          "name": "Esteban Ocon",
+          "officialPosition": 13,
+          "officialPositionText": "13",
+          "actualEligibleRank": 13
+        },
+        {
+          "driverId": "sergio-perez",
+          "name": "Sergio P\u00e9rez",
+          "officialPosition": 14,
+          "officialPositionText": "14",
+          "actualEligibleRank": 14
+        },
+        {
+          "driverId": "alexander-albon",
+          "name": "Alexander Albon",
+          "officialPosition": null,
+          "officialPositionText": "NC",
+          "actualEligibleRank": 15
+        }
+      ]
+    },
+    {
+      "id": 1157,
+      "round": 8,
+      "date": "2026-06-28",
+      "name": "Formula 1 Lenovo Austrian Grand Prix 2026",
+      "eligibleCount": 18,
+      "excluded": [
+        {
+          "driverId": "carlos-sainz-jr",
+          "name": "Carlos Sainz Jr.",
+          "reason": "Electrical"
+        },
+        {
+          "driverId": "lance-stroll",
+          "name": "Lance Stroll",
+          "reason": "Electrical"
+        },
+        {
+          "driverId": "sergio-perez",
+          "name": "Sergio P\u00e9rez",
+          "reason": "Brakes"
+        },
+        {
+          "driverId": "valtteri-bottas",
+          "name": "Valtteri Bottas",
+          "reason": "Brakes"
+        }
+      ],
+      "status": "pending",
+      "drivers": [],
+      "observedDrivers": [
+        {
+          "driverId": "george-russell",
+          "name": "George Russell",
+          "officialPosition": 1,
+          "officialPositionText": "1",
+          "actualEligibleRank": 1
+        },
+        {
+          "driverId": "max-verstappen",
+          "name": "Max Verstappen",
+          "officialPosition": 2,
+          "officialPositionText": "2",
+          "actualEligibleRank": 2
+        },
+        {
+          "driverId": "kimi-antonelli",
+          "name": "Kimi Antonelli",
+          "officialPosition": 3,
+          "officialPositionText": "3",
+          "actualEligibleRank": 3
+        },
+        {
+          "driverId": "oscar-piastri",
+          "name": "Oscar Piastri",
+          "officialPosition": 4,
+          "officialPositionText": "4",
+          "actualEligibleRank": 4
+        },
+        {
+          "driverId": "lewis-hamilton",
+          "name": "Lewis Hamilton",
+          "officialPosition": 5,
+          "officialPositionText": "5",
+          "actualEligibleRank": 5
+        },
+        {
+          "driverId": "isack-hadjar",
+          "name": "Isack Hadjar",
+          "officialPosition": 6,
+          "officialPositionText": "6",
+          "actualEligibleRank": 6
+        },
+        {
+          "driverId": "lando-norris",
+          "name": "Lando Norris",
+          "officialPosition": 7,
+          "officialPositionText": "7",
+          "actualEligibleRank": 7
+        },
+        {
+          "driverId": "charles-leclerc",
+          "name": "Charles Leclerc",
+          "officialPosition": 8,
+          "officialPositionText": "8",
+          "actualEligibleRank": 8
+        },
+        {
+          "driverId": "liam-lawson",
+          "name": "Liam Lawson",
+          "officialPosition": 9,
+          "officialPositionText": "9",
+          "actualEligibleRank": 9
+        },
+        {
+          "driverId": "arvid-lindblad",
+          "name": "Arvid Lindblad",
+          "officialPosition": 10,
+          "officialPositionText": "10",
+          "actualEligibleRank": 10
+        },
+        {
+          "driverId": "gabriel-bortoleto",
+          "name": "Gabriel Bortoleto",
+          "officialPosition": 11,
+          "officialPositionText": "11",
+          "actualEligibleRank": 11
+        },
+        {
+          "driverId": "nico-hulkenberg",
+          "name": "Nico H\u00fclkenberg",
+          "officialPosition": 12,
+          "officialPositionText": "12",
+          "actualEligibleRank": 12
+        },
+        {
+          "driverId": "pierre-gasly",
+          "name": "Pierre Gasly",
+          "officialPosition": 13,
+          "officialPositionText": "13",
+          "actualEligibleRank": 13
+        },
+        {
+          "driverId": "oliver-bearman",
+          "name": "Oliver Bearman",
+          "officialPosition": 14,
+          "officialPositionText": "14",
+          "actualEligibleRank": 14
+        },
+        {
+          "driverId": "franco-colapinto",
+          "name": "Franco Colapinto",
+          "officialPosition": 15,
+          "officialPositionText": "15",
+          "actualEligibleRank": 15
+        },
+        {
+          "driverId": "esteban-ocon",
+          "name": "Esteban Ocon",
+          "officialPosition": 16,
+          "officialPositionText": "16",
+          "actualEligibleRank": 16
+        },
+        {
+          "driverId": "alexander-albon",
+          "name": "Alexander Albon",
+          "officialPosition": 17,
+          "officialPositionText": "17",
+          "actualEligibleRank": 17
+        },
+        {
+          "driverId": "fernando-alonso",
+          "name": "Fernando Alonso",
+          "officialPosition": 18,
+          "officialPositionText": "18",
+          "actualEligibleRank": 18
+        }
+      ]
+    },
+    {
+      "id": 1158,
+      "round": 9,
+      "date": "2026-07-05",
+      "name": "Formula 1 Pirelli British Grand Prix 2026",
+      "eligibleCount": 19,
+      "excluded": [
+        {
+          "driverId": "alexander-albon",
+          "name": "Alexander Albon",
+          "reason": "Collision damage"
+        },
+        {
+          "driverId": "max-verstappen",
+          "name": "Max Verstappen",
+          "reason": "Spun off"
+        },
+        {
+          "driverId": "nico-hulkenberg",
+          "name": "Nico H\u00fclkenberg",
+          "reason": "Gearbox"
+        }
+      ],
+      "status": "pending",
+      "drivers": [],
+      "observedDrivers": [
+        {
+          "driverId": "charles-leclerc",
+          "name": "Charles Leclerc",
+          "officialPosition": 1,
+          "officialPositionText": "1",
+          "actualEligibleRank": 1
+        },
+        {
+          "driverId": "george-russell",
+          "name": "George Russell",
+          "officialPosition": 2,
+          "officialPositionText": "2",
+          "actualEligibleRank": 2
+        },
+        {
+          "driverId": "lewis-hamilton",
+          "name": "Lewis Hamilton",
+          "officialPosition": 3,
+          "officialPositionText": "3",
+          "actualEligibleRank": 3
+        },
+        {
+          "driverId": "lando-norris",
+          "name": "Lando Norris",
+          "officialPosition": 4,
+          "officialPositionText": "4",
+          "actualEligibleRank": 4
+        },
+        {
+          "driverId": "isack-hadjar",
+          "name": "Isack Hadjar",
+          "officialPosition": 5,
+          "officialPositionText": "5",
+          "actualEligibleRank": 5
+        },
+        {
+          "driverId": "liam-lawson",
+          "name": "Liam Lawson",
+          "officialPosition": 6,
+          "officialPositionText": "6",
+          "actualEligibleRank": 6
+        },
+        {
+          "driverId": "arvid-lindblad",
+          "name": "Arvid Lindblad",
+          "officialPosition": 7,
+          "officialPositionText": "7",
+          "actualEligibleRank": 7
+        },
+        {
+          "driverId": "gabriel-bortoleto",
+          "name": "Gabriel Bortoleto",
+          "officialPosition": 8,
+          "officialPositionText": "8",
+          "actualEligibleRank": 8
+        },
+        {
+          "driverId": "franco-colapinto",
+          "name": "Franco Colapinto",
+          "officialPosition": 9,
+          "officialPositionText": "9",
+          "actualEligibleRank": 9
+        },
+        {
+          "driverId": "pierre-gasly",
+          "name": "Pierre Gasly",
+          "officialPosition": 10,
+          "officialPositionText": "10",
+          "actualEligibleRank": 10
+        },
+        {
+          "driverId": "oscar-piastri",
+          "name": "Oscar Piastri",
+          "officialPosition": 11,
+          "officialPositionText": "11",
+          "actualEligibleRank": 11
+        },
+        {
+          "driverId": "oliver-bearman",
+          "name": "Oliver Bearman",
+          "officialPosition": 12,
+          "officialPositionText": "12",
+          "actualEligibleRank": 12
+        },
+        {
+          "driverId": "esteban-ocon",
+          "name": "Esteban Ocon",
+          "officialPosition": 13,
+          "officialPositionText": "13",
+          "actualEligibleRank": 13
+        },
+        {
+          "driverId": "sergio-perez",
+          "name": "Sergio P\u00e9rez",
+          "officialPosition": 14,
+          "officialPositionText": "14",
+          "actualEligibleRank": 14
+        },
+        {
+          "driverId": "kimi-antonelli",
+          "name": "Kimi Antonelli",
+          "officialPosition": 15,
+          "officialPositionText": "15",
+          "actualEligibleRank": 15
+        },
+        {
+          "driverId": "valtteri-bottas",
+          "name": "Valtteri Bottas",
+          "officialPosition": 16,
+          "officialPositionText": "16",
+          "actualEligibleRank": 16
+        },
+        {
+          "driverId": "carlos-sainz-jr",
+          "name": "Carlos Sainz Jr.",
+          "officialPosition": 17,
+          "officialPositionText": "17",
+          "actualEligibleRank": 17
+        },
+        {
+          "driverId": "fernando-alonso",
+          "name": "Fernando Alonso",
+          "officialPosition": 18,
+          "officialPositionText": "18",
+          "actualEligibleRank": 18
+        },
+        {
+          "driverId": "lance-stroll",
+          "name": "Lance Stroll",
+          "officialPosition": 19,
+          "officialPositionText": "19",
+          "actualEligibleRank": 19
+        }
+      ]
+    },
+    {
+      "id": 1159,
+      "round": 10,
+      "date": "2026-07-19",
+      "name": "Formula 1 Mo\u00ebt & Chandon Belgian Grand Prix 2026",
+      "eligibleCount": 19,
+      "excluded": [
+        {
+          "driverId": "george-russell",
+          "name": "George Russell",
+          "reason": "Collision"
+        },
+        {
+          "driverId": "lance-stroll",
+          "name": "Lance Stroll",
+          "reason": "Gearbox"
+        },
+        {
+          "driverId": "sergio-perez",
+          "name": "Sergio P\u00e9rez",
+          "reason": "Suspension"
+        }
+      ],
+      "status": "pending",
+      "drivers": [],
+      "observedDrivers": [
+        {
+          "driverId": "kimi-antonelli",
+          "name": "Kimi Antonelli",
+          "officialPosition": 1,
+          "officialPositionText": "1",
+          "actualEligibleRank": 1
+        },
+        {
+          "driverId": "charles-leclerc",
+          "name": "Charles Leclerc",
+          "officialPosition": 2,
+          "officialPositionText": "2",
+          "actualEligibleRank": 2
+        },
+        {
+          "driverId": "max-verstappen",
+          "name": "Max Verstappen",
+          "officialPosition": 3,
+          "officialPositionText": "3",
+          "actualEligibleRank": 3
+        },
+        {
+          "driverId": "lewis-hamilton",
+          "name": "Lewis Hamilton",
+          "officialPosition": 4,
+          "officialPositionText": "4",
+          "actualEligibleRank": 4
+        },
+        {
+          "driverId": "oscar-piastri",
+          "name": "Oscar Piastri",
+          "officialPosition": 5,
+          "officialPositionText": "5",
+          "actualEligibleRank": 5
+        },
+        {
+          "driverId": "isack-hadjar",
+          "name": "Isack Hadjar",
+          "officialPosition": 6,
+          "officialPositionText": "6",
+          "actualEligibleRank": 6
+        },
+        {
+          "driverId": "lando-norris",
+          "name": "Lando Norris",
+          "officialPosition": 7,
+          "officialPositionText": "7",
+          "actualEligibleRank": 7
+        },
+        {
+          "driverId": "gabriel-bortoleto",
+          "name": "Gabriel Bortoleto",
+          "officialPosition": 8,
+          "officialPositionText": "8",
+          "actualEligibleRank": 8
+        },
+        {
+          "driverId": "arvid-lindblad",
+          "name": "Arvid Lindblad",
+          "officialPosition": 9,
+          "officialPositionText": "9",
+          "actualEligibleRank": 9
+        },
+        {
+          "driverId": "franco-colapinto",
+          "name": "Franco Colapinto",
+          "officialPosition": 10,
+          "officialPositionText": "10",
+          "actualEligibleRank": 10
+        },
+        {
+          "driverId": "pierre-gasly",
+          "name": "Pierre Gasly",
+          "officialPosition": 11,
+          "officialPositionText": "11",
+          "actualEligibleRank": 11
+        },
+        {
+          "driverId": "liam-lawson",
+          "name": "Liam Lawson",
+          "officialPosition": 12,
+          "officialPositionText": "12",
+          "actualEligibleRank": 12
+        },
+        {
+          "driverId": "nico-hulkenberg",
+          "name": "Nico H\u00fclkenberg",
+          "officialPosition": 13,
+          "officialPositionText": "13",
+          "actualEligibleRank": 13
+        },
+        {
+          "driverId": "oliver-bearman",
+          "name": "Oliver Bearman",
+          "officialPosition": 14,
+          "officialPositionText": "14",
+          "actualEligibleRank": 14
+        },
+        {
+          "driverId": "alexander-albon",
+          "name": "Alexander Albon",
+          "officialPosition": 15,
+          "officialPositionText": "15",
+          "actualEligibleRank": 15
+        },
+        {
+          "driverId": "carlos-sainz-jr",
+          "name": "Carlos Sainz Jr.",
+          "officialPosition": 16,
+          "officialPositionText": "16",
+          "actualEligibleRank": 16
+        },
+        {
+          "driverId": "esteban-ocon",
+          "name": "Esteban Ocon",
+          "officialPosition": 17,
+          "officialPositionText": "17",
+          "actualEligibleRank": 17
+        },
+        {
+          "driverId": "valtteri-bottas",
+          "name": "Valtteri Bottas",
+          "officialPosition": 18,
+          "officialPositionText": "18",
+          "actualEligibleRank": 18
+        },
+        {
+          "driverId": "fernando-alonso",
+          "name": "Fernando Alonso",
+          "officialPosition": 19,
+          "officialPositionText": "19",
+          "actualEligibleRank": 19
+        }
+      ]
+    },
+    {
+      "id": 1160,
+      "round": 11,
+      "date": "2026-07-26",
+      "name": "Formula 1 AWS Hungarian Grand Prix 2026",
+      "eligibleCount": 19,
+      "excluded": [
+        {
+          "driverId": "oscar-piastri",
+          "name": "Oscar Piastri",
+          "reason": "Gearbox"
+        },
+        {
+          "driverId": "sergio-perez",
+          "name": "Sergio P\u00e9rez",
+          "reason": "Suspension"
+        },
+        {
+          "driverId": "valtteri-bottas",
+          "name": "Valtteri Bottas",
+          "reason": "Brakes"
+        }
+      ],
+      "status": "pending",
+      "drivers": [],
+      "observedDrivers": [
+        {
+          "driverId": "lando-norris",
+          "name": "Lando Norris",
+          "officialPosition": 1,
+          "officialPositionText": "1",
+          "actualEligibleRank": 1
+        },
+        {
+          "driverId": "max-verstappen",
+          "name": "Max Verstappen",
+          "officialPosition": 2,
+          "officialPositionText": "2",
+          "actualEligibleRank": 2
+        },
+        {
+          "driverId": "kimi-antonelli",
+          "name": "Kimi Antonelli",
+          "officialPosition": 3,
+          "officialPositionText": "3",
+          "actualEligibleRank": 3
+        },
+        {
+          "driverId": "charles-leclerc",
+          "name": "Charles Leclerc",
+          "officialPosition": 4,
+          "officialPositionText": "4",
+          "actualEligibleRank": 4
+        },
+        {
+          "driverId": "lewis-hamilton",
+          "name": "Lewis Hamilton",
+          "officialPosition": 5,
+          "officialPositionText": "5",
+          "actualEligibleRank": 5
+        },
+        {
+          "driverId": "isack-hadjar",
+          "name": "Isack Hadjar",
+          "officialPosition": 6,
+          "officialPositionText": "6",
+          "actualEligibleRank": 6
+        },
+        {
+          "driverId": "george-russell",
+          "name": "George Russell",
+          "officialPosition": 7,
+          "officialPositionText": "7",
+          "actualEligibleRank": 7
+        },
+        {
+          "driverId": "liam-lawson",
+          "name": "Liam Lawson",
+          "officialPosition": 8,
+          "officialPositionText": "8",
+          "actualEligibleRank": 8
+        },
+        {
+          "driverId": "nico-hulkenberg",
+          "name": "Nico H\u00fclkenberg",
+          "officialPosition": 9,
+          "officialPositionText": "9",
+          "actualEligibleRank": 9
+        },
+        {
+          "driverId": "arvid-lindblad",
+          "name": "Arvid Lindblad",
+          "officialPosition": 10,
+          "officialPositionText": "10",
+          "actualEligibleRank": 10
+        },
+        {
+          "driverId": "gabriel-bortoleto",
+          "name": "Gabriel Bortoleto",
+          "officialPosition": 11,
+          "officialPositionText": "11",
+          "actualEligibleRank": 11
+        },
+        {
+          "driverId": "pierre-gasly",
+          "name": "Pierre Gasly",
+          "officialPosition": 12,
+          "officialPositionText": "12",
+          "actualEligibleRank": 12
+        },
+        {
+          "driverId": "lance-stroll",
+          "name": "Lance Stroll",
+          "officialPosition": 13,
+          "officialPositionText": "13",
+          "actualEligibleRank": 13
+        },
+        {
+          "driverId": "fernando-alonso",
+          "name": "Fernando Alonso",
+          "officialPosition": 14,
+          "officialPositionText": "14",
+          "actualEligibleRank": 14
+        },
+        {
+          "driverId": "franco-colapinto",
+          "name": "Franco Colapinto",
+          "officialPosition": 15,
+          "officialPositionText": "15",
+          "actualEligibleRank": 15
+        },
+        {
+          "driverId": "esteban-ocon",
+          "name": "Esteban Ocon",
+          "officialPosition": 16,
+          "officialPositionText": "16",
+          "actualEligibleRank": 16
+        },
+        {
+          "driverId": "alexander-albon",
+          "name": "Alexander Albon",
+          "officialPosition": 17,
+          "officialPositionText": "17",
+          "actualEligibleRank": 17
+        },
+        {
+          "driverId": "carlos-sainz-jr",
+          "name": "Carlos Sainz Jr.",
+          "officialPosition": 18,
+          "officialPositionText": "18",
+          "actualEligibleRank": 18
+        },
+        {
+          "driverId": "oliver-bearman",
+          "name": "Oliver Bearman",
+          "officialPosition": 19,
+          "officialPositionText": "19",
+          "actualEligibleRank": 19
+        }
+      ]
+    },
+    {
+      "id": 1161,
+      "round": 12,
+      "date": "2026-08-23",
+      "name": "Formula 1 Heineken Dutch Grand Prix 2026",
+      "eligibleCount": 16,
+      "excluded": [
+        {
+          "driverId": "alexander-albon",
+          "name": "Alexander Albon",
+          "reason": "Collision damage"
+        },
+        {
+          "driverId": "esteban-ocon",
+          "name": "Esteban Ocon",
+          "reason": "Engine"
+        },
+        {
+          "driverId": "lance-stroll",
+          "name": "Lance Stroll",
+          "reason": "Handling"
+        },
+        {
+          "driverId": "max-verstappen",
+          "name": "Max Verstappen",
+          "reason": "Accident"
+        },
+        {
+          "driverId": "oliver-bearman",
+          "name": "Oliver Bearman",
+          "reason": "Engine"
+        },
+        {
+          "driverId": "valtteri-bottas",
+          "name": "Valtteri Bottas",
+          "reason": "Hydraulics"
+        }
+      ],
+      "status": "pending",
+      "drivers": [],
+      "observedDrivers": [
+        {
+          "driverId": "lando-norris",
+          "name": "Lando Norris",
+          "officialPosition": 1,
+          "officialPositionText": "1",
+          "actualEligibleRank": 1
+        },
+        {
+          "driverId": "kimi-antonelli",
+          "name": "Kimi Antonelli",
+          "officialPosition": 2,
+          "officialPositionText": "2",
+          "actualEligibleRank": 2
+        },
+        {
+          "driverId": "george-russell",
+          "name": "George Russell",
+          "officialPosition": 3,
+          "officialPositionText": "3",
+          "actualEligibleRank": 3
+        },
+        {
+          "driverId": "lewis-hamilton",
+          "name": "Lewis Hamilton",
+          "officialPosition": 4,
+          "officialPositionText": "4",
+          "actualEligibleRank": 4
+        },
+        {
+          "driverId": "charles-leclerc",
+          "name": "Charles Leclerc",
+          "officialPosition": 5,
+          "officialPositionText": "5",
+          "actualEligibleRank": 5
+        },
+        {
+          "driverId": "oscar-piastri",
+          "name": "Oscar Piastri",
+          "officialPosition": 6,
+          "officialPositionText": "6",
+          "actualEligibleRank": 6
+        },
+        {
+          "driverId": "liam-lawson",
+          "name": "Liam Lawson",
+          "officialPosition": 7,
+          "officialPositionText": "7",
+          "actualEligibleRank": 7
+        },
+        {
+          "driverId": "nico-hulkenberg",
+          "name": "Nico H\u00fclkenberg",
+          "officialPosition": 8,
+          "officialPositionText": "8",
+          "actualEligibleRank": 8
+        },
+        {
+          "driverId": "fernando-alonso",
+          "name": "Fernando Alonso",
+          "officialPosition": 9,
+          "officialPositionText": "9",
+          "actualEligibleRank": 9
+        },
+        {
+          "driverId": "pierre-gasly",
+          "name": "Pierre Gasly",
+          "officialPosition": 10,
+          "officialPositionText": "10",
+          "actualEligibleRank": 10
+        },
+        {
+          "driverId": "yuki-tsunoda",
+          "name": "Yuki Tsunoda",
+          "officialPosition": 11,
+          "officialPositionText": "11",
+          "actualEligibleRank": 11
+        },
+        {
+          "driverId": "arvid-lindblad",
+          "name": "Arvid Lindblad",
+          "officialPosition": 12,
+          "officialPositionText": "12",
+          "actualEligibleRank": 12
+        },
+        {
+          "driverId": "gabriel-bortoleto",
+          "name": "Gabriel Bortoleto",
+          "officialPosition": 13,
+          "officialPositionText": "13",
+          "actualEligibleRank": 13
+        },
+        {
+          "driverId": "franco-colapinto",
+          "name": "Franco Colapinto",
+          "officialPosition": 14,
+          "officialPositionText": "14",
+          "actualEligibleRank": 14
+        },
+        {
+          "driverId": "sergio-perez",
+          "name": "Sergio P\u00e9rez",
+          "officialPosition": 15,
+          "officialPositionText": "15",
+          "actualEligibleRank": 15
+        },
+        {
+          "driverId": "carlos-sainz-jr",
+          "name": "Carlos Sainz Jr.",
+          "officialPosition": 16,
+          "officialPositionText": "16",
+          "actualEligibleRank": 16
+        }
+      ]
+    },
+    {
+      "id": 1162,
+      "round": 13,
+      "date": "2026-09-06",
+      "name": "Formula 1 Pirelli Gran Premio d'Italia 2026",
+      "eligibleCount": 19,
+      "excluded": [
+        {
+          "driverId": "charles-leclerc",
+          "name": "Charles Leclerc",
+          "reason": "Accident"
+        },
+        {
+          "driverId": "fernando-alonso",
+          "name": "Fernando Alonso",
+          "reason": "Mechanical"
+        },
+        {
+          "driverId": "lance-stroll",
+          "name": "Lance Stroll",
+          "reason": "Hydraulics"
+        }
+      ],
+      "status": "pending",
+      "drivers": [],
+      "observedDrivers": [
+        {
+          "driverId": "kimi-antonelli",
+          "name": "Kimi Antonelli",
+          "officialPosition": 1,
+          "officialPositionText": "1",
+          "actualEligibleRank": 1
+        },
+        {
+          "driverId": "george-russell",
+          "name": "George Russell",
+          "officialPosition": 2,
+          "officialPositionText": "2",
+          "actualEligibleRank": 2
+        },
+        {
+          "driverId": "max-verstappen",
+          "name": "Max Verstappen",
+          "officialPosition": 3,
+          "officialPositionText": "3",
+          "actualEligibleRank": 3
+        },
+        {
+          "driverId": "lando-norris",
+          "name": "Lando Norris",
+          "officialPosition": 4,
+          "officialPositionText": "4",
+          "actualEligibleRank": 4
+        },
+        {
+          "driverId": "oscar-piastri",
+          "name": "Oscar Piastri",
+          "officialPosition": 5,
+          "officialPositionText": "5",
+          "actualEligibleRank": 5
+        },
+        {
+          "driverId": "lewis-hamilton",
+          "name": "Lewis Hamilton",
+          "officialPosition": 6,
+          "officialPositionText": "6",
+          "actualEligibleRank": 6
+        },
+        {
+          "driverId": "pierre-gasly",
+          "name": "Pierre Gasly",
+          "officialPosition": 7,
+          "officialPositionText": "7",
+          "actualEligibleRank": 7
+        },
+        {
+          "driverId": "arvid-lindblad",
+          "name": "Arvid Lindblad",
+          "officialPosition": 8,
+          "officialPositionText": "8",
+          "actualEligibleRank": 8
+        },
+        {
+          "driverId": "franco-colapinto",
+          "name": "Franco Colapinto",
+          "officialPosition": 9,
+          "officialPositionText": "9",
+          "actualEligibleRank": 9
+        },
+        {
+          "driverId": "yuki-tsunoda",
+          "name": "Yuki Tsunoda",
+          "officialPosition": 10,
+          "officialPositionText": "10",
+          "actualEligibleRank": 10
+        },
+        {
+          "driverId": "gabriel-bortoleto",
+          "name": "Gabriel Bortoleto",
+          "officialPosition": 11,
+          "officialPositionText": "11",
+          "actualEligibleRank": 11
+        },
+        {
+          "driverId": "nico-hulkenberg",
+          "name": "Nico H\u00fclkenberg",
+          "officialPosition": 12,
+          "officialPositionText": "12",
+          "actualEligibleRank": 12
+        },
+        {
+          "driverId": "carlos-sainz-jr",
+          "name": "Carlos Sainz Jr.",
+          "officialPosition": 13,
+          "officialPositionText": "13",
+          "actualEligibleRank": 13
+        },
+        {
+          "driverId": "liam-lawson",
+          "name": "Liam Lawson",
+          "officialPosition": 14,
+          "officialPositionText": "14",
+          "actualEligibleRank": 14
+        },
+        {
+          "driverId": "oliver-bearman",
+          "name": "Oliver Bearman",
+          "officialPosition": 15,
+          "officialPositionText": "15",
+          "actualEligibleRank": 15
+        },
+        {
+          "driverId": "esteban-ocon",
+          "name": "Esteban Ocon",
+          "officialPosition": 16,
+          "officialPositionText": "16",
+          "actualEligibleRank": 16
+        },
+        {
+          "driverId": "alexander-albon",
+          "name": "Alexander Albon",
+          "officialPosition": 17,
+          "officialPositionText": "17",
+          "actualEligibleRank": 17
+        },
+        {
+          "driverId": "sergio-perez",
+          "name": "Sergio P\u00e9rez",
+          "officialPosition": 18,
+          "officialPositionText": "18",
+          "actualEligibleRank": 18
+        },
+        {
+          "driverId": "valtteri-bottas",
+          "name": "Valtteri Bottas",
+          "officialPosition": 19,
+          "officialPositionText": "19",
+          "actualEligibleRank": 19
+        }
+      ]
+    },
+    {
+      "id": 1163,
+      "round": 14,
+      "date": "2026-09-13",
+      "name": "Formula 1 TAG Heuer Gran Premio de Espa\u00f1a 2026",
+      "eligibleCount": 18,
+      "excluded": [
+        {
+          "driverId": "carlos-sainz-jr",
+          "name": "Carlos Sainz Jr.",
+          "reason": "Collision damage"
+        },
+        {
+          "driverId": "lance-stroll",
+          "name": "Lance Stroll",
+          "reason": "Brakes"
+        },
+        {
+          "driverId": "lewis-hamilton",
+          "name": "Lewis Hamilton",
+          "reason": "Brakes"
+        },
+        {
+          "driverId": "sergio-perez",
+          "name": "Sergio P\u00e9rez",
+          "reason": "Water pressure"
+        }
+      ],
+      "status": "pending",
+      "drivers": [],
+      "observedDrivers": [
+        {
+          "driverId": "kimi-antonelli",
+          "name": "Kimi Antonelli",
+          "officialPosition": 1,
+          "officialPositionText": "1",
+          "actualEligibleRank": 1
+        },
+        {
+          "driverId": "max-verstappen",
+          "name": "Max Verstappen",
+          "officialPosition": 2,
+          "officialPositionText": "2",
+          "actualEligibleRank": 2
+        },
+        {
+          "driverId": "lando-norris",
+          "name": "Lando Norris",
+          "officialPosition": 3,
+          "officialPositionText": "3",
+          "actualEligibleRank": 3
+        },
+        {
+          "driverId": "charles-leclerc",
+          "name": "Charles Leclerc",
+          "officialPosition": 4,
+          "officialPositionText": "4",
+          "actualEligibleRank": 4
+        },
+        {
+          "driverId": "george-russell",
+          "name": "George Russell",
+          "officialPosition": 5,
+          "officialPositionText": "5",
+          "actualEligibleRank": 5
+        },
+        {
+          "driverId": "liam-lawson",
+          "name": "Liam Lawson",
+          "officialPosition": 6,
+          "officialPositionText": "6",
+          "actualEligibleRank": 6
+        },
+        {
+          "driverId": "franco-colapinto",
+          "name": "Franco Colapinto",
+          "officialPosition": 7,
+          "officialPositionText": "7",
+          "actualEligibleRank": 7
+        },
+        {
+          "driverId": "oscar-piastri",
+          "name": "Oscar Piastri",
+          "officialPosition": 8,
+          "officialPositionText": "8",
+          "actualEligibleRank": 8
+        },
+        {
+          "driverId": "arvid-lindblad",
+          "name": "Arvid Lindblad",
+          "officialPosition": 9,
+          "officialPositionText": "9",
+          "actualEligibleRank": 9
+        },
+        {
+          "driverId": "nico-hulkenberg",
+          "name": "Nico H\u00fclkenberg",
+          "officialPosition": 10,
+          "officialPositionText": "10",
+          "actualEligibleRank": 10
+        },
+        {
+          "driverId": "esteban-ocon",
+          "name": "Esteban Ocon",
+          "officialPosition": 11,
+          "officialPositionText": "11",
+          "actualEligibleRank": 11
+        },
+        {
+          "driverId": "pierre-gasly",
+          "name": "Pierre Gasly",
+          "officialPosition": 12,
+          "officialPositionText": "12",
+          "actualEligibleRank": 12
+        },
+        {
+          "driverId": "gabriel-bortoleto",
+          "name": "Gabriel Bortoleto",
+          "officialPosition": 13,
+          "officialPositionText": "13",
+          "actualEligibleRank": 13
+        },
+        {
+          "driverId": "yuki-tsunoda",
+          "name": "Yuki Tsunoda",
+          "officialPosition": 14,
+          "officialPositionText": "14",
+          "actualEligibleRank": 14
+        },
+        {
+          "driverId": "alexander-albon",
+          "name": "Alexander Albon",
+          "officialPosition": 15,
+          "officialPositionText": "15",
+          "actualEligibleRank": 15
+        },
+        {
+          "driverId": "oliver-bearman",
+          "name": "Oliver Bearman",
+          "officialPosition": 16,
+          "officialPositionText": "16",
+          "actualEligibleRank": 16
+        },
+        {
+          "driverId": "fernando-alonso",
+          "name": "Fernando Alonso",
+          "officialPosition": 17,
+          "officialPositionText": "17",
+          "actualEligibleRank": 17
+        },
+        {
+          "driverId": "valtteri-bottas",
+          "name": "Valtteri Bottas",
+          "officialPosition": 18,
+          "officialPositionText": "18",
+          "actualEligibleRank": 18
+        }
+      ]
+    },
+    {
+      "id": 1164,
+      "round": 15,
+      "date": "2026-09-26",
+      "name": "Formula 1 Qatar Airways Azerbaijan Grand Prix 2026",
+      "eligibleCount": 15,
+      "excluded": [
+        {
+          "driverId": "alexander-albon",
+          "name": "Alexander Albon",
+          "reason": "Accident"
+        },
+        {
+          "driverId": "fernando-alonso",
+          "name": "Fernando Alonso",
+          "reason": "Water pressure"
+        },
+        {
+          "driverId": "franco-colapinto",
+          "name": "Franco Colapinto",
+          "reason": "Collision damage"
+        },
+        {
+          "driverId": "lance-stroll",
+          "name": "Lance Stroll",
+          "reason": "Water pressure"
+        },
+        {
+          "driverId": "lando-norris",
+          "name": "Lando Norris",
+          "reason": "Collision"
+        },
+        {
+          "driverId": "pierre-gasly",
+          "name": "Pierre Gasly",
+          "reason": "Collision"
+        },
+        {
+          "driverId": "valtteri-bottas",
+          "name": "Valtteri Bottas",
+          "reason": "Accident"
+        }
+      ],
+      "status": "pending",
+      "drivers": [],
+      "observedDrivers": [
+        {
+          "driverId": "george-russell",
+          "name": "George Russell",
+          "officialPosition": 1,
+          "officialPositionText": "1",
+          "actualEligibleRank": 1
+        },
+        {
+          "driverId": "max-verstappen",
+          "name": "Max Verstappen",
+          "officialPosition": 2,
+          "officialPositionText": "2",
+          "actualEligibleRank": 2
+        },
+        {
+          "driverId": "isack-hadjar",
+          "name": "Isack Hadjar",
+          "officialPosition": 3,
+          "officialPositionText": "3",
+          "actualEligibleRank": 3
+        },
+        {
+          "driverId": "charles-leclerc",
+          "name": "Charles Leclerc",
+          "officialPosition": 4,
+          "officialPositionText": "4",
+          "actualEligibleRank": 4
+        },
+        {
+          "driverId": "kimi-antonelli",
+          "name": "Kimi Antonelli",
+          "officialPosition": 5,
+          "officialPositionText": "5",
+          "actualEligibleRank": 5
+        },
+        {
+          "driverId": "lewis-hamilton",
+          "name": "Lewis Hamilton",
+          "officialPosition": 6,
+          "officialPositionText": "6",
+          "actualEligibleRank": 6
+        },
+        {
+          "driverId": "arvid-lindblad",
+          "name": "Arvid Lindblad",
+          "officialPosition": 7,
+          "officialPositionText": "7",
+          "actualEligibleRank": 7
+        },
+        {
+          "driverId": "esteban-ocon",
+          "name": "Esteban Ocon",
+          "officialPosition": 8,
+          "officialPositionText": "8",
+          "actualEligibleRank": 8
+        },
+        {
+          "driverId": "oliver-bearman",
+          "name": "Oliver Bearman",
+          "officialPosition": 9,
+          "officialPositionText": "9",
+          "actualEligibleRank": 9
+        },
+        {
+          "driverId": "carlos-sainz-jr",
+          "name": "Carlos Sainz Jr.",
+          "officialPosition": 10,
+          "officialPositionText": "10",
+          "actualEligibleRank": 10
+        },
+        {
+          "driverId": "nico-hulkenberg",
+          "name": "Nico H\u00fclkenberg",
+          "officialPosition": 11,
+          "officialPositionText": "11",
+          "actualEligibleRank": 11
+        },
+        {
+          "driverId": "liam-lawson",
+          "name": "Liam Lawson",
+          "officialPosition": 12,
+          "officialPositionText": "12",
+          "actualEligibleRank": 12
+        },
+        {
+          "driverId": "oscar-piastri",
+          "name": "Oscar Piastri",
+          "officialPosition": 13,
+          "officialPositionText": "13",
+          "actualEligibleRank": 13
+        },
+        {
+          "driverId": "sergio-perez",
+          "name": "Sergio P\u00e9rez",
+          "officialPosition": 14,
+          "officialPositionText": "14",
+          "actualEligibleRank": 14
+        },
+        {
+          "driverId": "gabriel-bortoleto",
+          "name": "Gabriel Bortoleto",
+          "officialPosition": 15,
+          "officialPositionText": "15",
+          "actualEligibleRank": 15
+        }
+      ]
+    },
+    {
+      "id": 1165,
+      "round": 16,
+      "date": "2026-10-04",
+      "name": "Formula 1 Gulf Air Bahrain Grand Prix in Malaysia 2026",
+      "eligibleCount": 19,
+      "excluded": [
+        {
+          "driverId": "alexander-albon",
+          "name": "Alexander Albon",
+          "reason": "Gearbox"
+        },
+        {
+          "driverId": "george-russell",
+          "name": "George Russell",
+          "reason": "Power loss"
+        },
+        {
+          "driverId": "valtteri-bottas",
+          "name": "Valtteri Bottas",
+          "reason": "Spun off"
+        }
+      ],
+      "status": "pending",
+      "drivers": [],
+      "observedDrivers": [
+        {
+          "driverId": "max-verstappen",
+          "name": "Max Verstappen",
+          "officialPosition": 1,
+          "officialPositionText": "1",
+          "actualEligibleRank": 1
+        },
+        {
+          "driverId": "kimi-antonelli",
+          "name": "Kimi Antonelli",
+          "officialPosition": 2,
+          "officialPositionText": "2",
+          "actualEligibleRank": 2
+        },
+        {
+          "driverId": "lewis-hamilton",
+          "name": "Lewis Hamilton",
+          "officialPosition": 3,
+          "officialPositionText": "3",
+          "actualEligibleRank": 3
+        },
+        {
+          "driverId": "charles-leclerc",
+          "name": "Charles Leclerc",
+          "officialPosition": 4,
+          "officialPositionText": "4",
+          "actualEligibleRank": 4
+        },
+        {
+          "driverId": "isack-hadjar",
+          "name": "Isack Hadjar",
+          "officialPosition": 5,
+          "officialPositionText": "5",
+          "actualEligibleRank": 5
+        },
+        {
+          "driverId": "oscar-piastri",
+          "name": "Oscar Piastri",
+          "officialPosition": 6,
+          "officialPositionText": "6",
+          "actualEligibleRank": 6
+        },
+        {
+          "driverId": "liam-lawson",
+          "name": "Liam Lawson",
+          "officialPosition": 7,
+          "officialPositionText": "7",
+          "actualEligibleRank": 7
+        },
+        {
+          "driverId": "fernando-alonso",
+          "name": "Fernando Alonso",
+          "officialPosition": 8,
+          "officialPositionText": "8",
+          "actualEligibleRank": 8
+        },
+        {
+          "driverId": "lando-norris",
+          "name": "Lando Norris",
+          "officialPosition": 9,
+          "officialPositionText": "9",
+          "actualEligibleRank": 9
+        },
+        {
+          "driverId": "arvid-lindblad",
+          "name": "Arvid Lindblad",
+          "officialPosition": 10,
+          "officialPositionText": "10",
+          "actualEligibleRank": 10
+        },
+        {
+          "driverId": "nico-hulkenberg",
+          "name": "Nico H\u00fclkenberg",
+          "officialPosition": 11,
+          "officialPositionText": "11",
+          "actualEligibleRank": 11
+        },
+        {
+          "driverId": "lance-stroll",
+          "name": "Lance Stroll",
+          "officialPosition": 12,
+          "officialPositionText": "12",
+          "actualEligibleRank": 12
+        },
+        {
+          "driverId": "franco-colapinto",
+          "name": "Franco Colapinto",
+          "officialPosition": 13,
+          "officialPositionText": "13",
+          "actualEligibleRank": 13
+        },
+        {
+          "driverId": "oliver-bearman",
+          "name": "Oliver Bearman",
+          "officialPosition": 14,
+          "officialPositionText": "14",
+          "actualEligibleRank": 14
+        },
+        {
+          "driverId": "esteban-ocon",
+          "name": "Esteban Ocon",
+          "officialPosition": 15,
+          "officialPositionText": "15",
+          "actualEligibleRank": 15
+        },
+        {
+          "driverId": "pierre-gasly",
+          "name": "Pierre Gasly",
+          "officialPosition": 16,
+          "officialPositionText": "16",
+          "actualEligibleRank": 16
+        },
+        {
+          "driverId": "carlos-sainz-jr",
+          "name": "Carlos Sainz Jr.",
+          "officialPosition": 17,
+          "officialPositionText": "17",
+          "actualEligibleRank": 17
+        },
+        {
+          "driverId": "gabriel-bortoleto",
+          "name": "Gabriel Bortoleto",
+          "officialPosition": 18,
+          "officialPositionText": "18",
+          "actualEligibleRank": 18
+        },
+        {
+          "driverId": "sergio-perez",
+          "name": "Sergio P\u00e9rez",
+          "officialPosition": 19,
+          "officialPositionText": "19",
+          "actualEligibleRank": 19
+        }
+      ]
+    },
+    {
+      "id": 1166,
+      "round": 17,
+      "date": "2026-10-11",
+      "name": "Formula 1 Singapore Airlines Singapore Grand Prix 2026",
+      "eligibleCount": 18,
+      "excluded": [
+        {
+          "driverId": "alexander-albon",
+          "name": "Alexander Albon",
+          "reason": "Overheating"
+        },
+        {
+          "driverId": "franco-colapinto",
+          "name": "Franco Colapinto",
+          "reason": "Transmission"
+        },
+        {
+          "driverId": "gabriel-bortoleto",
+          "name": "Gabriel Bortoleto",
+          "reason": "Gearbox"
+        },
+        {
+          "driverId": "lance-stroll",
+          "name": "Lance Stroll",
+          "reason": "Clutch"
+        }
+      ],
+      "status": "pending",
+      "drivers": [],
+      "observedDrivers": [
+        {
+          "driverId": "max-verstappen",
+          "name": "Max Verstappen",
+          "officialPosition": 1,
+          "officialPositionText": "1",
+          "actualEligibleRank": 1
+        },
+        {
+          "driverId": "charles-leclerc",
+          "name": "Charles Leclerc",
+          "officialPosition": 2,
+          "officialPositionText": "2",
+          "actualEligibleRank": 2
+        },
+        {
+          "driverId": "kimi-antonelli",
+          "name": "Kimi Antonelli",
+          "officialPosition": 3,
+          "officialPositionText": "3",
+          "actualEligibleRank": 3
+        },
+        {
+          "driverId": "lando-norris",
+          "name": "Lando Norris",
+          "officialPosition": 4,
+          "officialPositionText": "4",
+          "actualEligibleRank": 4
+        },
+        {
+          "driverId": "oscar-piastri",
+          "name": "Oscar Piastri",
+          "officialPosition": 5,
+          "officialPositionText": "5",
+          "actualEligibleRank": 5
+        },
+        {
+          "driverId": "lewis-hamilton",
+          "name": "Lewis Hamilton",
+          "officialPosition": 6,
+          "officialPositionText": "6",
+          "actualEligibleRank": 6
+        },
+        {
+          "driverId": "liam-lawson",
+          "name": "Liam Lawson",
+          "officialPosition": 7,
+          "officialPositionText": "7",
+          "actualEligibleRank": 7
+        },
+        {
+          "driverId": "nico-hulkenberg",
+          "name": "Nico H\u00fclkenberg",
+          "officialPosition": 8,
+          "officialPositionText": "8",
+          "actualEligibleRank": 8
+        },
+        {
+          "driverId": "george-russell",
+          "name": "George Russell",
+          "officialPosition": 9,
+          "officialPositionText": "9",
+          "actualEligibleRank": 9
+        },
+        {
+          "driverId": "isack-hadjar",
+          "name": "Isack Hadjar",
+          "officialPosition": 10,
+          "officialPositionText": "10",
+          "actualEligibleRank": 10
+        },
+        {
+          "driverId": "pierre-gasly",
+          "name": "Pierre Gasly",
+          "officialPosition": 11,
+          "officialPositionText": "11",
+          "actualEligibleRank": 11
+        },
+        {
+          "driverId": "oliver-bearman",
+          "name": "Oliver Bearman",
+          "officialPosition": 12,
+          "officialPositionText": "12",
+          "actualEligibleRank": 12
+        },
+        {
+          "driverId": "esteban-ocon",
+          "name": "Esteban Ocon",
+          "officialPosition": 13,
+          "officialPositionText": "13",
+          "actualEligibleRank": 13
+        },
+        {
+          "driverId": "carlos-sainz-jr",
+          "name": "Carlos Sainz Jr.",
+          "officialPosition": 14,
+          "officialPositionText": "14",
+          "actualEligibleRank": 14
+        },
+        {
+          "driverId": "arvid-lindblad",
+          "name": "Arvid Lindblad",
+          "officialPosition": 15,
+          "officialPositionText": "15",
+          "actualEligibleRank": 15
+        },
+        {
+          "driverId": "fernando-alonso",
+          "name": "Fernando Alonso",
+          "officialPosition": 16,
+          "officialPositionText": "16",
+          "actualEligibleRank": 16
+        },
+        {
+          "driverId": "sergio-perez",
+          "name": "Sergio P\u00e9rez",
+          "officialPosition": 17,
+          "officialPositionText": "17",
+          "actualEligibleRank": 17
+        },
+        {
+          "driverId": "valtteri-bottas",
+          "name": "Valtteri Bottas",
+          "officialPosition": 19,
+          "officialPositionText": "19",
+          "actualEligibleRank": 18
+        }
+      ]
+    },
+    {
+      "id": 1167,
+      "round": 18,
+      "date": "2026-10-25",
+      "name": "Formula 1 MSC Cruises United States Grand Prix 2026",
+      "eligibleCount": 19,
+      "excluded": [
+        {
+          "driverId": "franco-colapinto",
+          "name": "Franco Colapinto",
+          "reason": "Engine"
+        },
+        {
+          "driverId": "oliver-bearman",
+          "name": "Oliver Bearman",
+          "reason": "Collision damage"
+        },
+        {
+          "driverId": "valtteri-bottas",
+          "name": "Valtteri Bottas",
+          "reason": "Engine"
+        }
+      ],
+      "status": "pending",
+      "drivers": [],
+      "observedDrivers": [
+        {
+          "driverId": "kimi-antonelli",
+          "name": "Kimi Antonelli",
+          "officialPosition": 1,
+          "officialPositionText": "1",
+          "actualEligibleRank": 1
+        },
+        {
+          "driverId": "charles-leclerc",
+          "name": "Charles Leclerc",
+          "officialPosition": 2,
+          "officialPositionText": "2",
+          "actualEligibleRank": 2
+        },
+        {
+          "driverId": "max-verstappen",
+          "name": "Max Verstappen",
+          "officialPosition": 3,
+          "officialPositionText": "3",
+          "actualEligibleRank": 3
+        },
+        {
+          "driverId": "lewis-hamilton",
+          "name": "Lewis Hamilton",
+          "officialPosition": 4,
+          "officialPositionText": "4",
+          "actualEligibleRank": 4
+        },
+        {
+          "driverId": "lando-norris",
+          "name": "Lando Norris",
+          "officialPosition": 5,
+          "officialPositionText": "5",
+          "actualEligibleRank": 5
+        },
+        {
+          "driverId": "isack-hadjar",
+          "name": "Isack Hadjar",
+          "officialPosition": 6,
+          "officialPositionText": "6",
+          "actualEligibleRank": 6
+        },
+        {
+          "driverId": "oscar-piastri",
+          "name": "Oscar Piastri",
+          "officialPosition": 7,
+          "officialPositionText": "7",
+          "actualEligibleRank": 7
+        },
+        {
+          "driverId": "george-russell",
+          "name": "George Russell",
+          "officialPosition": 8,
+          "officialPositionText": "8",
+          "actualEligibleRank": 8
+        },
+        {
+          "driverId": "liam-lawson",
+          "name": "Liam Lawson",
+          "officialPosition": 9,
+          "officialPositionText": "9",
+          "actualEligibleRank": 9
+        },
+        {
+          "driverId": "pierre-gasly",
+          "name": "Pierre Gasly",
+          "officialPosition": 10,
+          "officialPositionText": "10",
+          "actualEligibleRank": 10
+        },
+        {
+          "driverId": "nico-hulkenberg",
+          "name": "Nico H\u00fclkenberg",
+          "officialPosition": 11,
+          "officialPositionText": "11",
+          "actualEligibleRank": 11
+        },
+        {
+          "driverId": "arvid-lindblad",
+          "name": "Arvid Lindblad",
+          "officialPosition": 12,
+          "officialPositionText": "12",
+          "actualEligibleRank": 12
+        },
+        {
+          "driverId": "gabriel-bortoleto",
+          "name": "Gabriel Bortoleto",
+          "officialPosition": 13,
+          "officialPositionText": "13",
+          "actualEligibleRank": 13
+        },
+        {
+          "driverId": "esteban-ocon",
+          "name": "Esteban Ocon",
+          "officialPosition": 14,
+          "officialPositionText": "14",
+          "actualEligibleRank": 14
+        },
+        {
+          "driverId": "lance-stroll",
+          "name": "Lance Stroll",
+          "officialPosition": 15,
+          "officialPositionText": "15",
+          "actualEligibleRank": 15
+        },
+        {
+          "driverId": "fernando-alonso",
+          "name": "Fernando Alonso",
+          "officialPosition": 16,
+          "officialPositionText": "16",
+          "actualEligibleRank": 16
+        },
+        {
+          "driverId": "alexander-albon",
+          "name": "Alexander Albon",
+          "officialPosition": 17,
+          "officialPositionText": "17",
+          "actualEligibleRank": 17
+        },
+        {
+          "driverId": "carlos-sainz-jr",
+          "name": "Carlos Sainz Jr.",
+          "officialPosition": 18,
+          "officialPositionText": "18",
+          "actualEligibleRank": 18
+        },
+        {
+          "driverId": "sergio-perez",
+          "name": "Sergio P\u00e9rez",
+          "officialPosition": 19,
+          "officialPositionText": "19",
+          "actualEligibleRank": 19
+        }
+      ]
+    },
+    {
+      "id": 1168,
+      "round": 19,
+      "date": "2026-11-01",
+      "name": "Formula 1 Gran Premio de la Ciudad de M\u00e9xico 2026",
+      "eligibleCount": 17,
+      "excluded": [
+        {
+          "driverId": "arvid-lindblad",
+          "name": "Arvid Lindblad",
+          "reason": "Collision"
+        },
+        {
+          "driverId": "fernando-alonso",
+          "name": "Fernando Alonso",
+          "reason": "Engine"
+        },
+        {
+          "driverId": "lance-stroll",
+          "name": "Lance Stroll",
+          "reason": "Engine"
+        },
+        {
+          "driverId": "oliver-bearman",
+          "name": "Oliver Bearman",
+          "reason": "Collision damage"
+        },
+        {
+          "driverId": "valtteri-bottas",
+          "name": "Valtteri Bottas",
+          "reason": "Accident"
+        }
+      ],
+      "status": "pending",
+      "drivers": [],
+      "observedDrivers": [
+        {
+          "driverId": "max-verstappen",
+          "name": "Max Verstappen",
+          "officialPosition": 1,
+          "officialPositionText": "1",
+          "actualEligibleRank": 1
+        },
+        {
+          "driverId": "lewis-hamilton",
+          "name": "Lewis Hamilton",
+          "officialPosition": 2,
+          "officialPositionText": "2",
+          "actualEligibleRank": 2
+        },
+        {
+          "driverId": "kimi-antonelli",
+          "name": "Kimi Antonelli",
+          "officialPosition": 3,
+          "officialPositionText": "3",
+          "actualEligibleRank": 3
+        },
+        {
+          "driverId": "charles-leclerc",
+          "name": "Charles Leclerc",
+          "officialPosition": 4,
+          "officialPositionText": "4",
+          "actualEligibleRank": 4
+        },
+        {
+          "driverId": "lando-norris",
+          "name": "Lando Norris",
+          "officialPosition": 5,
+          "officialPositionText": "5",
+          "actualEligibleRank": 5
+        },
+        {
+          "driverId": "george-russell",
+          "name": "George Russell",
+          "officialPosition": 6,
+          "officialPositionText": "6",
+          "actualEligibleRank": 6
+        },
+        {
+          "driverId": "liam-lawson",
+          "name": "Liam Lawson",
+          "officialPosition": 7,
+          "officialPositionText": "7",
+          "actualEligibleRank": 7
+        },
+        {
+          "driverId": "gabriel-bortoleto",
+          "name": "Gabriel Bortoleto",
+          "officialPosition": 8,
+          "officialPositionText": "8",
+          "actualEligibleRank": 8
+        },
+        {
+          "driverId": "isack-hadjar",
+          "name": "Isack Hadjar",
+          "officialPosition": 9,
+          "officialPositionText": "9",
+          "actualEligibleRank": 9
+        },
+        {
+          "driverId": "ryo-hirakawa",
+          "name": "Ry\u014d Hirakawa",
+          "officialPosition": 10,
+          "officialPositionText": "10",
+          "actualEligibleRank": 10
+        },
+        {
+          "driverId": "alexander-albon",
+          "name": "Alexander Albon",
+          "officialPosition": 11,
+          "officialPositionText": "11",
+          "actualEligibleRank": 11
+        },
+        {
+          "driverId": "carlos-sainz-jr",
+          "name": "Carlos Sainz Jr.",
+          "officialPosition": 12,
+          "officialPositionText": "12",
+          "actualEligibleRank": 12
+        },
+        {
+          "driverId": "oscar-piastri",
+          "name": "Oscar Piastri",
+          "officialPosition": 13,
+          "officialPositionText": "13",
+          "actualEligibleRank": 13
+        },
+        {
+          "driverId": "nico-hulkenberg",
+          "name": "Nico H\u00fclkenberg",
+          "officialPosition": 14,
+          "officialPositionText": "14",
+          "actualEligibleRank": 14
+        },
+        {
+          "driverId": "franco-colapinto",
+          "name": "Franco Colapinto",
+          "officialPosition": 15,
+          "officialPositionText": "15",
+          "actualEligibleRank": 15
+        },
+        {
+          "driverId": "sergio-perez",
+          "name": "Sergio P\u00e9rez",
+          "officialPosition": 16,
+          "officialPositionText": "16",
+          "actualEligibleRank": 16
+        },
+        {
+          "driverId": "pierre-gasly",
+          "name": "Pierre Gasly",
+          "officialPosition": 17,
+          "officialPositionText": "17",
+          "actualEligibleRank": 17
+        }
+      ]
+    },
+    {
+      "id": 1169,
+      "round": 20,
+      "date": "2026-11-08",
+      "name": "Formula 1 MSC Cruises Grande Pr\u00eamio de S\u00e3o Paulo 2026",
+      "eligibleCount": 20,
+      "excluded": [
+        {
+          "driverId": "lance-stroll",
+          "name": "Lance Stroll",
+          "reason": "Battery"
+        },
+        {
+          "driverId": "valtteri-bottas",
+          "name": "Valtteri Bottas",
+          "reason": "Wheel nut"
+        }
+      ],
+      "status": "pending",
+      "drivers": [],
+      "observedDrivers": [
+        {
+          "driverId": "lando-norris",
+          "name": "Lando Norris",
+          "officialPosition": 1,
+          "officialPositionText": "1",
+          "actualEligibleRank": 1
+        },
+        {
+          "driverId": "max-verstappen",
+          "name": "Max Verstappen",
+          "officialPosition": 2,
+          "officialPositionText": "2",
+          "actualEligibleRank": 2
+        },
+        {
+          "driverId": "isack-hadjar",
+          "name": "Isack Hadjar",
+          "officialPosition": 3,
+          "officialPositionText": "3",
+          "actualEligibleRank": 3
+        },
+        {
+          "driverId": "george-russell",
+          "name": "George Russell",
+          "officialPosition": 4,
+          "officialPositionText": "4",
+          "actualEligibleRank": 4
+        },
+        {
+          "driverId": "kimi-antonelli",
+          "name": "Kimi Antonelli",
+          "officialPosition": 5,
+          "officialPositionText": "5",
+          "actualEligibleRank": 5
+        },
+        {
+          "driverId": "oscar-piastri",
+          "name": "Oscar Piastri",
+          "officialPosition": 6,
+          "officialPositionText": "6",
+          "actualEligibleRank": 6
+        },
+        {
+          "driverId": "liam-lawson",
+          "name": "Liam Lawson",
+          "officialPosition": 7,
+          "officialPositionText": "7",
+          "actualEligibleRank": 7
+        },
+        {
+          "driverId": "charles-leclerc",
+          "name": "Charles Leclerc",
+          "officialPosition": 8,
+          "officialPositionText": "8",
+          "actualEligibleRank": 8
+        },
+        {
+          "driverId": "lewis-hamilton",
+          "name": "Lewis Hamilton",
+          "officialPosition": 9,
+          "officialPositionText": "9",
+          "actualEligibleRank": 9
+        },
+        {
+          "driverId": "nico-hulkenberg",
+          "name": "Nico H\u00fclkenberg",
+          "officialPosition": 10,
+          "officialPositionText": "10",
+          "actualEligibleRank": 10
+        },
+        {
+          "driverId": "arvid-lindblad",
+          "name": "Arvid Lindblad",
+          "officialPosition": 11,
+          "officialPositionText": "11",
+          "actualEligibleRank": 11
+        },
+        {
+          "driverId": "fernando-alonso",
+          "name": "Fernando Alonso",
+          "officialPosition": 12,
+          "officialPositionText": "12",
+          "actualEligibleRank": 12
+        },
+        {
+          "driverId": "franco-colapinto",
+          "name": "Franco Colapinto",
+          "officialPosition": 13,
+          "officialPositionText": "13",
+          "actualEligibleRank": 13
+        },
+        {
+          "driverId": "pierre-gasly",
+          "name": "Pierre Gasly",
+          "officialPosition": 14,
+          "officialPositionText": "14",
+          "actualEligibleRank": 14
+        },
+        {
+          "driverId": "alexander-albon",
+          "name": "Alexander Albon",
+          "officialPosition": 15,
+          "officialPositionText": "15",
+          "actualEligibleRank": 15
+        },
+        {
+          "driverId": "gabriel-bortoleto",
+          "name": "Gabriel Bortoleto",
+          "officialPosition": 16,
+          "officialPositionText": "16",
+          "actualEligibleRank": 16
+        },
+        {
+          "driverId": "oliver-bearman",
+          "name": "Oliver Bearman",
+          "officialPosition": 17,
+          "officialPositionText": "17",
+          "actualEligibleRank": 17
+        },
+        {
+          "driverId": "sergio-perez",
+          "name": "Sergio P\u00e9rez",
+          "officialPosition": 18,
+          "officialPositionText": "18",
+          "actualEligibleRank": 18
+        },
+        {
+          "driverId": "carlos-sainz-jr",
+          "name": "Carlos Sainz Jr.",
+          "officialPosition": 19,
+          "officialPositionText": "19",
+          "actualEligibleRank": 19
+        },
+        {
+          "driverId": "rafael-camara",
+          "name": "Rafael C\u00e2mara",
+          "officialPosition": 20,
+          "officialPositionText": "20",
+          "actualEligibleRank": 20
+        }
+      ]
+    }
+  ]
+}

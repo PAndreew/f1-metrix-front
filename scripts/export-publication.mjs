@@ -1,6 +1,7 @@
 import { DatabaseSync } from "node:sqlite";
 import { validateQualifying } from "./validate-qualifying.mjs";
 import { validateSimulations } from "./validate-simulations.mjs";
+import { validateSequentialPreview } from "./validate-sequential-preview.mjs";
 import { validatePerformance } from "./validate-performance.mjs";
 import {
   existsSync,
@@ -99,11 +100,18 @@ export function exportPublication(root) {
     ? JSON.parse(readFileSync(qualifyingPath, "utf8"))
     : null;
   if (qualifying) validateQualifying(qualifying);
-  const simulationsPath = join(root, "publication", "simulations.json");
+  const sequentialPath = join(root, "publication", "sequential-preview.json");
+  const simulationsPath = existsSync(sequentialPath)
+    ? sequentialPath
+    : join(root, "publication", "simulations.json");
   const simulations = existsSync(simulationsPath)
     ? JSON.parse(readFileSync(simulationsPath, "utf8"))
     : null;
-  if (simulations) validateSimulations(simulations);
+  if (simulations) {
+    if (simulations.kind === "sequential-preview-eligible-finisher")
+      validateSequentialPreview(simulations);
+    else validateSimulations(simulations);
+  }
   const data = {
     simulations,
     qualifying,
