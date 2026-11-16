@@ -121,9 +121,18 @@ function intervalChart(id, rows, label, details = true) {
 }
 function rankings(target = main) {
   const m = publication.model,
-    interval = m.metadata.intervalPercent ?? 94;
-  target.innerHTML = `<div class="tabs" role="tablist"><button role="tab" id="tab-table" aria-controls="panel-table" aria-selected="true">Table</button><button role="tab" id="tab-plot" aria-controls="panel-plot" aria-selected="false">Plot</button></div><div role="tabpanel" id="panel-table" aria-labelledby="tab-table"><div class="controls"><input id="search" type="search" placeholder="Search drivers…" aria-label="Search drivers" maxlength="100"></div><div class="table-wrap"><table id="rankings"><thead><tr><th class="num">#</th><th>Driver</th><th class="num">Score</th><th class="num">${interval}% range</th><th class="num">Races</th><th>Seasons</th></tr></thead><tbody id="rows"><tr><td colspan="6">Loading…</td></tr></tbody></table></div><div class="pagination"><span id="count" aria-live="polite"></span><button class="quiet" id="more">Load more drivers</button></div></div><div role="tabpanel" id="panel-plot" aria-labelledby="tab-plot" hidden><div class="chart-card"><div class="chart-wrap" id="drivers-plot"></div></div></div>`;
-  let state = { search: "", limit: 25 },
+    interval = m.metadata.intervalPercent ?? 94,
+    year = Math.max(...m.drivers.map((d) => d.lastYear));
+  target.innerHTML = `<div class="tabs" role="tablist"><button role="tab" id="tab-table" aria-controls="panel-table" aria-selected="true">Table</button><button role="tab" id="tab-plot" aria-controls="panel-plot" aria-selected="false">Plot</button></div><div role="tabpanel" id="panel-table" aria-labelledby="tab-table"><div class="controls"><input id="search" type="search" placeholder="Search drivers…" aria-label="Search drivers" maxlength="100"><select id="minimum" aria-label="Minimum races"><option value="0">All experience levels</option><option value="25">25+ races</option><option value="100">100+ races</option><option value="200">200+ races</option></select><select id="era" aria-label="Era"><option value="all">All years</option><option value="active">Active in ${year}</option></select><button class="quiet" id="download">Download CSV</button></div><div class="table-wrap"><table id="rankings"><thead><tr><th class="num"><button data-sort="rank">#</button></th><th><button data-sort="name">Driver</button></th><th class="num"><button data-sort="skill">Score</button></th><th class="num">${interval}% range</th><th class="num"><button data-sort="races">Races</button></th><th><button data-sort="last_year">Seasons</button></th></tr></thead><tbody id="rows"><tr><td colspan="6">Loading…</td></tr></tbody></table></div><div class="pagination"><span id="count" aria-live="polite"></span><button class="quiet" id="more">Load more drivers</button></div></div><div role="tabpanel" id="panel-plot" aria-labelledby="tab-plot" hidden><div class="chart-card"><div class="chart-wrap" id="drivers-plot"></div></div></div>`;
+  let state = {
+      search: "",
+      minimum: 0,
+      active: false,
+      year,
+      sort: "rank",
+      direction: "asc",
+      limit: 25,
+    },
     plot = null;
   const version = renderVersion;
   target.querySelectorAll('[role="tab"]').forEach(
@@ -136,16 +145,26 @@ function rankings(target = main) {
             !selected;
         })),
   );
-  function fallback() {
+  function fallback(limit = state.limit) {
     const rows = m.drivers
       .map((d) => ({ ...d, first_year: d.firstYear, last_year: d.lastYear }))
-      .filter((d) =>
-        (d.name + " " + d.nationality)
-          .toLowerCase()
-          .includes(state.search.toLowerCase()),
+      .filter(
+        (d) =>
+          (d.name + " " + d.nationality)
+            .toLowerCase()
+            .includes(state.search.toLowerCase()) &&
+          d.races >= state.minimum &&
+          (!state.active || d.last_year >= year),
       )
-      .sort((a, b) => a.rank - b.rank);
-    return { total: rows.length, rows: rows.slice(0, state.limit) };
+      .sort((a, b) => {
+        const x = a[state.sort],
+          y = b[state.sort];
+        return (
+          (typeof x === "string" ? x.localeCompare(y) : x - y) *
+          (state.direction === "asc" ? 1 : -1)
+        );
+      });
+    return { total: rows.length, rows: rows.slice(0, limit) };
   }
   function drawPlot(rows) {
     if (plot) {
@@ -181,6 +200,16 @@ function rankings(target = main) {
     document.getElementById("count").textContent =
       `Showing ${rows.length} of ${total} drivers`;
     document.getElementById("more").hidden = rows.length >= total;
+    target
+      .querySelectorAll("th")
+      .forEach((th) => th.removeAttribute("aria-sort"));
+    target
+      .querySelector(`[data-sort="${state.sort}"]`)
+      .closest("th")
+      .setAttribute(
+        "aria-sort",
+        state.direction === "asc" ? "ascending" : "descending",
+      );
     drawPlot(rows);
   }
   function query() {
@@ -219,6 +248,52 @@ function rankings(target = main) {
   document.getElementById("more").onclick = () => {
     state.limit += 25;
     query();
+  };
+  const refilter = (change) => {
+    change();
+    state.limit = 25;
+    query();
+  };
+  document.getElementById("minimum").onchange = (e) =>
+    refilter(() => (state.minimum = Number(e.target.value)));
+  document.getElementById("era").onchange = (e) =>
+    refilter(() => (state.active = e.target.value === "active"));
+  target.querySelectorAll("[data-sort]").forEach(
+    (b) =>
+      (b.onclick = () =>
+        refilter(() => {
+          state.direction =
+            state.sort === b.dataset.sort && state.direction === "asc"
+              ? "desc"
+              : "asc";
+          state.sort = b.dataset.sort;
+        })),
+  );
+  document.getElementById("download").onclick = () => {
+    const fields = [
+      "rank",
+      "name",
+      "skill",
+      "low",
+      "high",
+      "races",
+      "first_year",
+      "last_year",
+    ];
+    const csv = [
+      fields,
+      ...fallback(Infinity).rows.map((d) => fields.map((k) => d[k])),
+    ]
+      .map((r) =>
+        r.map((v) => '"' + String(v ?? "").replace(/"/g, '""') + '"').join(","),
+      )
+      .join("\n");
+    const url = URL.createObjectURL(new Blob([csv], { type: "text/csv" }));
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "f1metrix-filtered-drivers.csv";
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
   };
   query();
 }

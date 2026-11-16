@@ -54,6 +54,38 @@ const { chromium } = require(process.env.PLAYWRIGHT_MODULE || "playwright");
     await page.waitForFunction(
       () => document.querySelectorAll("#rows tr").length === 50,
     );
+    await page.locator('[data-sort="name"]').click();
+    await page.waitForFunction(
+      () =>
+        document.querySelector("#rankings [aria-sort]")?.textContent ===
+        "Driver",
+    );
+    const names = await page.locator("#rows td.name").allTextContents();
+    // SQLite orders by code point, as does Array#sort without a comparator.
+    assert.deepEqual(names, [...names].sort());
+    await page.locator('[data-sort="rank"]').click();
+    await page.selectOption("#minimum", "200");
+    await page.selectOption("#era", "active");
+    await page.waitForFunction(
+      () =>
+        /^Showing \d+ of \d+ drivers$/.test(
+          document.querySelector("#count")?.textContent,
+        ) && document.querySelectorAll("#rows tr").length < 25,
+    );
+    for (const races of await page
+      .locator("#rows td:nth-child(5)")
+      .allTextContents())
+      assert(Number(races) >= 200);
+    const [download] = await Promise.all([
+      page.waitForEvent("download"),
+      page.locator("#download").click(),
+    ]);
+    assert.equal(download.suggestedFilename(), "f1metrix-filtered-drivers.csv");
+    await page.selectOption("#minimum", "0");
+    await page.selectOption("#era", "all");
+    await page.waitForFunction(
+      () => document.querySelectorAll("#rows tr").length === 25,
+    );
     await page.locator("#tab-plot").click();
     await page.waitForFunction(
       () =>
@@ -130,7 +162,7 @@ const { chromium } = require(process.env.PLAYWRIGHT_MODULE || "playwright");
     );
     assert.deepEqual(errors, []);
     console.log(
-      "Browser smoke passed: SQLite/WASM, search, empty state, load more, plot tab, mobile layout, article chart.",
+      "Browser smoke passed: SQLite/WASM, search, empty state, load more, sort, filters, CSV, plot tab, mobile layout, article chart.",
     );
   } catch (error) {
     console.error(

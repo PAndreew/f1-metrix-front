@@ -554,3 +554,7 @@ td.rank {
 h1 {
   font-family: "Orbitron", system-ui, sans-serif;
 }
+.controls button.quiet {
+  padding: 10px 14px;
+  font-size: 13px;
+}
