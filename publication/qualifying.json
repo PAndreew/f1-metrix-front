@@ -1,0 +1,2165 @@
+{
+  "experimental": true,
+  "publicationReady": true,
+  "year": 2026,
+  "model": "Student-t teammate contrasts with shared weekend volatility",
+  "negativeGapMeaning": "Driver A faster; 100 times log(A time / B time)",
+  "comparisons": [
+    {
+      "driverA": "arvid-lindblad",
+      "driverB": "liam-lawson",
+      "nameA": "Arvid Lindblad",
+      "nameB": "Liam Lawson",
+      "sessions": 17,
+      "meanLogGapPct": -0.017487073330742724,
+      "interval95LogGapPct": [
+        -0.23581338543435945,
+        0.2051259691425413
+      ],
+      "probabilityAFaster": 0.5705
+    },
+    {
+      "driverA": "charles-leclerc",
+      "driverB": "lewis-hamilton",
+      "nameA": "Charles Leclerc",
+      "nameB": "Lewis Hamilton",
+      "sessions": 20,
+      "meanLogGapPct": -0.026414317905178918,
+      "interval95LogGapPct": [
+        -0.1762843103912128,
+        0.1234439571288552
+      ],
+      "probabilityAFaster": 0.63775
+    },
+    {
+      "driverA": "esteban-ocon",
+      "driverB": "oliver-bearman",
+      "nameA": "Esteban Ocon",
+      "nameB": "Oliver Bearman",
+      "sessions": 17,
+      "meanLogGapPct": 0.2581624829832073,
+      "interval95LogGapPct": [
+        0.04709298018983365,
+        0.4636941057662603
+      ],
+      "probabilityAFaster": 0.007
+    },
+    {
+      "driverA": "franco-colapinto",
+      "driverB": "pierre-gasly",
+      "nameA": "Franco Colapinto",
+      "nameB": "Pierre Gasly",
+      "sessions": 20,
+      "meanLogGapPct": 0.33988971872665363,
+      "interval95LogGapPct": [
+        0.11534078135577203,
+        0.5820677810446826
+      ],
+      "probabilityAFaster": 0.00125
+    },
+    {
+      "driverA": "gabriel-bortoleto",
+      "driverB": "nico-hulkenberg",
+      "nameA": "Gabriel Bortoleto",
+      "nameB": "Nico H\u00fclkenberg",
+      "sessions": 20,
+      "meanLogGapPct": 0.03541882247157945,
+      "interval95LogGapPct": [
+        -0.24981267090272025,
+        0.32698252808331185
+      ],
+      "probabilityAFaster": 0.4085
+    },
+    {
+      "driverA": "george-russell",
+      "driverB": "kimi-antonelli",
+      "nameA": "George Russell",
+      "nameB": "Kimi Antonelli",
+      "sessions": 20,
+      "meanLogGapPct": 0.11293330641349295,
+      "interval95LogGapPct": [
+        -0.09382587801359403,
+        0.3105177043746895
+      ],
+      "probabilityAFaster": 0.13875
+    },
+    {
+      "driverA": "lando-norris",
+      "driverB": "oscar-piastri",
+      "nameA": "Lando Norris",
+      "nameB": "Oscar Piastri",
+      "sessions": 20,
+      "meanLogGapPct": -0.0483378087106034,
+      "interval95LogGapPct": [
+        -0.22005317529104107,
+        0.12342035057406013
+      ],
+      "probabilityAFaster": 0.7105
+    },
+    {
+      "driverA": "sergio-perez",
+      "driverB": "valtteri-bottas",
+      "nameA": "Sergio P\u00e9rez",
+      "nameB": "Valtteri Bottas",
+      "sessions": 20,
+      "meanLogGapPct": -0.06212727772665403,
+      "interval95LogGapPct": [
+        -0.286454023622462,
+        0.14843777801540523
+      ],
+      "probabilityAFaster": 0.7095
+    },
+    {
+      "driverA": "alexander-albon",
+      "driverB": "carlos-sainz-jr",
+      "nameA": "Alexander Albon",
+      "nameB": "Carlos Sainz Jr.",
+      "sessions": 19,
+      "meanLogGapPct": 0.28297907962898955,
+      "interval95LogGapPct": [
+        0.08797554222465583,
+        0.4747498820113232
+      ],
+      "probabilityAFaster": 0.00225
+    },
+    {
+      "driverA": "fernando-alonso",
+      "driverB": "lance-stroll",
+      "nameA": "Fernando Alonso",
+      "nameB": "Lance Stroll",
+      "sessions": 18,
+      "meanLogGapPct": -0.338595631469733,
+      "interval95LogGapPct": [
+        -0.5406795677550588,
+        -0.1350261144636332
+      ],
+      "probabilityAFaster": 0.99975
+    },
+    {
+      "driverA": "isack-hadjar",
+      "driverB": "max-verstappen",
+      "nameA": "Isack Hadjar",
+      "nameB": "Max Verstappen",
+      "sessions": 15,
+      "meanLogGapPct": 0.1343092264722776,
+      "interval95LogGapPct": [
+        -0.049004220138949235,
+        0.32191914573008107
+      ],
+      "probabilityAFaster": 0.07425
+    },
+    {
+      "driverA": "arvid-lindblad",
+      "driverB": "yuki-tsunoda",
+      "nameA": "Arvid Lindblad",
+      "nameB": "Yuki Tsunoda",
+      "sessions": 3,
+      "meanLogGapPct": -0.17354853600878437,
+      "interval95LogGapPct": [
+        -0.6051860549831772,
+        0.1769910738377064
+      ],
+      "probabilityAFaster": 0.8265
+    },
+    {
+      "driverA": "liam-lawson",
+      "driverB": "max-verstappen",
+      "nameA": "Liam Lawson",
+      "nameB": "Max Verstappen",
+      "sessions": 3,
+      "meanLogGapPct": 0.1315629405374036,
+      "interval95LogGapPct": [
+        -0.17219089909752436,
+        0.44549967413655756
+      ],
+      "probabilityAFaster": 0.19275
+    },
+    {
+      "driverA": "oliver-bearman",
+      "driverB": "ryo-hirakawa",
+      "nameA": "Oliver Bearman",
+      "nameB": "Ry\u014d Hirakawa",
+      "sessions": 1,
+      "meanLogGapPct": -0.2915892826049215,
+      "interval95LogGapPct": [
+        -0.8794106521844196,
+        0.15083617255788848
+      ],
+      "probabilityAFaster": 0.88525
+    },
+    {
+      "driverA": "oliver-bearman",
+      "driverB": "rafael-camara",
+      "nameA": "Oliver Bearman",
+      "nameB": "Rafael C\u00e2mara",
+      "sessions": 1,
+      "meanLogGapPct": -0.22226093187075233,
+      "interval95LogGapPct": [
+        -0.7747318730024804,
+        0.2453393116080125
+      ],
+      "probabilityAFaster": 0.83125
+    }
+  ],
+  "qualifyingOnly": true,
+  "diagnostics": {
+    "maxRhat": 1.004060785256818,
+    "minEss": 1467.2225402513325,
+    "minBfmi": 0.6753764757899916,
+    "divergences": 0,
+    "maxTreeDepth": 6,
+    "treeDepthSaturations": 0,
+    "passed": true
+  },
+  "dataSha256": "653dd6b9f11108ecc41962231884cf6dde6406f76317adbf41cc94def5f5c4f2",
+  "reviewStatus": "experimental_qualifying_only",
+  "validationSummary": {
+    "task": "Retrospective context-assisted teammate-gap prediction, not unseen-weekend forecasting",
+    "covered": 302,
+    "total": 322,
+    "nominalCoverage": 0.95,
+    "seasons": 8,
+    "maeImprovedSeasons": 8,
+    "logScoreImprovedSeasons": 7,
+    "directRefits": 46,
+    "allDirectRefitsPassed": true
+  },
+  "limitations": [
+    "Not a cross-team ranking or race-driving quality score.",
+    "Observed weekend gaps combine driving, equipment differences, conditions and incidents.",
+    "Season intervals are model-dependent credible intervals; predictive validation does not establish their exact coverage.",
+    "Retrospective predictive coverage was 93.8% overall, with seasonal variation; future-weekend forecasting undercovers recent seasons.",
+    "All evaluated historical periods are now development evidence; prospective confirmation remains outstanding."
+  ],
+  "rounds": [
+    {
+      "round": 1,
+      "race": "Formula 1 Qatar Airways Australian Grand Prix 2026",
+      "date": "2026-03-08",
+      "driverA": "arvid-lindblad",
+      "driverB": "liam-lawson",
+      "observedLogGapPct": 1.5542265590009314,
+      "segment": "Q3"
+    },
+    {
+      "round": 1,
+      "race": "Formula 1 Qatar Airways Australian Grand Prix 2026",
+      "date": "2026-03-08",
+      "driverA": "charles-leclerc",
+      "driverB": "lewis-hamilton",
+      "observedLogGapPct": -0.19017039199942182,
+      "segment": "Q3"
+    },
+    {
+      "round": 1,
+      "race": "Formula 1 Qatar Airways Australian Grand Prix 2026",
+      "date": "2026-03-08",
+      "driverA": "esteban-ocon",
+      "driverB": "oliver-bearman",
+      "observedLogGapPct": 0.2238779059737776,
+      "segment": "Q2"
+    },
+    {
+      "round": 1,
+      "race": "Formula 1 Qatar Airways Australian Grand Prix 2026",
+      "date": "2026-03-08",
+      "driverA": "franco-colapinto",
+      "driverB": "pierre-gasly",
+      "observedLogGapPct": 0.9507338057504231,
+      "segment": "Q2"
+    },
+    {
+      "round": 1,
+      "race": "Formula 1 Qatar Airways Australian Grand Prix 2026",
+      "date": "2026-03-08",
+      "driverA": "gabriel-bortoleto",
+      "driverB": "nico-hulkenberg",
+      "observedLogGapPct": -0.10216541717435174,
+      "segment": "Q2"
+    },
+    {
+      "round": 1,
+      "race": "Formula 1 Qatar Airways Australian Grand Prix 2026",
+      "date": "2026-03-08",
+      "driverA": "george-russell",
+      "driverB": "kimi-antonelli",
+      "observedLogGapPct": -0.37246831638006817,
+      "segment": "Q3"
+    },
+    {
+      "round": 1,
+      "race": "Formula 1 Qatar Airways Australian Grand Prix 2026",
+      "date": "2026-03-08",
+      "driverA": "lando-norris",
+      "driverB": "oscar-piastri",
+      "observedLogGapPct": 0.11960594419471576,
+      "segment": "Q3"
+    },
+    {
+      "round": 1,
+      "race": "Formula 1 Qatar Airways Australian Grand Prix 2026",
+      "date": "2026-03-08",
+      "driverA": "sergio-perez",
+      "driverB": "valtteri-bottas",
+      "observedLogGapPct": -0.7705842808610092,
+      "segment": "Q1"
+    },
+    {
+      "round": 2,
+      "race": "Formula 1 Heineken Chinese Grand Prix 2026",
+      "date": "2026-03-15",
+      "driverA": "alexander-albon",
+      "driverB": "carlos-sainz-jr",
+      "observedLogGapPct": 0.48125578767321514,
+      "segment": "Q1"
+    },
+    {
+      "round": 2,
+      "race": "Formula 1 Heineken Chinese Grand Prix 2026",
+      "date": "2026-03-15",
+      "driverA": "arvid-lindblad",
+      "driverB": "liam-lawson",
+      "observedLogGapPct": 0.02026137176418639,
+      "segment": "Q2"
+    },
+    {
+      "round": 2,
+      "race": "Formula 1 Heineken Chinese Grand Prix 2026",
+      "date": "2026-03-15",
+      "driverA": "charles-leclerc",
+      "driverB": "lewis-hamilton",
+      "observedLogGapPct": 0.01406599116160853,
+      "segment": "Q3"
+    },
+    {
+      "round": 2,
+      "race": "Formula 1 Heineken Chinese Grand Prix 2026",
+      "date": "2026-03-15",
+      "driverA": "esteban-ocon",
+      "driverB": "oliver-bearman",
+      "observedLogGapPct": 0.3652238509604005,
+      "segment": "Q2"
+    },
+    {
+      "round": 2,
+      "race": "Formula 1 Heineken Chinese Grand Prix 2026",
+      "date": "2026-03-15",
+      "driverA": "fernando-alonso",
+      "driverB": "lance-stroll",
+      "observedLogGapPct": -0.8284652872269109,
+      "segment": "Q1"
+    },
+    {
+      "round": 2,
+      "race": "Formula 1 Heineken Chinese Grand Prix 2026",
+      "date": "2026-03-15",
+      "driverA": "franco-colapinto",
+      "driverB": "pierre-gasly",
+      "observedLogGapPct": 0.37991030884184374,
+      "segment": "Q2"
+    },
+    {
+      "round": 2,
+      "race": "Formula 1 Heineken Chinese Grand Prix 2026",
+      "date": "2026-03-15",
+      "driverA": "gabriel-bortoleto",
+      "driverB": "nico-hulkenberg",
+      "observedLogGapPct": 0.6523653947683483,
+      "segment": "Q2"
+    },
+    {
+      "round": 2,
+      "race": "Formula 1 Heineken Chinese Grand Prix 2026",
+      "date": "2026-03-15",
+      "driverA": "george-russell",
+      "driverB": "kimi-antonelli",
+      "observedLogGapPct": 0.24084633285908738,
+      "segment": "Q3"
+    },
+    {
+      "round": 2,
+      "race": "Formula 1 Heineken Chinese Grand Prix 2026",
+      "date": "2026-03-15",
+      "driverA": "isack-hadjar",
+      "driverB": "max-verstappen",
+      "observedLogGapPct": 0.12787244587192725,
+      "segment": "Q3"
+    },
+    {
+      "round": 2,
+      "race": "Formula 1 Heineken Chinese Grand Prix 2026",
+      "date": "2026-03-15",
+      "driverA": "lando-norris",
+      "driverB": "oscar-piastri",
+      "observedLogGapPct": 0.06264919895121934,
+      "segment": "Q3"
+    },
+    {
+      "round": 2,
+      "race": "Formula 1 Heineken Chinese Grand Prix 2026",
+      "date": "2026-03-15",
+      "driverA": "sergio-perez",
+      "driverB": "valtteri-bottas",
+      "observedLogGapPct": 1.5285570721432669,
+      "segment": "Q1"
+    },
+    {
+      "round": 3,
+      "race": "Formula 1 Aramco Japanese Grand Prix 2026",
+      "date": "2026-03-29",
+      "driverA": "alexander-albon",
+      "driverB": "carlos-sainz-jr",
+      "observedLogGapPct": 0.17690854269115408,
+      "segment": "Q1"
+    },
+    {
+      "round": 3,
+      "race": "Formula 1 Aramco Japanese Grand Prix 2026",
+      "date": "2026-03-29",
+      "driverA": "arvid-lindblad",
+      "driverB": "liam-lawson",
+      "observedLogGapPct": -0.4274551922909018,
+      "segment": "Q2"
+    },
+    {
+      "round": 3,
+      "race": "Formula 1 Aramco Japanese Grand Prix 2026",
+      "date": "2026-03-29",
+      "driverA": "charles-leclerc",
+      "driverB": "lewis-hamilton",
+      "observedLogGapPct": -0.18103395418718757,
+      "segment": "Q3"
+    },
+    {
+      "round": 3,
+      "race": "Formula 1 Aramco Japanese Grand Prix 2026",
+      "date": "2026-03-29",
+      "driverA": "esteban-ocon",
+      "driverB": "oliver-bearman",
+      "observedLogGapPct": -0.19230246853604407,
+      "segment": "Q1"
+    },
+    {
+      "round": 3,
+      "race": "Formula 1 Aramco Japanese Grand Prix 2026",
+      "date": "2026-03-29",
+      "driverA": "fernando-alonso",
+      "driverB": "lance-stroll",
+      "observedLogGapPct": -0.29531293354262683,
+      "segment": "Q1"
+    },
+    {
+      "round": 3,
+      "race": "Formula 1 Aramco Japanese Grand Prix 2026",
+      "date": "2026-03-29",
+      "driverA": "franco-colapinto",
+      "driverB": "pierre-gasly",
+      "observedLogGapPct": 0.8343492482203195,
+      "segment": "Q2"
+    },
+    {
+      "round": 3,
+      "race": "Formula 1 Aramco Japanese Grand Prix 2026",
+      "date": "2026-03-29",
+      "driverA": "gabriel-bortoleto",
+      "driverB": "nico-hulkenberg",
+      "observedLogGapPct": -0.4401898701564202,
+      "segment": "Q2"
+    },
+    {
+      "round": 3,
+      "race": "Formula 1 Aramco Japanese Grand Prix 2026",
+      "date": "2026-03-29",
+      "driverA": "george-russell",
+      "driverB": "kimi-antonelli",
+      "observedLogGapPct": 0.3351066367576619,
+      "segment": "Q3"
+    },
+    {
+      "round": 3,
+      "race": "Formula 1 Aramco Japanese Grand Prix 2026",
+      "date": "2026-03-29",
+      "driverA": "isack-hadjar",
+      "driverB": "max-verstappen",
+      "observedLogGapPct": -0.1751993617586955,
+      "segment": "Q2"
+    },
+    {
+      "round": 3,
+      "race": "Formula 1 Aramco Japanese Grand Prix 2026",
+      "date": "2026-03-29",
+      "driverA": "lando-norris",
+      "driverB": "oscar-piastri",
+      "observedLogGapPct": 0.31029312286870414,
+      "segment": "Q3"
+    },
+    {
+      "round": 3,
+      "race": "Formula 1 Aramco Japanese Grand Prix 2026",
+      "date": "2026-03-29",
+      "driverA": "sergio-perez",
+      "driverB": "valtteri-bottas",
+      "observedLogGapPct": -0.13439114174254085,
+      "segment": "Q1"
+    },
+    {
+      "round": 4,
+      "race": "Formula 1 Crypto.com Miami Grand Prix 2026",
+      "date": "2026-05-03",
+      "driverA": "alexander-albon",
+      "driverB": "carlos-sainz-jr",
+      "observedLogGapPct": 0.42113769251896943,
+      "segment": "Q2"
+    },
+    {
+      "round": 4,
+      "race": "Formula 1 Crypto.com Miami Grand Prix 2026",
+      "date": "2026-05-03",
+      "driverA": "arvid-lindblad",
+      "driverB": "liam-lawson",
+      "observedLogGapPct": 0.5986842416629926,
+      "segment": "Q1"
+    },
+    {
+      "round": 4,
+      "race": "Formula 1 Crypto.com Miami Grand Prix 2026",
+      "date": "2026-05-03",
+      "driverA": "charles-leclerc",
+      "driverB": "lewis-hamilton",
+      "observedLogGapPct": -0.19947644066134027,
+      "segment": "Q3"
+    },
+    {
+      "round": 4,
+      "race": "Formula 1 Crypto.com Miami Grand Prix 2026",
+      "date": "2026-05-03",
+      "driverA": "esteban-ocon",
+      "driverB": "oliver-bearman",
+      "observedLogGapPct": 0.22861741092300708,
+      "segment": "Q2"
+    },
+    {
+      "round": 4,
+      "race": "Formula 1 Crypto.com Miami Grand Prix 2026",
+      "date": "2026-05-03",
+      "driverA": "fernando-alonso",
+      "driverB": "lance-stroll",
+      "observedLogGapPct": -0.07242321809792747,
+      "segment": "Q1"
+    },
+    {
+      "round": 4,
+      "race": "Formula 1 Crypto.com Miami Grand Prix 2026",
+      "date": "2026-05-03",
+      "driverA": "franco-colapinto",
+      "driverB": "pierre-gasly",
+      "observedLogGapPct": -0.05406257875015158,
+      "segment": "Q3"
+    },
+    {
+      "round": 4,
+      "race": "Formula 1 Crypto.com Miami Grand Prix 2026",
+      "date": "2026-05-03",
+      "driverA": "gabriel-bortoleto",
+      "driverB": "nico-hulkenberg",
+      "observedLogGapPct": 4.463556252135178,
+      "segment": "Q1"
+    },
+    {
+      "round": 4,
+      "race": "Formula 1 Crypto.com Miami Grand Prix 2026",
+      "date": "2026-05-03",
+      "driverA": "george-russell",
+      "driverB": "kimi-antonelli",
+      "observedLogGapPct": 0.4534227490483244,
+      "segment": "Q3"
+    },
+    {
+      "round": 4,
+      "race": "Formula 1 Crypto.com Miami Grand Prix 2026",
+      "date": "2026-05-03",
+      "driverA": "isack-hadjar",
+      "driverB": "max-verstappen",
+      "observedLogGapPct": 0.933512858264712,
+      "segment": "Q3"
+    },
+    {
+      "round": 4,
+      "race": "Formula 1 Crypto.com Miami Grand Prix 2026",
+      "date": "2026-05-03",
+      "driverA": "lando-norris",
+      "driverB": "oscar-piastri",
+      "observedLogGapPct": -0.3588351342777043,
+      "segment": "Q3"
+    },
+    {
+      "round": 4,
+      "race": "Formula 1 Crypto.com Miami Grand Prix 2026",
+      "date": "2026-05-03",
+      "driverA": "sergio-perez",
+      "driverB": "valtteri-bottas",
+      "observedLogGapPct": 0.3682001588915283,
+      "segment": "Q1"
+    },
+    {
+      "round": 5,
+      "race": "Formula 1 Lenovo Grand Prix du Canada 2026",
+      "date": "2026-05-24",
+      "driverA": "alexander-albon",
+      "driverB": "carlos-sainz-jr",
+      "observedLogGapPct": 0.771158609148372,
+      "segment": "Q1"
+    },
+    {
+      "round": 5,
+      "race": "Formula 1 Lenovo Grand Prix du Canada 2026",
+      "date": "2026-05-24",
+      "driverA": "arvid-lindblad",
+      "driverB": "liam-lawson",
+      "observedLogGapPct": -0.47339774393575124,
+      "segment": "Q2"
+    },
+    {
+      "round": 5,
+      "race": "Formula 1 Lenovo Grand Prix du Canada 2026",
+      "date": "2026-05-24",
+      "driverA": "charles-leclerc",
+      "driverB": "lewis-hamilton",
+      "observedLogGapPct": 0.14810348007622007,
+      "segment": "Q3"
+    },
+    {
+      "round": 5,
+      "race": "Formula 1 Lenovo Grand Prix du Canada 2026",
+      "date": "2026-05-24",
+      "driverA": "esteban-ocon",
+      "driverB": "oliver-bearman",
+      "observedLogGapPct": 0.5304981160834216,
+      "segment": "Q1"
+    },
+    {
+      "round": 5,
+      "race": "Formula 1 Lenovo Grand Prix du Canada 2026",
+      "date": "2026-05-24",
+      "driverA": "fernando-alonso",
+      "driverB": "lance-stroll",
+      "observedLogGapPct": -1.3197805690109072,
+      "segment": "Q1"
+    },
+    {
+      "round": 5,
+      "race": "Formula 1 Lenovo Grand Prix du Canada 2026",
+      "date": "2026-05-24",
+      "driverA": "franco-colapinto",
+      "driverB": "pierre-gasly",
+      "observedLogGapPct": -0.44581414520414653,
+      "segment": "Q2"
+    },
+    {
+      "round": 5,
+      "race": "Formula 1 Lenovo Grand Prix du Canada 2026",
+      "date": "2026-05-24",
+      "driverA": "gabriel-bortoleto",
+      "driverB": "nico-hulkenberg",
+      "observedLogGapPct": 0.25007278656673554,
+      "segment": "Q2"
+    },
+    {
+      "round": 5,
+      "race": "Formula 1 Lenovo Grand Prix du Canada 2026",
+      "date": "2026-05-24",
+      "driverA": "george-russell",
+      "driverB": "kimi-antonelli",
+      "observedLogGapPct": -0.09364843961009889,
+      "segment": "Q3"
+    },
+    {
+      "round": 5,
+      "race": "Formula 1 Lenovo Grand Prix du Canada 2026",
+      "date": "2026-05-24",
+      "driverA": "isack-hadjar",
+      "driverB": "max-verstappen",
+      "observedLogGapPct": 0.038397718550246776,
+      "segment": "Q3"
+    },
+    {
+      "round": 5,
+      "race": "Formula 1 Lenovo Grand Prix du Canada 2026",
+      "date": "2026-05-24",
+      "driverA": "lando-norris",
+      "driverB": "oscar-piastri",
+      "observedLogGapPct": -0.0714727540562393,
+      "segment": "Q3"
+    },
+    {
+      "round": 5,
+      "race": "Formula 1 Lenovo Grand Prix du Canada 2026",
+      "date": "2026-05-24",
+      "driverA": "sergio-perez",
+      "driverB": "valtteri-bottas",
+      "observedLogGapPct": -1.1114082009481392,
+      "segment": "Q1"
+    },
+    {
+      "round": 6,
+      "race": "Formula 1 Louis Vuitton Grand Prix de Monaco 2026",
+      "date": "2026-06-07",
+      "driverA": "alexander-albon",
+      "driverB": "carlos-sainz-jr",
+      "observedLogGapPct": -0.0379398657685805,
+      "segment": "Q2"
+    },
+    {
+      "round": 6,
+      "race": "Formula 1 Louis Vuitton Grand Prix de Monaco 2026",
+      "date": "2026-06-07",
+      "driverA": "arvid-lindblad",
+      "driverB": "liam-lawson",
+      "observedLogGapPct": 1.052007075584822,
+      "segment": "Q2"
+    },
+    {
+      "round": 6,
+      "race": "Formula 1 Louis Vuitton Grand Prix de Monaco 2026",
+      "date": "2026-06-07",
+      "driverA": "charles-leclerc",
+      "driverB": "lewis-hamilton",
+      "observedLogGapPct": 0.09956441394986996,
+      "segment": "Q3"
+    },
+    {
+      "round": 6,
+      "race": "Formula 1 Louis Vuitton Grand Prix de Monaco 2026",
+      "date": "2026-06-07",
+      "driverA": "esteban-ocon",
+      "driverB": "oliver-bearman",
+      "observedLogGapPct": -0.12304730848467912,
+      "segment": "Q1"
+    },
+    {
+      "round": 6,
+      "race": "Formula 1 Louis Vuitton Grand Prix de Monaco 2026",
+      "date": "2026-06-07",
+      "driverA": "fernando-alonso",
+      "driverB": "lance-stroll",
+      "observedLogGapPct": -0.9404996344499489,
+      "segment": "Q1"
+    },
+    {
+      "round": 6,
+      "race": "Formula 1 Louis Vuitton Grand Prix de Monaco 2026",
+      "date": "2026-06-07",
+      "driverA": "franco-colapinto",
+      "driverB": "pierre-gasly",
+      "observedLogGapPct": 0.3153829505614877,
+      "segment": "Q2"
+    },
+    {
+      "round": 6,
+      "race": "Formula 1 Louis Vuitton Grand Prix de Monaco 2026",
+      "date": "2026-06-07",
+      "driverA": "gabriel-bortoleto",
+      "driverB": "nico-hulkenberg",
+      "observedLogGapPct": 1.022847833914942,
+      "segment": "Q1"
+    },
+    {
+      "round": 6,
+      "race": "Formula 1 Louis Vuitton Grand Prix de Monaco 2026",
+      "date": "2026-06-07",
+      "driverA": "george-russell",
+      "driverB": "kimi-antonelli",
+      "observedLogGapPct": 0.5453451672949845,
+      "segment": "Q3"
+    },
+    {
+      "round": 6,
+      "race": "Formula 1 Louis Vuitton Grand Prix de Monaco 2026",
+      "date": "2026-06-07",
+      "driverA": "isack-hadjar",
+      "driverB": "max-verstappen",
+      "observedLogGapPct": 0.4704979342549138,
+      "segment": "Q3"
+    },
+    {
+      "round": 6,
+      "race": "Formula 1 Louis Vuitton Grand Prix de Monaco 2026",
+      "date": "2026-06-07",
+      "driverA": "lando-norris",
+      "driverB": "oscar-piastri",
+      "observedLogGapPct": 0.19396246511796714,
+      "segment": "Q3"
+    },
+    {
+      "round": 6,
+      "race": "Formula 1 Louis Vuitton Grand Prix de Monaco 2026",
+      "date": "2026-06-07",
+      "driverA": "sergio-perez",
+      "driverB": "valtteri-bottas",
+      "observedLogGapPct": -0.7145268019039597,
+      "segment": "Q1"
+    },
+    {
+      "round": 7,
+      "race": "Formula 1 MSC Cruises Gran Premio de Barcelona-Catalunya 2026",
+      "date": "2026-06-14",
+      "driverA": "alexander-albon",
+      "driverB": "carlos-sainz-jr",
+      "observedLogGapPct": 0.7038038189440674,
+      "segment": "Q1"
+    },
+    {
+      "round": 7,
+      "race": "Formula 1 MSC Cruises Gran Premio de Barcelona-Catalunya 2026",
+      "date": "2026-06-14",
+      "driverA": "arvid-lindblad",
+      "driverB": "liam-lawson",
+      "observedLogGapPct": 0.33680071460951505,
+      "segment": "Q2"
+    },
+    {
+      "round": 7,
+      "race": "Formula 1 MSC Cruises Gran Premio de Barcelona-Catalunya 2026",
+      "date": "2026-06-14",
+      "driverA": "charles-leclerc",
+      "driverB": "lewis-hamilton",
+      "observedLogGapPct": -0.18181943840578915,
+      "segment": "Q2"
+    },
+    {
+      "round": 7,
+      "race": "Formula 1 MSC Cruises Gran Premio de Barcelona-Catalunya 2026",
+      "date": "2026-06-14",
+      "driverA": "esteban-ocon",
+      "driverB": "oliver-bearman",
+      "observedLogGapPct": 0.6534609699423106,
+      "segment": "Q1"
+    },
+    {
+      "round": 7,
+      "race": "Formula 1 MSC Cruises Gran Premio de Barcelona-Catalunya 2026",
+      "date": "2026-06-14",
+      "driverA": "fernando-alonso",
+      "driverB": "lance-stroll",
+      "observedLogGapPct": 0.07234742308164421,
+      "segment": "Q1"
+    },
+    {
+      "round": 7,
+      "race": "Formula 1 MSC Cruises Gran Premio de Barcelona-Catalunya 2026",
+      "date": "2026-06-14",
+      "driverA": "franco-colapinto",
+      "driverB": "pierre-gasly",
+      "observedLogGapPct": -0.0918321896981802,
+      "segment": "Q2"
+    },
+    {
+      "round": 7,
+      "race": "Formula 1 MSC Cruises Gran Premio de Barcelona-Catalunya 2026",
+      "date": "2026-06-14",
+      "driverA": "gabriel-bortoleto",
+      "driverB": "nico-hulkenberg",
+      "observedLogGapPct": 0.30704581707034206,
+      "segment": "Q2"
+    },
+    {
+      "round": 7,
+      "race": "Formula 1 MSC Cruises Gran Premio de Barcelona-Catalunya 2026",
+      "date": "2026-06-14",
+      "driverA": "george-russell",
+      "driverB": "kimi-antonelli",
+      "observedLogGapPct": -0.42625183962013025,
+      "segment": "Q3"
+    },
+    {
+      "round": 7,
+      "race": "Formula 1 MSC Cruises Gran Premio de Barcelona-Catalunya 2026",
+      "date": "2026-06-14",
+      "driverA": "isack-hadjar",
+      "driverB": "max-verstappen",
+      "observedLogGapPct": 0.07461791975686005,
+      "segment": "Q3"
+    },
+    {
+      "round": 7,
+      "race": "Formula 1 MSC Cruises Gran Premio de Barcelona-Catalunya 2026",
+      "date": "2026-06-14",
+      "driverA": "lando-norris",
+      "driverB": "oscar-piastri",
+      "observedLogGapPct": -0.11859473310369018,
+      "segment": "Q3"
+    },
+    {
+      "round": 7,
+      "race": "Formula 1 MSC Cruises Gran Premio de Barcelona-Catalunya 2026",
+      "date": "2026-06-14",
+      "driverA": "sergio-perez",
+      "driverB": "valtteri-bottas",
+      "observedLogGapPct": -0.2730166149617068,
+      "segment": "Q1"
+    },
+    {
+      "round": 8,
+      "race": "Formula 1 Lenovo Austrian Grand Prix 2026",
+      "date": "2026-06-28",
+      "driverA": "alexander-albon",
+      "driverB": "carlos-sainz-jr",
+      "observedLogGapPct": 0.3758385833977195,
+      "segment": "Q1"
+    },
+    {
+      "round": 8,
+      "race": "Formula 1 Lenovo Austrian Grand Prix 2026",
+      "date": "2026-06-28",
+      "driverA": "arvid-lindblad",
+      "driverB": "liam-lawson",
+      "observedLogGapPct": 0.07763395979712634,
+      "segment": "Q3"
+    },
+    {
+      "round": 8,
+      "race": "Formula 1 Lenovo Austrian Grand Prix 2026",
+      "date": "2026-06-28",
+      "driverA": "charles-leclerc",
+      "driverB": "lewis-hamilton",
+      "observedLogGapPct": -0.08888420781482195,
+      "segment": "Q3"
+    },
+    {
+      "round": 8,
+      "race": "Formula 1 Lenovo Austrian Grand Prix 2026",
+      "date": "2026-06-28",
+      "driverA": "esteban-ocon",
+      "driverB": "oliver-bearman",
+      "observedLogGapPct": 0.43446203998101124,
+      "segment": "Q2"
+    },
+    {
+      "round": 8,
+      "race": "Formula 1 Lenovo Austrian Grand Prix 2026",
+      "date": "2026-06-28",
+      "driverA": "fernando-alonso",
+      "driverB": "lance-stroll",
+      "observedLogGapPct": -0.6001229657061082,
+      "segment": "Q1"
+    },
+    {
+      "round": 8,
+      "race": "Formula 1 Lenovo Austrian Grand Prix 2026",
+      "date": "2026-06-28",
+      "driverA": "franco-colapinto",
+      "driverB": "pierre-gasly",
+      "observedLogGapPct": 1.4003803600810463,
+      "segment": "Q2"
+    },
+    {
+      "round": 8,
+      "race": "Formula 1 Lenovo Austrian Grand Prix 2026",
+      "date": "2026-06-28",
+      "driverA": "gabriel-bortoleto",
+      "driverB": "nico-hulkenberg",
+      "observedLogGapPct": -0.47144723506403613,
+      "segment": "Q2"
+    },
+    {
+      "round": 8,
+      "race": "Formula 1 Lenovo Austrian Grand Prix 2026",
+      "date": "2026-06-28",
+      "driverA": "george-russell",
+      "driverB": "kimi-antonelli",
+      "observedLogGapPct": -0.45424784017155634,
+      "segment": "Q3"
+    },
+    {
+      "round": 8,
+      "race": "Formula 1 Lenovo Austrian Grand Prix 2026",
+      "date": "2026-06-28",
+      "driverA": "isack-hadjar",
+      "driverB": "max-verstappen",
+      "observedLogGapPct": 0.235900550395588,
+      "segment": "Q3"
+    },
+    {
+      "round": 8,
+      "race": "Formula 1 Lenovo Austrian Grand Prix 2026",
+      "date": "2026-06-28",
+      "driverA": "lando-norris",
+      "driverB": "oscar-piastri",
+      "observedLogGapPct": -0.013532511880392402,
+      "segment": "Q3"
+    },
+    {
+      "round": 8,
+      "race": "Formula 1 Lenovo Austrian Grand Prix 2026",
+      "date": "2026-06-28",
+      "driverA": "sergio-perez",
+      "driverB": "valtteri-bottas",
+      "observedLogGapPct": -0.12321074216796743,
+      "segment": "Q1"
+    },
+    {
+      "round": 9,
+      "race": "Formula 1 Pirelli British Grand Prix 2026",
+      "date": "2026-07-05",
+      "driverA": "alexander-albon",
+      "driverB": "carlos-sainz-jr",
+      "observedLogGapPct": 0.7891711837102164,
+      "segment": "Q2"
+    },
+    {
+      "round": 9,
+      "race": "Formula 1 Pirelli British Grand Prix 2026",
+      "date": "2026-07-05",
+      "driverA": "arvid-lindblad",
+      "driverB": "liam-lawson",
+      "observedLogGapPct": -0.45916481541324,
+      "segment": "Q3"
+    },
+    {
+      "round": 9,
+      "race": "Formula 1 Pirelli British Grand Prix 2026",
+      "date": "2026-07-05",
+      "driverA": "charles-leclerc",
+      "driverB": "lewis-hamilton",
+      "observedLogGapPct": -0.19463184526421048,
+      "segment": "Q3"
+    },
+    {
+      "round": 9,
+      "race": "Formula 1 Pirelli British Grand Prix 2026",
+      "date": "2026-07-05",
+      "driverA": "esteban-ocon",
+      "driverB": "oliver-bearman",
+      "observedLogGapPct": 0.12137932524711088,
+      "segment": "Q1"
+    },
+    {
+      "round": 9,
+      "race": "Formula 1 Pirelli British Grand Prix 2026",
+      "date": "2026-07-05",
+      "driverA": "fernando-alonso",
+      "driverB": "lance-stroll",
+      "observedLogGapPct": 0.17429854645052914,
+      "segment": "Q1"
+    },
+    {
+      "round": 9,
+      "race": "Formula 1 Pirelli British Grand Prix 2026",
+      "date": "2026-07-05",
+      "driverA": "franco-colapinto",
+      "driverB": "pierre-gasly",
+      "observedLogGapPct": 1.0745096941567576,
+      "segment": "Q1"
+    },
+    {
+      "round": 9,
+      "race": "Formula 1 Pirelli British Grand Prix 2026",
+      "date": "2026-07-05",
+      "driverA": "gabriel-bortoleto",
+      "driverB": "nico-hulkenberg",
+      "observedLogGapPct": -0.6850982309674303,
+      "segment": "Q2"
+    },
+    {
+      "round": 9,
+      "race": "Formula 1 Pirelli British Grand Prix 2026",
+      "date": "2026-07-05",
+      "driverA": "george-russell",
+      "driverB": "kimi-antonelli",
+      "observedLogGapPct": 0.41904564355222834,
+      "segment": "Q3"
+    },
+    {
+      "round": 9,
+      "race": "Formula 1 Pirelli British Grand Prix 2026",
+      "date": "2026-07-05",
+      "driverA": "isack-hadjar",
+      "driverB": "max-verstappen",
+      "observedLogGapPct": -0.1655042344921694,
+      "segment": "Q3"
+    },
+    {
+      "round": 9,
+      "race": "Formula 1 Pirelli British Grand Prix 2026",
+      "date": "2026-07-05",
+      "driverA": "lando-norris",
+      "driverB": "oscar-piastri",
+      "observedLogGapPct": -0.17424642847449395,
+      "segment": "Q3"
+    },
+    {
+      "round": 9,
+      "race": "Formula 1 Pirelli British Grand Prix 2026",
+      "date": "2026-07-05",
+      "driverA": "sergio-perez",
+      "driverB": "valtteri-bottas",
+      "observedLogGapPct": 0.2452403817281143,
+      "segment": "Q1"
+    },
+    {
+      "round": 10,
+      "race": "Formula 1 Mo\u00ebt & Chandon Belgian Grand Prix 2026",
+      "date": "2026-07-19",
+      "driverA": "alexander-albon",
+      "driverB": "carlos-sainz-jr",
+      "observedLogGapPct": 0.03734827307652511,
+      "segment": "Q1"
+    },
+    {
+      "round": 10,
+      "race": "Formula 1 Mo\u00ebt & Chandon Belgian Grand Prix 2026",
+      "date": "2026-07-19",
+      "driverA": "arvid-lindblad",
+      "driverB": "liam-lawson",
+      "observedLogGapPct": -0.46375744867593605,
+      "segment": "Q2"
+    },
+    {
+      "round": 10,
+      "race": "Formula 1 Mo\u00ebt & Chandon Belgian Grand Prix 2026",
+      "date": "2026-07-19",
+      "driverA": "charles-leclerc",
+      "driverB": "lewis-hamilton",
+      "observedLogGapPct": -0.0019066867504933954,
+      "segment": "Q3"
+    },
+    {
+      "round": 10,
+      "race": "Formula 1 Mo\u00ebt & Chandon Belgian Grand Prix 2026",
+      "date": "2026-07-19",
+      "driverA": "esteban-ocon",
+      "driverB": "oliver-bearman",
+      "observedLogGapPct": 0.6402582896113063,
+      "segment": "Q1"
+    },
+    {
+      "round": 10,
+      "race": "Formula 1 Mo\u00ebt & Chandon Belgian Grand Prix 2026",
+      "date": "2026-07-19",
+      "driverA": "fernando-alonso",
+      "driverB": "lance-stroll",
+      "observedLogGapPct": -0.1589616056484279,
+      "segment": "Q1"
+    },
+    {
+      "round": 10,
+      "race": "Formula 1 Mo\u00ebt & Chandon Belgian Grand Prix 2026",
+      "date": "2026-07-19",
+      "driverA": "franco-colapinto",
+      "driverB": "pierre-gasly",
+      "observedLogGapPct": 0.05735158085587638,
+      "segment": "Q2"
+    },
+    {
+      "round": 10,
+      "race": "Formula 1 Mo\u00ebt & Chandon Belgian Grand Prix 2026",
+      "date": "2026-07-19",
+      "driverA": "gabriel-bortoleto",
+      "driverB": "nico-hulkenberg",
+      "observedLogGapPct": -0.5536951345341559,
+      "segment": "Q2"
+    },
+    {
+      "round": 10,
+      "race": "Formula 1 Mo\u00ebt & Chandon Belgian Grand Prix 2026",
+      "date": "2026-07-19",
+      "driverA": "george-russell",
+      "driverB": "kimi-antonelli",
+      "observedLogGapPct": 0.48559097472987256,
+      "segment": "Q3"
+    },
+    {
+      "round": 10,
+      "race": "Formula 1 Mo\u00ebt & Chandon Belgian Grand Prix 2026",
+      "date": "2026-07-19",
+      "driverA": "isack-hadjar",
+      "driverB": "max-verstappen",
+      "observedLogGapPct": 0.2213687922710848,
+      "segment": "Q2"
+    },
+    {
+      "round": 10,
+      "race": "Formula 1 Mo\u00ebt & Chandon Belgian Grand Prix 2026",
+      "date": "2026-07-19",
+      "driverA": "lando-norris",
+      "driverB": "oscar-piastri",
+      "observedLogGapPct": -0.20494056749561246,
+      "segment": "Q3"
+    },
+    {
+      "round": 10,
+      "race": "Formula 1 Mo\u00ebt & Chandon Belgian Grand Prix 2026",
+      "date": "2026-07-19",
+      "driverA": "sergio-perez",
+      "driverB": "valtteri-bottas",
+      "observedLogGapPct": 0.13716787603473987,
+      "segment": "Q1"
+    },
+    {
+      "round": 11,
+      "race": "Formula 1 AWS Hungarian Grand Prix 2026",
+      "date": "2026-07-26",
+      "driverA": "alexander-albon",
+      "driverB": "carlos-sainz-jr",
+      "observedLogGapPct": 0.045883221807078226,
+      "segment": "Q1"
+    },
+    {
+      "round": 11,
+      "race": "Formula 1 AWS Hungarian Grand Prix 2026",
+      "date": "2026-07-26",
+      "driverA": "arvid-lindblad",
+      "driverB": "liam-lawson",
+      "observedLogGapPct": -0.5155142681592301,
+      "segment": "Q2"
+    },
+    {
+      "round": 11,
+      "race": "Formula 1 AWS Hungarian Grand Prix 2026",
+      "date": "2026-07-26",
+      "driverA": "charles-leclerc",
+      "driverB": "lewis-hamilton",
+      "observedLogGapPct": 0.29224662604338897,
+      "segment": "Q3"
+    },
+    {
+      "round": 11,
+      "race": "Formula 1 AWS Hungarian Grand Prix 2026",
+      "date": "2026-07-26",
+      "driverA": "esteban-ocon",
+      "driverB": "oliver-bearman",
+      "observedLogGapPct": -0.278327470102237,
+      "segment": "Q1"
+    },
+    {
+      "round": 11,
+      "race": "Formula 1 AWS Hungarian Grand Prix 2026",
+      "date": "2026-07-26",
+      "driverA": "fernando-alonso",
+      "driverB": "lance-stroll",
+      "observedLogGapPct": -0.6629995987376722,
+      "segment": "Q1"
+    },
+    {
+      "round": 11,
+      "race": "Formula 1 AWS Hungarian Grand Prix 2026",
+      "date": "2026-07-26",
+      "driverA": "franco-colapinto",
+      "driverB": "pierre-gasly",
+      "observedLogGapPct": 0.23183495634391532,
+      "segment": "Q2"
+    },
+    {
+      "round": 11,
+      "race": "Formula 1 AWS Hungarian Grand Prix 2026",
+      "date": "2026-07-26",
+      "driverA": "gabriel-bortoleto",
+      "driverB": "nico-hulkenberg",
+      "observedLogGapPct": 0.5908324317941838,
+      "segment": "Q2"
+    },
+    {
+      "round": 11,
+      "race": "Formula 1 AWS Hungarian Grand Prix 2026",
+      "date": "2026-07-26",
+      "driverA": "george-russell",
+      "driverB": "kimi-antonelli",
+      "observedLogGapPct": 0.3620228253209574,
+      "segment": "Q3"
+    },
+    {
+      "round": 11,
+      "race": "Formula 1 AWS Hungarian Grand Prix 2026",
+      "date": "2026-07-26",
+      "driverA": "isack-hadjar",
+      "driverB": "max-verstappen",
+      "observedLogGapPct": 0.16840106562946294,
+      "segment": "Q3"
+    },
+    {
+      "round": 11,
+      "race": "Formula 1 AWS Hungarian Grand Prix 2026",
+      "date": "2026-07-26",
+      "driverA": "lando-norris",
+      "driverB": "oscar-piastri",
+      "observedLogGapPct": -0.6159189467945111,
+      "segment": "Q3"
+    },
+    {
+      "round": 11,
+      "race": "Formula 1 AWS Hungarian Grand Prix 2026",
+      "date": "2026-07-26",
+      "driverA": "sergio-perez",
+      "driverB": "valtteri-bottas",
+      "observedLogGapPct": 0.5375826716501346,
+      "segment": "Q1"
+    },
+    {
+      "round": 12,
+      "race": "Formula 1 Heineken Dutch Grand Prix 2026",
+      "date": "2026-08-23",
+      "driverA": "alexander-albon",
+      "driverB": "carlos-sainz-jr",
+      "observedLogGapPct": -0.02990633900734146,
+      "segment": "Q1"
+    },
+    {
+      "round": 12,
+      "race": "Formula 1 Heineken Dutch Grand Prix 2026",
+      "date": "2026-08-23",
+      "driverA": "arvid-lindblad",
+      "driverB": "yuki-tsunoda",
+      "observedLogGapPct": -0.1405423511757785,
+      "segment": "Q2"
+    },
+    {
+      "round": 12,
+      "race": "Formula 1 Heineken Dutch Grand Prix 2026",
+      "date": "2026-08-23",
+      "driverA": "charles-leclerc",
+      "driverB": "lewis-hamilton",
+      "observedLogGapPct": 0.08947795804327817,
+      "segment": "Q3"
+    },
+    {
+      "round": 12,
+      "race": "Formula 1 Heineken Dutch Grand Prix 2026",
+      "date": "2026-08-23",
+      "driverA": "esteban-ocon",
+      "driverB": "oliver-bearman",
+      "observedLogGapPct": -0.3827106523694231,
+      "segment": "Q1"
+    },
+    {
+      "round": 12,
+      "race": "Formula 1 Heineken Dutch Grand Prix 2026",
+      "date": "2026-08-23",
+      "driverA": "fernando-alonso",
+      "driverB": "lance-stroll",
+      "observedLogGapPct": -0.22784613974475948,
+      "segment": "Q1"
+    },
+    {
+      "round": 12,
+      "race": "Formula 1 Heineken Dutch Grand Prix 2026",
+      "date": "2026-08-23",
+      "driverA": "franco-colapinto",
+      "driverB": "pierre-gasly",
+      "observedLogGapPct": 0.2530671978314263,
+      "segment": "Q2"
+    },
+    {
+      "round": 12,
+      "race": "Formula 1 Heineken Dutch Grand Prix 2026",
+      "date": "2026-08-23",
+      "driverA": "gabriel-bortoleto",
+      "driverB": "nico-hulkenberg",
+      "observedLogGapPct": -0.5012748911452378,
+      "segment": "Q2"
+    },
+    {
+      "round": 12,
+      "race": "Formula 1 Heineken Dutch Grand Prix 2026",
+      "date": "2026-08-23",
+      "driverA": "george-russell",
+      "driverB": "kimi-antonelli",
+      "observedLogGapPct": -0.04349015577697882,
+      "segment": "Q3"
+    },
+    {
+      "round": 12,
+      "race": "Formula 1 Heineken Dutch Grand Prix 2026",
+      "date": "2026-08-23",
+      "driverA": "lando-norris",
+      "driverB": "oscar-piastri",
+      "observedLogGapPct": -0.19934307637209348,
+      "segment": "Q3"
+    },
+    {
+      "round": 12,
+      "race": "Formula 1 Heineken Dutch Grand Prix 2026",
+      "date": "2026-08-23",
+      "driverA": "liam-lawson",
+      "driverB": "max-verstappen",
+      "observedLogGapPct": 0.16044537487719435,
+      "segment": "Q3"
+    },
+    {
+      "round": 12,
+      "race": "Formula 1 Heineken Dutch Grand Prix 2026",
+      "date": "2026-08-23",
+      "driverA": "sergio-perez",
+      "driverB": "valtteri-bottas",
+      "observedLogGapPct": 0.3074426302803824,
+      "segment": "Q1"
+    },
+    {
+      "round": 13,
+      "race": "Formula 1 Pirelli Gran Premio d'Italia 2026",
+      "date": "2026-09-06",
+      "driverA": "alexander-albon",
+      "driverB": "carlos-sainz-jr",
+      "observedLogGapPct": 0.8811049311316068,
+      "segment": "Q1"
+    },
+    {
+      "round": 13,
+      "race": "Formula 1 Pirelli Gran Premio d'Italia 2026",
+      "date": "2026-09-06",
+      "driverA": "arvid-lindblad",
+      "driverB": "yuki-tsunoda",
+      "observedLogGapPct": -1.234984041185561,
+      "segment": "Q1"
+    },
+    {
+      "round": 13,
+      "race": "Formula 1 Pirelli Gran Premio d'Italia 2026",
+      "date": "2026-09-06",
+      "driverA": "charles-leclerc",
+      "driverB": "lewis-hamilton",
+      "observedLogGapPct": -0.008535804657192421,
+      "segment": "Q3"
+    },
+    {
+      "round": 13,
+      "race": "Formula 1 Pirelli Gran Premio d'Italia 2026",
+      "date": "2026-09-06",
+      "driverA": "esteban-ocon",
+      "driverB": "oliver-bearman",
+      "observedLogGapPct": 0.8399062671551291,
+      "segment": "Q2"
+    },
+    {
+      "round": 13,
+      "race": "Formula 1 Pirelli Gran Premio d'Italia 2026",
+      "date": "2026-09-06",
+      "driverA": "fernando-alonso",
+      "driverB": "lance-stroll",
+      "observedLogGapPct": -0.08452093570102079,
+      "segment": "Q1"
+    },
+    {
+      "round": 13,
+      "race": "Formula 1 Pirelli Gran Premio d'Italia 2026",
+      "date": "2026-09-06",
+      "driverA": "franco-colapinto",
+      "driverB": "pierre-gasly",
+      "observedLogGapPct": 0.5292501652971451,
+      "segment": "Q3"
+    },
+    {
+      "round": 13,
+      "race": "Formula 1 Pirelli Gran Premio d'Italia 2026",
+      "date": "2026-09-06",
+      "driverA": "gabriel-bortoleto",
+      "driverB": "nico-hulkenberg",
+      "observedLogGapPct": -0.31700733158830163,
+      "segment": "Q2"
+    },
+    {
+      "round": 13,
+      "race": "Formula 1 Pirelli Gran Premio d'Italia 2026",
+      "date": "2026-09-06",
+      "driverA": "george-russell",
+      "driverB": "kimi-antonelli",
+      "observedLogGapPct": -0.3013318208582709,
+      "segment": "Q3"
+    },
+    {
+      "round": 13,
+      "race": "Formula 1 Pirelli Gran Premio d'Italia 2026",
+      "date": "2026-09-06",
+      "driverA": "lando-norris",
+      "driverB": "oscar-piastri",
+      "observedLogGapPct": 0.35318081797437184,
+      "segment": "Q3"
+    },
+    {
+      "round": 13,
+      "race": "Formula 1 Pirelli Gran Premio d'Italia 2026",
+      "date": "2026-09-06",
+      "driverA": "liam-lawson",
+      "driverB": "max-verstappen",
+      "observedLogGapPct": 0.7672346418927529,
+      "segment": "Q2"
+    },
+    {
+      "round": 13,
+      "race": "Formula 1 Pirelli Gran Premio d'Italia 2026",
+      "date": "2026-09-06",
+      "driverA": "sergio-perez",
+      "driverB": "valtteri-bottas",
+      "observedLogGapPct": 0.27343928873914347,
+      "segment": "Q1"
+    },
+    {
+      "round": 14,
+      "race": "Formula 1 TAG Heuer Gran Premio de Espa\u00f1a 2026",
+      "date": "2026-09-13",
+      "driverA": "alexander-albon",
+      "driverB": "carlos-sainz-jr",
+      "observedLogGapPct": -0.005246066762646273,
+      "segment": "Q1"
+    },
+    {
+      "round": 14,
+      "race": "Formula 1 TAG Heuer Gran Premio de Espa\u00f1a 2026",
+      "date": "2026-09-13",
+      "driverA": "arvid-lindblad",
+      "driverB": "yuki-tsunoda",
+      "observedLogGapPct": -0.9397361027786559,
+      "segment": "Q2"
+    },
+    {
+      "round": 14,
+      "race": "Formula 1 TAG Heuer Gran Premio de Espa\u00f1a 2026",
+      "date": "2026-09-13",
+      "driverA": "charles-leclerc",
+      "driverB": "lewis-hamilton",
+      "observedLogGapPct": 0.00652060511445525,
+      "segment": "Q3"
+    },
+    {
+      "round": 14,
+      "race": "Formula 1 TAG Heuer Gran Premio de Espa\u00f1a 2026",
+      "date": "2026-09-13",
+      "driverA": "franco-colapinto",
+      "driverB": "pierre-gasly",
+      "observedLogGapPct": -0.7655652489863716,
+      "segment": "Q2"
+    },
+    {
+      "round": 14,
+      "race": "Formula 1 TAG Heuer Gran Premio de Espa\u00f1a 2026",
+      "date": "2026-09-13",
+      "driverA": "gabriel-bortoleto",
+      "driverB": "nico-hulkenberg",
+      "observedLogGapPct": 0.17683849612166688,
+      "segment": "Q2"
+    },
+    {
+      "round": 14,
+      "race": "Formula 1 TAG Heuer Gran Premio de Espa\u00f1a 2026",
+      "date": "2026-09-13",
+      "driverA": "george-russell",
+      "driverB": "kimi-antonelli",
+      "observedLogGapPct": 0.34133436045039994,
+      "segment": "Q3"
+    },
+    {
+      "round": 14,
+      "race": "Formula 1 TAG Heuer Gran Premio de Espa\u00f1a 2026",
+      "date": "2026-09-13",
+      "driverA": "lando-norris",
+      "driverB": "oscar-piastri",
+      "observedLogGapPct": -0.5105432612737907,
+      "segment": "Q3"
+    },
+    {
+      "round": 14,
+      "race": "Formula 1 TAG Heuer Gran Premio de Espa\u00f1a 2026",
+      "date": "2026-09-13",
+      "driverA": "liam-lawson",
+      "driverB": "max-verstappen",
+      "observedLogGapPct": 0.38202781431078914,
+      "segment": "Q3"
+    },
+    {
+      "round": 14,
+      "race": "Formula 1 TAG Heuer Gran Premio de Espa\u00f1a 2026",
+      "date": "2026-09-13",
+      "driverA": "sergio-perez",
+      "driverB": "valtteri-bottas",
+      "observedLogGapPct": -2.1638186694505417,
+      "segment": "Q1"
+    },
+    {
+      "round": 15,
+      "race": "Formula 1 Qatar Airways Azerbaijan Grand Prix 2026",
+      "date": "2026-09-26",
+      "driverA": "alexander-albon",
+      "driverB": "carlos-sainz-jr",
+      "observedLogGapPct": 0.35491140627052625,
+      "segment": "Q2"
+    },
+    {
+      "round": 15,
+      "race": "Formula 1 Qatar Airways Azerbaijan Grand Prix 2026",
+      "date": "2026-09-26",
+      "driverA": "arvid-lindblad",
+      "driverB": "liam-lawson",
+      "observedLogGapPct": 0.23432375961881685,
+      "segment": "Q2"
+    },
+    {
+      "round": 15,
+      "race": "Formula 1 Qatar Airways Azerbaijan Grand Prix 2026",
+      "date": "2026-09-26",
+      "driverA": "charles-leclerc",
+      "driverB": "lewis-hamilton",
+      "observedLogGapPct": -0.47775171581769016,
+      "segment": "Q3"
+    },
+    {
+      "round": 15,
+      "race": "Formula 1 Qatar Airways Azerbaijan Grand Prix 2026",
+      "date": "2026-09-26",
+      "driverA": "esteban-ocon",
+      "driverB": "oliver-bearman",
+      "observedLogGapPct": 0.22975256899711943,
+      "segment": "Q2"
+    },
+    {
+      "round": 15,
+      "race": "Formula 1 Qatar Airways Azerbaijan Grand Prix 2026",
+      "date": "2026-09-26",
+      "driverA": "fernando-alonso",
+      "driverB": "lance-stroll",
+      "observedLogGapPct": -0.6955574249131904,
+      "segment": "Q1"
+    },
+    {
+      "round": 15,
+      "race": "Formula 1 Qatar Airways Azerbaijan Grand Prix 2026",
+      "date": "2026-09-26",
+      "driverA": "franco-colapinto",
+      "driverB": "pierre-gasly",
+      "observedLogGapPct": 0.8765186972567686,
+      "segment": "Q3"
+    },
+    {
+      "round": 15,
+      "race": "Formula 1 Qatar Airways Azerbaijan Grand Prix 2026",
+      "date": "2026-09-26",
+      "driverA": "gabriel-bortoleto",
+      "driverB": "nico-hulkenberg",
+      "observedLogGapPct": -0.11430246050087745,
+      "segment": "Q1"
+    },
+    {
+      "round": 15,
+      "race": "Formula 1 Qatar Airways Azerbaijan Grand Prix 2026",
+      "date": "2026-09-26",
+      "driverA": "george-russell",
+      "driverB": "kimi-antonelli",
+      "observedLogGapPct": -1.8066759899869655,
+      "segment": "Q1"
+    },
+    {
+      "round": 15,
+      "race": "Formula 1 Qatar Airways Azerbaijan Grand Prix 2026",
+      "date": "2026-09-26",
+      "driverA": "isack-hadjar",
+      "driverB": "max-verstappen",
+      "observedLogGapPct": -0.5597829446520428,
+      "segment": "Q3"
+    },
+    {
+      "round": 15,
+      "race": "Formula 1 Qatar Airways Azerbaijan Grand Prix 2026",
+      "date": "2026-09-26",
+      "driverA": "lando-norris",
+      "driverB": "oscar-piastri",
+      "observedLogGapPct": 0.29753301572328206,
+      "segment": "Q3"
+    },
+    {
+      "round": 15,
+      "race": "Formula 1 Qatar Airways Azerbaijan Grand Prix 2026",
+      "date": "2026-09-26",
+      "driverA": "sergio-perez",
+      "driverB": "valtteri-bottas",
+      "observedLogGapPct": -1.5185359815585582,
+      "segment": "Q1"
+    },
+    {
+      "round": 16,
+      "race": "Formula 1 Gulf Air Bahrain Grand Prix in Malaysia 2026",
+      "date": "2026-10-04",
+      "driverA": "alexander-albon",
+      "driverB": "carlos-sainz-jr",
+      "observedLogGapPct": 0.967136368293495,
+      "segment": "Q1"
+    },
+    {
+      "round": 16,
+      "race": "Formula 1 Gulf Air Bahrain Grand Prix in Malaysia 2026",
+      "date": "2026-10-04",
+      "driverA": "arvid-lindblad",
+      "driverB": "liam-lawson",
+      "observedLogGapPct": 0.5645073003803232,
+      "segment": "Q1"
+    },
+    {
+      "round": 16,
+      "race": "Formula 1 Gulf Air Bahrain Grand Prix in Malaysia 2026",
+      "date": "2026-10-04",
+      "driverA": "charles-leclerc",
+      "driverB": "lewis-hamilton",
+      "observedLogGapPct": 0.24909219866633647,
+      "segment": "Q3"
+    },
+    {
+      "round": 16,
+      "race": "Formula 1 Gulf Air Bahrain Grand Prix in Malaysia 2026",
+      "date": "2026-10-04",
+      "driverA": "esteban-ocon",
+      "driverB": "oliver-bearman",
+      "observedLogGapPct": 0.257883157805035,
+      "segment": "Q1"
+    },
+    {
+      "round": 16,
+      "race": "Formula 1 Gulf Air Bahrain Grand Prix in Malaysia 2026",
+      "date": "2026-10-04",
+      "driverA": "fernando-alonso",
+      "driverB": "lance-stroll",
+      "observedLogGapPct": -0.3552620454330958,
+      "segment": "Q2"
+    },
+    {
+      "round": 16,
+      "race": "Formula 1 Gulf Air Bahrain Grand Prix in Malaysia 2026",
+      "date": "2026-10-04",
+      "driverA": "franco-colapinto",
+      "driverB": "pierre-gasly",
+      "observedLogGapPct": 0.005145276894219057,
+      "segment": "Q1"
+    },
+    {
+      "round": 16,
+      "race": "Formula 1 Gulf Air Bahrain Grand Prix in Malaysia 2026",
+      "date": "2026-10-04",
+      "driverA": "gabriel-bortoleto",
+      "driverB": "nico-hulkenberg",
+      "observedLogGapPct": -0.8858144001272366,
+      "segment": "Q1"
+    },
+    {
+      "round": 16,
+      "race": "Formula 1 Gulf Air Bahrain Grand Prix in Malaysia 2026",
+      "date": "2026-10-04",
+      "driverA": "george-russell",
+      "driverB": "kimi-antonelli",
+      "observedLogGapPct": 0.2506502549854215,
+      "segment": "Q3"
+    },
+    {
+      "round": 16,
+      "race": "Formula 1 Gulf Air Bahrain Grand Prix in Malaysia 2026",
+      "date": "2026-10-04",
+      "driverA": "isack-hadjar",
+      "driverB": "max-verstappen",
+      "observedLogGapPct": 0.4489015761118948,
+      "segment": "Q3"
+    },
+    {
+      "round": 16,
+      "race": "Formula 1 Gulf Air Bahrain Grand Prix in Malaysia 2026",
+      "date": "2026-10-04",
+      "driverA": "lando-norris",
+      "driverB": "oscar-piastri",
+      "observedLogGapPct": -0.005221414064540153,
+      "segment": "Q3"
+    },
+    {
+      "round": 16,
+      "race": "Formula 1 Gulf Air Bahrain Grand Prix in Malaysia 2026",
+      "date": "2026-10-04",
+      "driverA": "sergio-perez",
+      "driverB": "valtteri-bottas",
+      "observedLogGapPct": 0.32600360950491913,
+      "segment": "Q1"
+    },
+    {
+      "round": 17,
+      "race": "Formula 1 Singapore Airlines Singapore Grand Prix 2026",
+      "date": "2026-10-11",
+      "driverA": "alexander-albon",
+      "driverB": "carlos-sainz-jr",
+      "observedLogGapPct": 0.5476901754700579,
+      "segment": "Q1"
+    },
+    {
+      "round": 17,
+      "race": "Formula 1 Singapore Airlines Singapore Grand Prix 2026",
+      "date": "2026-10-11",
+      "driverA": "arvid-lindblad",
+      "driverB": "liam-lawson",
+      "observedLogGapPct": 0.4450452930316122,
+      "segment": "Q3"
+    },
+    {
+      "round": 17,
+      "race": "Formula 1 Singapore Airlines Singapore Grand Prix 2026",
+      "date": "2026-10-11",
+      "driverA": "charles-leclerc",
+      "driverB": "lewis-hamilton",
+      "observedLogGapPct": -0.07544158282181514,
+      "segment": "Q3"
+    },
+    {
+      "round": 17,
+      "race": "Formula 1 Singapore Airlines Singapore Grand Prix 2026",
+      "date": "2026-10-11",
+      "driverA": "esteban-ocon",
+      "driverB": "oliver-bearman",
+      "observedLogGapPct": 0.4456837872776091,
+      "segment": "Q2"
+    },
+    {
+      "round": 17,
+      "race": "Formula 1 Singapore Airlines Singapore Grand Prix 2026",
+      "date": "2026-10-11",
+      "driverA": "fernando-alonso",
+      "driverB": "lance-stroll",
+      "observedLogGapPct": -0.7643995796822307,
+      "segment": "Q1"
+    },
+    {
+      "round": 17,
+      "race": "Formula 1 Singapore Airlines Singapore Grand Prix 2026",
+      "date": "2026-10-11",
+      "driverA": "franco-colapinto",
+      "driverB": "pierre-gasly",
+      "observedLogGapPct": 1.2715513965750564,
+      "segment": "Q2"
+    },
+    {
+      "round": 17,
+      "race": "Formula 1 Singapore Airlines Singapore Grand Prix 2026",
+      "date": "2026-10-11",
+      "driverA": "gabriel-bortoleto",
+      "driverB": "nico-hulkenberg",
+      "observedLogGapPct": 0.9375638560301583,
+      "segment": "Q2"
+    },
+    {
+      "round": 17,
+      "race": "Formula 1 Singapore Airlines Singapore Grand Prix 2026",
+      "date": "2026-10-11",
+      "driverA": "george-russell",
+      "driverB": "kimi-antonelli",
+      "observedLogGapPct": 0.20184504067959408,
+      "segment": "Q3"
+    },
+    {
+      "round": 17,
+      "race": "Formula 1 Singapore Airlines Singapore Grand Prix 2026",
+      "date": "2026-10-11",
+      "driverA": "lando-norris",
+      "driverB": "oscar-piastri",
+      "observedLogGapPct": -0.1612446691940721,
+      "segment": "Q3"
+    },
+    {
+      "round": 17,
+      "race": "Formula 1 Singapore Airlines Singapore Grand Prix 2026",
+      "date": "2026-10-11",
+      "driverA": "sergio-perez",
+      "driverB": "valtteri-bottas",
+      "observedLogGapPct": -0.9010719917063537,
+      "segment": "Q1"
+    },
+    {
+      "round": 18,
+      "race": "Formula 1 MSC Cruises United States Grand Prix 2026",
+      "date": "2026-10-25",
+      "driverA": "alexander-albon",
+      "driverB": "carlos-sainz-jr",
+      "observedLogGapPct": 0.2033685541711877,
+      "segment": "Q1"
+    },
+    {
+      "round": 18,
+      "race": "Formula 1 MSC Cruises United States Grand Prix 2026",
+      "date": "2026-10-25",
+      "driverA": "arvid-lindblad",
+      "driverB": "liam-lawson",
+      "observedLogGapPct": -0.11367943626659466,
+      "segment": "Q2"
+    },
+    {
+      "round": 18,
+      "race": "Formula 1 MSC Cruises United States Grand Prix 2026",
+      "date": "2026-10-25",
+      "driverA": "charles-leclerc",
+      "driverB": "lewis-hamilton",
+      "observedLogGapPct": -0.0466650413075331,
+      "segment": "Q3"
+    },
+    {
+      "round": 18,
+      "race": "Formula 1 MSC Cruises United States Grand Prix 2026",
+      "date": "2026-10-25",
+      "driverA": "esteban-ocon",
+      "driverB": "oliver-bearman",
+      "observedLogGapPct": 0.36947516422445764,
+      "segment": "Q1"
+    },
+    {
+      "round": 18,
+      "race": "Formula 1 MSC Cruises United States Grand Prix 2026",
+      "date": "2026-10-25",
+      "driverA": "fernando-alonso",
+      "driverB": "lance-stroll",
+      "observedLogGapPct": -0.4530453484681518,
+      "segment": "Q1"
+    },
+    {
+      "round": 18,
+      "race": "Formula 1 MSC Cruises United States Grand Prix 2026",
+      "date": "2026-10-25",
+      "driverA": "franco-colapinto",
+      "driverB": "pierre-gasly",
+      "observedLogGapPct": 0.6729514604865795,
+      "segment": "Q2"
+    },
+    {
+      "round": 18,
+      "race": "Formula 1 MSC Cruises United States Grand Prix 2026",
+      "date": "2026-10-25",
+      "driverA": "gabriel-bortoleto",
+      "driverB": "nico-hulkenberg",
+      "observedLogGapPct": 0.5585582169597787,
+      "segment": "Q2"
+    },
+    {
+      "round": 18,
+      "race": "Formula 1 MSC Cruises United States Grand Prix 2026",
+      "date": "2026-10-25",
+      "driverA": "george-russell",
+      "driverB": "kimi-antonelli",
+      "observedLogGapPct": 0.46787805962890205,
+      "segment": "Q3"
+    },
+    {
+      "round": 18,
+      "race": "Formula 1 MSC Cruises United States Grand Prix 2026",
+      "date": "2026-10-25",
+      "driverA": "isack-hadjar",
+      "driverB": "max-verstappen",
+      "observedLogGapPct": 0.03820358311174433,
+      "segment": "Q3"
+    },
+    {
+      "round": 18,
+      "race": "Formula 1 MSC Cruises United States Grand Prix 2026",
+      "date": "2026-10-25",
+      "driverA": "lando-norris",
+      "driverB": "oscar-piastri",
+      "observedLogGapPct": 0.25914937706708757,
+      "segment": "Q3"
+    },
+    {
+      "round": 18,
+      "race": "Formula 1 MSC Cruises United States Grand Prix 2026",
+      "date": "2026-10-25",
+      "driverA": "sergio-perez",
+      "driverB": "valtteri-bottas",
+      "observedLogGapPct": -0.09232853196969486,
+      "segment": "Q1"
+    },
+    {
+      "round": 19,
+      "race": "Formula 1 Gran Premio de la Ciudad de M\u00e9xico 2026",
+      "date": "2026-11-01",
+      "driverA": "alexander-albon",
+      "driverB": "carlos-sainz-jr",
+      "observedLogGapPct": 0.13872010674995267,
+      "segment": "Q1"
+    },
+    {
+      "round": 19,
+      "race": "Formula 1 Gran Premio de la Ciudad de M\u00e9xico 2026",
+      "date": "2026-11-01",
+      "driverA": "arvid-lindblad",
+      "driverB": "liam-lawson",
+      "observedLogGapPct": 0.11417748051860013,
+      "segment": "Q3"
+    },
+    {
+      "round": 19,
+      "race": "Formula 1 Gran Premio de la Ciudad de M\u00e9xico 2026",
+      "date": "2026-11-01",
+      "driverA": "charles-leclerc",
+      "driverB": "lewis-hamilton",
+      "observedLogGapPct": 0.15540627495131484,
+      "segment": "Q3"
+    },
+    {
+      "round": 19,
+      "race": "Formula 1 Gran Premio de la Ciudad de M\u00e9xico 2026",
+      "date": "2026-11-01",
+      "driverA": "fernando-alonso",
+      "driverB": "lance-stroll",
+      "observedLogGapPct": -0.20762129245771285,
+      "segment": "Q1"
+    },
+    {
+      "round": 19,
+      "race": "Formula 1 Gran Premio de la Ciudad de M\u00e9xico 2026",
+      "date": "2026-11-01",
+      "driverA": "franco-colapinto",
+      "driverB": "pierre-gasly",
+      "observedLogGapPct": 0.46734486486220295,
+      "segment": "Q2"
+    },
+    {
+      "round": 19,
+      "race": "Formula 1 Gran Premio de la Ciudad de M\u00e9xico 2026",
+      "date": "2026-11-01",
+      "driverA": "gabriel-bortoleto",
+      "driverB": "nico-hulkenberg",
+      "observedLogGapPct": 0.4826251738295273,
+      "segment": "Q2"
+    },
+    {
+      "round": 19,
+      "race": "Formula 1 Gran Premio de la Ciudad de M\u00e9xico 2026",
+      "date": "2026-11-01",
+      "driverA": "george-russell",
+      "driverB": "kimi-antonelli",
+      "observedLogGapPct": -0.2401619636353709,
+      "segment": "Q3"
+    },
+    {
+      "round": 19,
+      "race": "Formula 1 Gran Premio de la Ciudad de M\u00e9xico 2026",
+      "date": "2026-11-01",
+      "driverA": "isack-hadjar",
+      "driverB": "max-verstappen",
+      "observedLogGapPct": 0.2708476055453259,
+      "segment": "Q3"
+    },
+    {
+      "round": 19,
+      "race": "Formula 1 Gran Premio de la Ciudad de M\u00e9xico 2026",
+      "date": "2026-11-01",
+      "driverA": "lando-norris",
+      "driverB": "oscar-piastri",
+      "observedLogGapPct": -1.1893334641938,
+      "segment": "Q2"
+    },
+    {
+      "round": 19,
+      "race": "Formula 1 Gran Premio de la Ciudad de M\u00e9xico 2026",
+      "date": "2026-11-01",
+      "driverA": "oliver-bearman",
+      "driverB": "ryo-hirakawa",
+      "observedLogGapPct": -1.1143702025912663,
+      "segment": "Q1"
+    },
+    {
+      "round": 19,
+      "race": "Formula 1 Gran Premio de la Ciudad de M\u00e9xico 2026",
+      "date": "2026-11-01",
+      "driverA": "sergio-perez",
+      "driverB": "valtteri-bottas",
+      "observedLogGapPct": -0.9398837409379964,
+      "segment": "Q1"
+    },
+    {
+      "round": 20,
+      "race": "Formula 1 MSC Cruises Grande Pr\u00eamio de S\u00e3o Paulo 2026",
+      "date": "2026-11-08",
+      "driverA": "alexander-albon",
+      "driverB": "carlos-sainz-jr",
+      "observedLogGapPct": -3.173428886732471,
+      "segment": "Q2"
+    },
+    {
+      "round": 20,
+      "race": "Formula 1 MSC Cruises Grande Pr\u00eamio de S\u00e3o Paulo 2026",
+      "date": "2026-11-08",
+      "driverA": "arvid-lindblad",
+      "driverB": "liam-lawson",
+      "observedLogGapPct": 5.190942408482526,
+      "segment": "Q2"
+    },
+    {
+      "round": 20,
+      "race": "Formula 1 MSC Cruises Grande Pr\u00eamio de S\u00e3o Paulo 2026",
+      "date": "2026-11-08",
+      "driverA": "charles-leclerc",
+      "driverB": "lewis-hamilton",
+      "observedLogGapPct": -2.155258259267924,
+      "segment": "Q2"
+    },
+    {
+      "round": 20,
+      "race": "Formula 1 MSC Cruises Grande Pr\u00eamio de S\u00e3o Paulo 2026",
+      "date": "2026-11-08",
+      "driverA": "fernando-alonso",
+      "driverB": "lance-stroll",
+      "observedLogGapPct": -1.6808385164671666,
+      "segment": "Q1"
+    },
+    {
+      "round": 20,
+      "race": "Formula 1 MSC Cruises Grande Pr\u00eamio de S\u00e3o Paulo 2026",
+      "date": "2026-11-08",
+      "driverA": "franco-colapinto",
+      "driverB": "pierre-gasly",
+      "observedLogGapPct": -0.1306377878856641,
+      "segment": "Q1"
+    },
+    {
+      "round": 20,
+      "race": "Formula 1 MSC Cruises Grande Pr\u00eamio de S\u00e3o Paulo 2026",
+      "date": "2026-11-08",
+      "driverA": "gabriel-bortoleto",
+      "driverB": "nico-hulkenberg",
+      "observedLogGapPct": 10.224310117493673,
+      "segment": "Q1"
+    },
+    {
+      "round": 20,
+      "race": "Formula 1 MSC Cruises Grande Pr\u00eamio de S\u00e3o Paulo 2026",
+      "date": "2026-11-08",
+      "driverA": "george-russell",
+      "driverB": "kimi-antonelli",
+      "observedLogGapPct": -0.4790387441305647,
+      "segment": "Q3"
+    },
+    {
+      "round": 20,
+      "race": "Formula 1 MSC Cruises Grande Pr\u00eamio de S\u00e3o Paulo 2026",
+      "date": "2026-11-08",
+      "driverA": "isack-hadjar",
+      "driverB": "max-verstappen",
+      "observedLogGapPct": 0.8958198883605516,
+      "segment": "Q1"
+    },
+    {
+      "round": 20,
+      "race": "Formula 1 MSC Cruises Grande Pr\u00eamio de S\u00e3o Paulo 2026",
+      "date": "2026-11-08",
+      "driverA": "lando-norris",
+      "driverB": "oscar-piastri",
+      "observedLogGapPct": -1.2941776390260225,
+      "segment": "Q2"
+    },
+    {
+      "round": 20,
+      "race": "Formula 1 MSC Cruises Grande Pr\u00eamio de S\u00e3o Paulo 2026",
+      "date": "2026-11-08",
+      "driverA": "oliver-bearman",
+      "driverB": "rafael-camara",
+      "observedLogGapPct": -2.6406915129299473,
+      "segment": "Q2"
+    },
+    {
+      "round": 20,
+      "race": "Formula 1 MSC Cruises Grande Pr\u00eamio de S\u00e3o Paulo 2026",
+      "date": "2026-11-08",
+      "driverA": "sergio-perez",
+      "driverB": "valtteri-bottas",
+      "observedLogGapPct": 0.7807435971964186,
+      "segment": "Q1"
+    }
+  ],
+  "throughDate": "2026-11-08",
+  "validationReviewSha256": "18c6f61210424d12ea5571cb301e457eb1425a3d4c938b800017105180169449",
+  "candidateSourceSha256": "9c01f2635a444565437c8ad561d62057d4890e94469efffb121229cc216499fa"
+}

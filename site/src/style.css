@@ -1,7 +1,7 @@
 @font-face {
-  font-family: "Asimovian";
-  src: url("/fonts/asimovian.ttf") format("truetype");
-  font-weight: 400;
+  font-family: "Orbitron";
+  src: url("/fonts/orbitron.ttf") format("truetype");
+  font-weight: 400 900;
   font-style: normal;
   font-display: swap;
 }
@@ -108,7 +108,7 @@ h2,
 h3,
 .brand,
 footer strong {
-  font-family: "Asimovian", system-ui, sans-serif;
+  font-family: "Orbitron", system-ui, sans-serif;
   font-weight: 400;
   font-style: italic;
 }
@@ -272,6 +272,8 @@ p {
   padding: 22px 0;
 }
 .controls label {
+  min-width: 0;
+  max-width: 100%;
   display: grid;
   gap: 7px;
   font: 11px var(--sans);
@@ -285,6 +287,10 @@ select {
   border-radius: 3px;
   font: 13px var(--sans);
   color: #292725;
+}
+.controls select {
+  min-width: 0;
+  max-width: 100%;
 }
 input[type="search"] {
   min-width: 240px;
@@ -406,7 +412,7 @@ footer {
 }
 footer strong {
   color: #292725;
-  font-family: Georgia, serif;
+  font-family: "Orbitron", system-ui, sans-serif;
   font-size: 20px;
 }
 footer p {
@@ -529,4 +535,38 @@ small {
   * {
     scroll-behavior: auto !important;
   }
+}
+
+.results-section,
+.race-accordion {
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  margin: 16px 0;
+}
+.results-section > summary,
+.race-accordion > summary {
+  padding: 18px;
+  cursor: pointer;
+  font-family: var(--sans);
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+.race-accordion > summary span {
+  display: block;
+  margin-top: 7px;
+  font-size: 11px;
+  color: var(--muted);
+}
+.accordion-body {
+  padding: 0 18px 18px;
+  min-width: 0;
+}
+.chart-card canvas {
+  max-width: 100%;
+}
+.brand,
+.brand *,
+footer .brand,
+h1 {
+  font-family: "Orbitron", system-ui, sans-serif;
 }

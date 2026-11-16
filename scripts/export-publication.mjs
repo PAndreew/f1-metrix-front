@@ -1,4 +1,7 @@
 import { DatabaseSync } from "node:sqlite";
+import { validateQualifying } from "./validate-qualifying.mjs";
+import { validateSimulations } from "./validate-simulations.mjs";
+import { validatePerformance } from "./validate-performance.mjs";
 import {
   existsSync,
   mkdirSync,
@@ -57,6 +60,7 @@ export function exportPublication(root) {
   );
   if (validated) {
     validateFit(model);
+    validatePerformance(model);
     const ids = new Set();
     for (const d of model.drivers) {
       if (
@@ -90,7 +94,19 @@ export function exportPublication(root) {
         .map((n) => JSON.parse(readFileSync(join(articlesDir, n), "utf8")))
     : [];
   articles.sort((a, b) => b.date.localeCompare(a.date));
+  const qualifyingPath = join(root, "publication", "qualifying.json");
+  const qualifying = existsSync(qualifyingPath)
+    ? JSON.parse(readFileSync(qualifyingPath, "utf8"))
+    : null;
+  if (qualifying) validateQualifying(qualifying);
+  const simulationsPath = join(root, "publication", "simulations.json");
+  const simulations = existsSync(simulationsPath)
+    ? JSON.parse(readFileSync(simulationsPath, "utf8"))
+    : null;
+  if (simulations) validateSimulations(simulations);
   const data = {
+    simulations,
+    qualifying,
     model,
     articles,
     samplerPassed: validated,

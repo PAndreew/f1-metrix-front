@@ -1,0 +1,35 @@
+name: Owner-only issue resolution
+
+on:
+  issues:
+    types: [closed]
+
+permissions:
+  issues: write
+
+concurrency:
+  group: issue-resolution-${{ github.event.issue.number }}
+  cancel-in-progress: false
+
+jobs:
+  reopen-unapproved-closure:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Reopen issues closed by anyone except the repository owner
+        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b
+        with:
+          script: |
+            const owner = context.repo.owner.toLowerCase();
+            if (context.actor.toLowerCase() === owner) return;
+            const { data: issue } = await github.rest.issues.get({
+              ...context.repo,
+              issue_number: context.issue.number
+            });
+            // Respect a later owner closure, and ignore issues already reopened.
+            if (issue.state !== 'closed' || issue.closed_by?.login?.toLowerCase() === owner) return;
+            await github.rest.issues.update({
+              ...context.repo,
+              issue_number: context.issue.number,
+              state: 'open'
+            });
+            core.notice(`Reopened #${context.issue.number}: final resolution is reserved for ${context.repo.owner}.`);

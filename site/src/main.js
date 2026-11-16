@@ -1,4 +1,7 @@
+import { createChart } from "./chart-lifecycle.js";
 import "./style.css";
+import { qualifyingView } from "./qualifying.js";
+import { simulatorView } from "./simulator.js";
 import { Chart, registerables } from "chart.js";
 Chart.register(...registerables);
 Chart.defaults.font.family = "system-ui, sans-serif";
@@ -50,33 +53,11 @@ function tableDetails(id, headers, rows, caption) {
 }
 function addChart(id, config) {
   const el = document.getElementById(id);
-  if (el) charts.push(new Chart(el, config));
+  if (el) charts.push(createChart(el, config));
 }
 function intervalChart(id, rows, label) {
-  const markers = {
-    id: "medians",
-    afterDatasetsDraw(chart) {
-      const {
-        ctx,
-        scales: { x, y },
-      } = chart;
-      ctx.save();
-      ctx.strokeStyle = red;
-      ctx.lineWidth = 3;
-      rows.forEach((r, i) => {
-        const px = x.getPixelForValue(r.score);
-        const py = y.getPixelForValue(i);
-        ctx.beginPath();
-        ctx.moveTo(px, py - 6);
-        ctx.lineTo(px, py + 6);
-        ctx.stroke();
-      });
-      ctx.restore();
-    },
-  };
   addChart(id, {
     type: "bar",
-    plugins: [markers],
     data: {
       labels: rows.map((r) => r.name),
       datasets: [
@@ -86,6 +67,15 @@ function intervalChart(id, rows, label) {
           backgroundColor: "#d9b8b1",
           barThickness: 10,
           borderRadius: 2,
+        },
+        {
+          type: "scatter",
+          label: "Posterior median",
+          data: rows.map((r) => ({ x: r.score, y: r.name })),
+          pointBackgroundColor: red,
+          pointBorderColor: red,
+          pointStyle: "rect",
+          pointRadius: 4,
         },
       ],
     },
@@ -127,23 +117,14 @@ function rankingRows() {
 }
 function journal() {
   const m = publication.model;
-  main.innerHTML = `<h1>F1 <em>Metrix</em></h1><p class="intro">An homage to <a href="https://f1metrics.wordpress.com/">f1metrics</a> and Andrew Phillips’s work on separating driver performance from the car.</p><p>Independent work, inspired by the original. Not affiliated with f1metrics.</p><p><a class="link" href="#/rankings">Explore the model results</a></p>${note()}${chartCard("overview", "Driver estimates", "Career baseline")}<div class="stats"><div class="stat"><b>${m.drivers.length}</b><span>drivers</span></div><div class="stat"><b>${Number(m.metadata.observations).toLocaleString()}</b><span>eligible race observations</span></div><div class="stat"><b>${m.metadata.intervalPercent ?? 94}%</b><span>posterior intervals</span></div></div>`;
+  main.innerHTML = `<h1>F1 <em>Metrix</em></h1><p class="intro">An homage to <a href="https://f1metrics.wordpress.com/">f1metrics</a> and Andrew Phillips’s work on separating driver performance from the car.</p><p>Independent work, inspired by the original. Not affiliated with f1metrics.</p><p><a class="link" href="#/results">Explore all results</a></p>${note()}${chartCard("overview", "Driver estimates", "Career baseline")}<div class="stats"><div class="stat"><b>${m.drivers.length}</b><span>drivers</span></div><div class="stat"><b>${Number(m.metadata.observations).toLocaleString()}</b><span>eligible race observations</span></div><div class="stat"><b>${m.metadata.intervalPercent ?? 94}%</b><span>posterior intervals</span></div></div>`;
   intervalChart("overview", rankingRows(), "Median");
 }
-function rankings() {
+function rankings(target = main) {
   const m = publication.model,
     year = Math.max(...m.drivers.map((d) => d.lastYear));
-  main.innerHTML = `<p class="eyebrow">The model / driver explorer</p><h1>Model <em>results</em></h1>${note()}<div class="section-label"><span>${escape(m.metadata.model)}</span><span>Through ${escape(m.metadata.lastRaceDate)}</span></div><div class="two-col">${chartCard("drivers-chart", "The leading estimates", "Career baseline", true)}${chartCard("teams-chart", "Constructor strength", String(year), true)}</div><div class="controls"><label>Search drivers or nationality<input id="search" type="search" placeholder="e.g. Alonso, British…" maxlength="100"></label><label>Minimum races<select id="minimum"><option value="0">All experience levels</option><option value="25">25+ races</option><option value="100">100+ races</option><option value="200">200+ races</option></select></label><label>Era<select id="era"><option value="all">All years</option><option value="active">Active in ${year}</option></select></label><button class="quiet" id="download">Download CSV</button></div><div class="table-wrap"><table id="rankings"><thead><tr><th><button data-sort="rank">Rank</button></th><th><button data-sort="name">Driver</button></th><th class="num"><button data-sort="skill">Median</button></th><th class="num">${m.metadata.intervalPercent ?? 94}% interval</th><th class="num"><button data-sort="races">Races</button></th><th><button data-sort="last_year">Seasons</button></th></tr></thead><tbody id="rows"><tr><td colspan="6">Loading explorer…</td></tr></tbody></table></div><div class="pagination"><span id="count" aria-live="polite"></span><div><button class="quiet" id="previous">Previous</button><button class="quiet" id="next">Next</button></div></div><p class="caption" id="db-status">SQLite runs locally in your browser. No queries leave your device.</p><details><summary>How to read this table</summary>Career baseline skill is a latent log-strength in the joint Plackett–Luce ordering model, not seconds or points. Ranks sort posterior medians. Ages, experience and constructor-season effects are adjusted for; these values are career baselines, not season performance. Races count eligible completion-order observations, not every start. Rankings remain exploratory pending predictive validation.</details>`;
+  target.innerHTML = `<p class="eyebrow">The model / driver explorer</p><h1>Model <em>results</em></h1>${note()}<div class="section-label"><span>${escape(m.metadata.model)}</span><span>Through ${escape(m.metadata.lastRaceDate)}</span></div><p>All-time driver career baselines across historical seasons—not 2026 driver form. Constructor estimates are separate, season-specific results in the section below.</p>${chartCard("drivers-chart", "All-time driver career estimates", "Historical career baseline · not a season ranking", true)}<div class="controls"><label>Search drivers or nationality<input id="search" type="search" placeholder="e.g. Alonso, British…" maxlength="100"></label><label>Minimum races<select id="minimum"><option value="0">All experience levels</option><option value="25">25+ races</option><option value="100">100+ races</option><option value="200">200+ races</option></select></label><label>Era<select id="era"><option value="all">All years</option><option value="active">Active in ${year}</option></select></label><button class="quiet" id="download">Download CSV</button></div><div class="table-wrap"><table id="rankings"><thead><tr><th><button data-sort="rank">Rank</button></th><th><button data-sort="name">Driver</button></th><th class="num"><button data-sort="skill">Median</button></th><th class="num">${m.metadata.intervalPercent ?? 94}% interval</th><th class="num"><button data-sort="races">Races</button></th><th><button data-sort="last_year">Seasons</button></th></tr></thead><tbody id="rows"><tr><td colspan="6">Loading explorer…</td></tr></tbody></table></div><div class="pagination"><span id="count" aria-live="polite"></span><div><button class="quiet" id="previous">Previous</button><button class="quiet" id="next">Next</button></div></div><p class="caption" id="db-status">SQLite runs locally in your browser. No queries leave your device.</p><details><summary>How to read this table</summary>Career baseline skill is a latent log-strength in the joint Plackett–Luce ordering model, not seconds or points. Ranks sort posterior medians. Ages, experience and constructor-season effects are adjusted for; these values are career baselines, not season performance. Races count eligible completion-order observations, not every start. Rankings remain exploratory pending predictive validation.</details>`;
   intervalChart("drivers-chart", rankingRows(), "Median");
-  const teams = m.teams
-    .filter((t) => t.year === year)
-    .sort((a, b) => b.skill - a.skill)
-    .slice(0, 10);
-  intervalChart(
-    "teams-chart",
-    teams.map((t) => ({ ...t, name: t.name, score: t.skill ?? t.score })),
-    "Median",
-  );
   let state = {
       search: "",
       minimum: 0,
@@ -311,9 +292,9 @@ function rankings() {
   };
   query();
 }
-function method() {
+function method(target = main) {
   const m = publication.model.metadata;
-  main.innerHTML = `<h1>About <em>F1 Metrix</em></h1><div class="prose"><p class="intro">An homage to <a href="https://f1metrics.wordpress.com/">f1metrics</a>, Andrew Phillips’s long-running project exploring Formula One driver performance beyond the machinery.</p><p>This is an independent continuation of that question, not a reproduction of his model or an affiliated project.</p>${note()}<h2>The model</h2><p>Joint finishing-order estimates with driver and constructor-season effects, adjusted for age and experience. Rankings sort career-baseline medians; bars show ${m.intervalPercent ?? 94}% posterior intervals. Only eligible completion-order observations are counted, not every start.</p><h2>The data</h2><p><a href="https://github.com/f1db/f1db">F1DB</a> ${escape(m.sourceRelease)}, through ${escape(m.lastRaceDate)}. Career fitting starts in 1954. Cross-era comparisons depend on model assumptions.</p><p><a href="https://github.com/PAndreew/f1-metrix-front/tree/master/publication">Results, diagnostics and limitations</a></p></div>`;
+  target.innerHTML = `<h1>About <em>F1 Metrix</em></h1><div class="prose"><p class="intro">An homage to <a href="https://f1metrics.wordpress.com/">f1metrics</a>, Andrew Phillips’s long-running project exploring Formula One driver performance beyond the machinery.</p><p>This is an independent continuation of that question, not a reproduction of his model or an affiliated project.</p>${note()}<h2>The model</h2><p>Joint finishing-order estimates with driver and constructor-season effects, adjusted for age and experience. Rankings sort career-baseline medians; bars show ${m.intervalPercent ?? 94}% posterior intervals. Only eligible completion-order observations are counted, not every start.</p><h2>The data</h2><p><a href="https://github.com/f1db/f1db">F1DB</a> ${escape(m.sourceRelease)}, through ${escape(m.lastRaceDate)}. Career fitting starts in 1954. Cross-era comparisons depend on model assumptions.</p><p><a href="https://github.com/PAndreew/f1-metrix-front/tree/master/publication">Results, diagnostics and limitations</a></p></div>`;
 }
 function article(id) {
   const a = publication.articles.find((a) => a.id === id);
@@ -399,6 +380,77 @@ function article(id) {
     "Expected positions come from joint simulations fitted strictly before the race date. Retirement and incident context must be considered separately.",
   );
 }
+function constructorResults(target) {
+  const years = [...new Set(publication.model.teams.map((t) => t.year))].sort(
+    (a, b) => b - a,
+  );
+  target.innerHTML = `<h2>Constructor strength by season</h2><p>These are team-season equipment effects, not all-time constructor rankings and not driver rankings. Select a season; estimates are centred within that season.</p><div class="controls"><label>Constructor season<select id="constructor-year">${years.map((y) => `<option>${y}</option>`).join("")}</select></label></div><div id="constructor-chart-host"></div>`;
+  const draw = () => {
+    const prior = charts.find((c) => c.canvas?.id === "teams-chart");
+    if (prior) {
+      prior.destroy();
+      charts.splice(charts.indexOf(prior), 1);
+    }
+    const year = Number(document.getElementById("constructor-year").value);
+    document.getElementById("constructor-chart-host").innerHTML = chartCard(
+      "teams-chart",
+      `Constructor equipment estimates · ${year}`,
+      `${year} only · not comparable to all-time driver ranks`,
+      true,
+    );
+    const rows = publication.model.teams
+      .filter((t) => t.year === year)
+      .sort((a, b) => b.skill - a.skill)
+      .map((t) => ({ ...t, score: t.skill }));
+    intervalChart("teams-chart", rows, "Median");
+  };
+  document.getElementById("constructor-year").addEventListener("change", draw);
+  draw();
+}
+
+function allResults() {
+  main.innerHTML = `<h1>F1 <em>Metrix</em></h1><p class="intro">An homage to <a href="https://f1metrics.wordpress.com/">f1metrics</a> by Andrew Phillips.</p><details class="results-section" id="section-career" open><summary>All-time historical driver rankings</summary><section id="results-career" class="accordion-body"></section></details><details class="results-section" id="section-constructors"><summary>Constructor strength by season</summary><section id="results-constructors" class="accordion-body"></section></details><details class="results-section" id="section-simulations"><summary>2026 race simulations and weekend comparisons</summary><section id="results-simulations" class="accordion-body"></section></details>${[
+    ["qualifying", "Season qualifying comparisons"],
+    ["method", "Method and limitations"],
+  ]
+    .map(
+      ([id, title]) =>
+        `<details class="results-section" id="section-${id}"><summary>${title}</summary><section id="results-${id}" class="accordion-body"></section></details>`,
+    )
+    .join("")}`;
+  simulatorView(
+    document.getElementById("results-simulations"),
+    publication.simulations,
+    charts,
+    publication.qualifying,
+  );
+  qualifyingView(
+    document.getElementById("results-qualifying"),
+    publication.qualifying,
+    charts,
+  );
+  rankings(document.getElementById("results-career"));
+  constructorResults(document.getElementById("results-constructors"));
+  method(document.getElementById("results-method"));
+  main.querySelectorAll("section > h1").forEach((h) => {
+    const replacement = document.createElement("h2");
+    replacement.innerHTML = h.innerHTML;
+    h.replaceWith(replacement);
+  });
+}
+main.addEventListener(
+  "toggle",
+  (event) => {
+    if (event.target.open)
+      requestAnimationFrame(() =>
+        event.target
+          .querySelectorAll("canvas")
+          .forEach((c) => Chart.getChart(c)?.resize()),
+      );
+  },
+  true,
+);
+
 function render() {
   renderVersion++;
   charts.forEach((c) => c.destroy());
@@ -409,17 +461,25 @@ function render() {
     if (a.hash === (location.hash || "#/"))
       a.setAttribute("aria-current", "page");
   });
-  if (route === "rankings") rankings();
-  else if (route === "method") method();
-  else if (route.startsWith("article/"))
+  if (route.startsWith("article/")) {
     article(decodeURIComponent(route.slice(8)));
-  else journal();
-  document.title =
-    (route === "rankings"
-      ? "The model"
-      : route === "method"
-        ? "Method"
-        : "Home") + " — F1 Metrix";
+    document.title = "Article — F1 Metrix";
+  } else {
+    allResults();
+    const section = {
+      rankings: "career",
+      qualifying: "qualifying",
+
+      method: "method",
+    }[route];
+    if (section) {
+      const panel = document.getElementById("section-" + section);
+      panel.open = true;
+      requestAnimationFrame(() => panel.scrollIntoView());
+    }
+    // Legacy comparison bookmarks render the same complete page, never separate views.
+    document.title = "All results — F1 Metrix";
+  }
 }
 fetch("/data/publication.json")
   .then((r) => {

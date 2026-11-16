@@ -48,3 +48,4 @@ next-env.d.ts
 /legacy/next-app/.next/
 /pipeline-state/
 *.nc
+__pycache__/
