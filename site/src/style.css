@@ -645,24 +645,16 @@ h1 {
   margin: 0 0 16px;
 }
 .info {
-  display: inline-grid;
-  place-items: center;
-  width: 15px;
-  height: 15px;
-  margin-left: 5px;
+  display: inline-flex;
+  margin-left: 4px;
   padding: 0;
-  border: 1px solid #9a9a9a;
-  border-radius: 50%;
-  background: #fff;
-  color: #555;
-  font:
-    italic 600 10px/1 Georgia,
-    serif;
-  vertical-align: 1px;
+  border: 0;
+  background: none;
+  color: #8a8a8a;
+  vertical-align: -2px;
 }
 .info:hover,
 .info[aria-expanded="true"] {
-  border-color: var(--red);
   color: var(--red);
 }
 .controls .info {
