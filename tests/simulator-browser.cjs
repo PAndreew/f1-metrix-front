@@ -2,8 +2,7 @@ const { chromium } = require("playwright");
 const assert = require("node:assert/strict");
 (async () => {
   const browser = await chromium.launch({
-    executablePath:
-      process.env.BROWSER_EXECUTABLE || "/usr/bin/chromium-browser",
+    executablePath: process.env.BROWSER_EXECUTABLE || undefined,
     headless: true,
   });
   try {

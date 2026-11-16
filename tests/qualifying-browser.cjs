@@ -2,8 +2,7 @@ const { chromium } = require("playwright");
 const assert = require("node:assert/strict");
 (async () => {
   const browser = await chromium.launch({
-    executablePath:
-      process.env.BROWSER_EXECUTABLE || "/usr/bin/chromium-browser",
+    executablePath: process.env.BROWSER_EXECUTABLE || undefined,
     headless: true,
   });
   try {
@@ -39,9 +38,9 @@ const assert = require("node:assert/strict");
     await page.goto(
       (process.env.BASE_URL || "http://localhost:5178") + "/#/performance",
     );
-    await page.waitForSelector('#section-qualifying');
-    assert.equal(await page.locator('#section-performance').count(), 0);
-    await page.click('#section-qualifying > summary');
+    await page.waitForSelector("#section-qualifying");
+    assert.equal(await page.locator("#section-performance").count(), 0);
+    await page.click("#section-qualifying > summary");
     await page.waitForSelector("#qualifying-chart");
     assert.deepEqual(errors, []);
     console.log(

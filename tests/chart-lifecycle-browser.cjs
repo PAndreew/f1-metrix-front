@@ -2,8 +2,7 @@ const { chromium } = require("playwright");
 const assert = require("node:assert/strict");
 (async () => {
   const b = await chromium.launch({
-    executablePath:
-      process.env.BROWSER_EXECUTABLE || "/usr/bin/chromium-browser",
+    executablePath: process.env.BROWSER_EXECUTABLE || undefined,
     headless: true,
   });
   try {
@@ -14,12 +13,7 @@ const assert = require("node:assert/strict");
     await p.waitForSelector("#drivers-chart");
     const inspect = () =>
       p.evaluate(async () => {
-        const url = performance
-          .getEntriesByType("resource")
-          .find((r) => r.name.includes("/chart__js.js"))?.name;
-        const { Chart } = await import(url);
         return [...document.querySelectorAll("canvas")].map((el) => {
-          const c = Chart.getChart(el);
           const hidden =
             !!el.closest("[hidden]") ||
             [
@@ -30,13 +24,16 @@ const assert = require("node:assert/strict");
           return {
             id: el.id,
             hidden,
-            created: !!c,
-            width: c?.width,
-            height: c?.height,
+            created: el.getAttribute("aria-busy") === "false",
+            width: el.width / window.devicePixelRatio,
+            height: el.height / window.devicePixelRatio,
             parentWidth: el.parentElement.clientWidth,
-            points: c?.data.datasets.map(
-              (_, i) => c.getDatasetMeta(i).data.length,
-            ),
+            painted:
+              el.getAttribute("aria-busy") === "false" &&
+              el
+                .getContext("2d")
+                .getImageData(0, 0, el.width, el.height)
+                .data.some((value, i) => i % 4 === 3 && value > 0),
           };
         });
       });
@@ -82,7 +79,7 @@ const assert = require("node:assert/strict");
         assert(c.created, `${c.id} missing`);
         assert(c.width > 0 && c.height > 0);
         assert(Math.abs(c.width - c.parentWidth) <= 2, `${c.id} stale width`);
-        assert(c.points.every((n) => n > 0));
+        assert(c.painted, `${c.id} blank canvas`);
       }
       for (const id of [
         "section-constructors",

@@ -27,6 +27,7 @@ document.fonts?.ready.then(refresh);
 window.addEventListener("resize", refresh);
 export function createChart(canvas, config) {
   let instance = null;
+  canvas.setAttribute("aria-busy", "true");
   const controller = {
     canvas,
     resize() {
@@ -35,8 +36,10 @@ export function createChart(canvas, config) {
       const width = parent.clientWidth,
         height = parent.clientHeight;
       if (width <= 0 || height <= 0) return;
-      if (!instance) instance = new Chart(canvas, config);
-      else if (
+      if (!instance) {
+        instance = new Chart(canvas, config);
+        canvas.setAttribute("aria-busy", "false");
+      } else if (
         Math.abs(instance.width - width) > 1 ||
         Math.abs(instance.height - height) > 1
       )
@@ -46,6 +49,7 @@ export function createChart(canvas, config) {
       observer.disconnect();
       charts.delete(controller);
       instance?.destroy();
+      canvas.setAttribute("aria-busy", "true");
       instance = null;
     },
   };
