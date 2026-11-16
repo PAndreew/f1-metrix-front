@@ -683,3 +683,15 @@ h1 {
   border-radius: 0;
   transform: rotate(45deg);
 }
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.repo-link {
+  display: inline-flex;
+  color: #1f1f1f;
+}
+.repo-link:hover {
+  color: var(--red);
+}

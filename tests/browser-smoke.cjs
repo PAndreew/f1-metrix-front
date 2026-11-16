@@ -37,6 +37,25 @@ const { chromium } = require(process.env.PLAYWRIGHT_MODULE || "playwright");
       .getByRole("link", { name: "f1metrics", exact: true })
       .first()
       .waitFor();
+    // Menu links must not leave a section in the URL: a reload starts at the
+    // top with only the rankings open.
+    await page.locator(".menu-toggle").click();
+    await page.locator('#menu a[href="#/method"]').click();
+    await page.waitForFunction(
+      () => document.querySelector("#section-method").open && scrollY > 0,
+    );
+    assert.equal(await page.evaluate(() => location.hash), "");
+    await page.reload();
+    await page.locator("#rows td.rank").first().waitFor();
+    assert.deepEqual(
+      await page.evaluate(() => [
+        scrollY,
+        [...document.querySelectorAll(".results-section[open]")].map(
+          (e) => e.id,
+        ),
+      ]),
+      [0, ["section-career"]],
+    );
     await page.locator("#search").waitFor();
     await page.locator("#search").fill("alonso");
     await page.waitForFunction(
