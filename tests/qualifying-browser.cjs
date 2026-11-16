@@ -13,20 +13,13 @@ const assert = require("node:assert/strict");
       (process.env.BASE_URL || "http://localhost:5178") + "/#/qualifying",
     );
     await page.waitForSelector("#qualifying-pair");
-    assert.match(
-      await page.locator("#results-qualifying h2").first().innerText(),
-      /Qualifying/,
-    );
     const count = await page.locator("#qualifying-pair option").count();
     assert.equal(count, 15);
     for (let i = 0; i < count; i++) {
       await page.selectOption("#qualifying-pair", String(i));
       assert((await page.locator("#qualifying-rounds tbody tr").count()) > 0);
     }
-    assert.match(
-      await page.locator("main").innerText(),
-      /not a global ranking/,
-    );
+    assert(await page.locator("#section-qualifying").evaluate((e) => e.open));
     await page.setViewportSize({ width: 375, height: 812 });
     await page.waitForTimeout(600);
     assert(

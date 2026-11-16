@@ -41,10 +41,6 @@ let publication,
   renderVersion = 0;
 const red = "#e10600",
   blue = "#4d8dff";
-const note = () =>
-  publication.notice
-    ? `<aside class="notice" role="note">${escape(publication.model.metadata.validationStatus === "research_preview" ? "Research preview. Fits converged; predictive validation is incomplete." : publication.notice)}</aside>`
-    : "";
 const chartCard = (id, title, subtitle, tall = false) =>
   `<div class="chart-card"><div class="chart-head"><h3>${escape(title)}</h3><span>${escape(subtitle)}</span></div><div class="chart-wrap ${tall ? "tall" : ""}"><canvas id="${id}" role="img" aria-label="${escape(title)}"></canvas></div><div id="${id}-details"></div></div>`;
 function tableDetails(id, headers, rows, caption) {
@@ -55,7 +51,7 @@ function addChart(id, config) {
   const el = document.getElementById(id);
   if (el) charts.push(createChart(el, config));
 }
-function intervalChart(id, rows, label, details = true) {
+function intervalChart(id, rows, label) {
   addChart(id, {
     type: "bar",
     data: {
@@ -111,13 +107,6 @@ function intervalChart(id, rows, label, details = true) {
       },
     },
   });
-  if (details)
-    tableDetails(
-      id,
-      ["Name", "Median", "Lower bound", "Upper bound"],
-      rows.map((r) => [r.name, number(r.score), number(r.low), number(r.high)]),
-      `Bars show ${publication.model.metadata.intervalPercent ?? 94}% posterior intervals; red marks show medians.`,
-    );
 }
 function rankings(target = main) {
   const m = publication.model,
@@ -183,7 +172,6 @@ function rankings(target = main) {
         high: d.high,
       })),
       "Score",
-      false,
     );
     plot = charts.at(-1);
   }
@@ -298,8 +286,9 @@ function rankings(target = main) {
   query();
 }
 function method(target = main) {
-  const m = publication.model.metadata;
-  target.innerHTML = `<h1>About <em>F1 Metrix</em></h1><div class="prose"><p class="intro">An homage to <a href="https://f1metrics.wordpress.com/">f1metrics</a>, Andrew Phillips’s long-running project exploring Formula One driver performance beyond the machinery.</p><p>This is an independent continuation of that question, not a reproduction of his model or an affiliated project.</p>${note()}<h2>The model</h2><p>Joint finishing-order estimates with driver and constructor-season effects, adjusted for age and experience. Rankings sort career-baseline medians; bars show ${m.intervalPercent ?? 94}% posterior intervals. Only eligible completion-order observations are counted, not every start.</p><h2>The data</h2><p><a href="https://github.com/f1db/f1db">F1DB</a> ${escape(m.sourceRelease)}, through ${escape(m.lastRaceDate)}. Career fitting starts in 1954. Cross-era comparisons depend on model assumptions.</p><p><a href="https://github.com/PAndreew/f1-metrix-front/tree/master/publication">Results, diagnostics and limitations</a></p></div>`;
+  const m = publication.model.metadata,
+    interval = m.intervalPercent ?? 95;
+  target.innerHTML = `<div class="prose"><h3>What this site does</h3><p>In Formula One the car matters as much as the driver, so race results alone can’t tell you who the best drivers are. F1 Metrix uses a statistical model to separate the two. Every race result counts as evidence about the driver and about how good that team’s car was that season. Fitting all races since 1954 together lets the model tell driver from car, much like comparing a driver with their teammate, but across whole careers.</p><h3>Driver rankings</h3><p>Each driver gets a score for their whole career. Higher is better. The score is a relative strength on the model’s own scale, not seconds or points. The range next to it shows the uncertainty: the model is ${interval}% sure the true value lies inside it. Drivers with few races have wide ranges. If two drivers’ ranges overlap a lot, the data can’t really separate them. The model also allows for age and experience.</p><h3>Constructors by season</h3><p>Each team gets a separate score for every season, measuring how good its car was that year relative to the other teams that year. Scores from different seasons should not be compared.</p><h3>2026 race simulations</h3><p>For each 2026 race, the model replayed the race thousands of times using the drivers’ and cars’ estimated strength, and compared what really happened with the simulated results. Only drivers who finished the race are included, and the simulations already know the season’s results, so they are not predictions made before the race. A driver beating the simulations may have driven well, but may also have been lucky.</p><h3>2026 qualifying</h3><p>Teammates share the same car, so their qualifying lap times are a fair comparison. The gap is roughly the percentage difference in lap time; a negative number means the first-named driver was faster. The season estimate combines every weekend for each pair. A single weekend’s gap can also come from conditions, mistakes or incidents.</p><h3>Limitations</h3><ul><li>This is a research preview. The model fits the past well, but it has not yet been tested on predicting future races.</li><li>Comparing drivers from very different eras depends on the model’s assumptions.</li><li>Only finishing order is used; retirements and car failures are left out.</li><li>Seasons before 1954 are not included.</li></ul><h3>Data</h3><p>Race data comes from <a href="https://github.com/f1db/f1db">F1DB</a> ${escape(m.sourceRelease)}, up to ${escape(m.lastRaceDate)}. The full results and diagnostics are <a href="https://github.com/PAndreew/f1-metrix-front/tree/master/publication">on GitHub</a>.</p></div>`;
 }
 function article(id) {
   const a = publication.articles.find((a) => a.id === id);
@@ -389,38 +378,40 @@ function constructorResults(target) {
   const years = [...new Set(publication.model.teams.map((t) => t.year))].sort(
     (a, b) => b - a,
   );
-  target.innerHTML = `<h2>Constructor strength by season</h2><p>These are team-season equipment effects, not all-time constructor rankings and not driver rankings. Select a season; estimates are centred within that season.</p><div class="controls"><label>Constructor season<select id="constructor-year">${years.map((y) => `<option>${y}</option>`).join("")}</select></label></div><div id="constructor-chart-host"></div>`;
+  target.innerHTML = `<div class="controls"><select id="constructor-year" aria-label="Season">${years.map((y) => `<option>${y}</option>`).join("")}</select></div><div class="chart-card"><div class="chart-wrap" id="constructor-chart-host"></div></div>`;
+  let chart = null;
   const draw = () => {
-    const prior = charts.find((c) => c.canvas?.id === "teams-chart");
-    if (prior) {
-      prior.destroy();
-      charts.splice(charts.indexOf(prior), 1);
+    if (chart) {
+      chart.destroy();
+      charts.splice(charts.indexOf(chart), 1);
     }
     const year = Number(document.getElementById("constructor-year").value);
-    document.getElementById("constructor-chart-host").innerHTML = chartCard(
-      "teams-chart",
-      `Constructor equipment estimates · ${year}`,
-      `${year} only · not comparable to all-time driver ranks`,
-      true,
-    );
     const rows = publication.model.teams
       .filter((t) => t.year === year)
       .sort((a, b) => b.skill - a.skill)
       .map((t) => ({ ...t, score: t.skill }));
-    intervalChart("teams-chart", rows, "Median");
+    const host = document.getElementById("constructor-chart-host");
+    host.style.height = `${rows.length * 30 + 50}px`;
+    host.innerHTML = `<canvas id="teams-chart" role="img" aria-label="Constructor scores for ${year}"></canvas>`;
+    intervalChart("teams-chart", rows, "Score");
+    chart = charts.at(-1);
   };
   document.getElementById("constructor-year").addEventListener("change", draw);
   draw();
 }
 
+const sections = [
+  ["career", "All time historical driver rankings"],
+  ["constructors", "Constructor strength by season"],
+  ["simulations", "2026 race simulations"],
+  ["qualifying", "2026 qualifying: teammate gaps"],
+  ["method", "Method and limitations"],
+];
 function allResults() {
-  main.innerHTML = `<h1>F1 <em>Metrix</em></h1><p class="intro">An homage to <a href="https://f1metrics.wordpress.com/">f1metrics</a> by Andrew Phillips.</p><details class="results-section" id="section-career" open><summary>All time historical driver rankings</summary><section id="results-career" class="accordion-body"></section></details><details class="results-section" id="section-constructors"><summary>Constructor strength by season</summary><section id="results-constructors" class="accordion-body"></section></details><details class="results-section" id="section-simulations"><summary>2026 race simulations and weekend comparisons</summary><section id="results-simulations" class="accordion-body"></section></details>${[
-    ["qualifying", "Season qualifying comparisons"],
-    ["method", "Method and limitations"],
-  ]
+  main.innerHTML = `<h1>F1 <em>Metrix</em></h1><p class="intro">An homage to <a href="https://f1metrics.wordpress.com/">f1metrics</a> by Andrew Phillips.</p>${sections
     .map(
       ([id, title]) =>
-        `<details class="results-section" id="section-${id}"><summary>${title}</summary><section id="results-${id}" class="accordion-body"></section></details>`,
+        `<details class="results-section" id="section-${id}"${id === "career" ? " open" : ""}><summary>${title}</summary><section id="results-${id}" class="accordion-body"></section></details>`,
     )
     .join("")}`;
   simulatorView(
@@ -437,11 +428,6 @@ function allResults() {
   rankings(document.getElementById("results-career"));
   constructorResults(document.getElementById("results-constructors"));
   method(document.getElementById("results-method"));
-  main.querySelectorAll("section > h1").forEach((h) => {
-    const replacement = document.createElement("h2");
-    replacement.innerHTML = h.innerHTML;
-    h.replaceWith(replacement);
-  });
 }
 main.addEventListener(
   "toggle",
@@ -456,6 +442,20 @@ main.addEventListener(
   true,
 );
 
+const routes = {
+  rankings: "career",
+  constructors: "constructors",
+  simulations: "simulations",
+  simulator: "simulations",
+  qualifying: "qualifying",
+  method: "method",
+};
+function openSection(route) {
+  const panel = document.getElementById("section-" + routes[route]);
+  if (!panel) return;
+  panel.open = true;
+  requestAnimationFrame(() => panel.scrollIntoView());
+}
 function render() {
   renderVersion++;
   charts.forEach((c) => c.destroy());
@@ -466,21 +466,30 @@ function render() {
     document.title = "Article — F1 Metrix";
   } else {
     allResults();
-    const section = {
-      rankings: "career",
-      qualifying: "qualifying",
-
-      method: "method",
-    }[route];
-    if (section) {
-      const panel = document.getElementById("section-" + section);
-      panel.open = true;
-      requestAnimationFrame(() => panel.scrollIntoView());
-    }
+    openSection(route);
     // Legacy comparison bookmarks render the same complete page, never separate views.
-    document.title = "All results — F1 Metrix";
+    document.title = "F1 Metrix";
   }
 }
+const menu = document.getElementById("menu"),
+  menuToggle = document.querySelector(".menu-toggle");
+const setMenu = (open) => {
+  menu.hidden = !open;
+  menuToggle.setAttribute("aria-expanded", String(open));
+};
+menuToggle.addEventListener("click", () => setMenu(menu.hidden));
+menu.addEventListener("click", (event) => {
+  if (event.target.closest("a")) setMenu(false);
+});
+document.addEventListener("click", (event) => {
+  if (!event.target.closest(".topbar")) setMenu(false);
+});
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && !menu.hidden) {
+    setMenu(false);
+    menuToggle.focus();
+  }
+});
 fetch("/data/publication.json")
   .then((r) => {
     if (!r.ok) throw Error("Publication unavailable");
@@ -490,8 +499,14 @@ fetch("/data/publication.json")
     publication = data;
     render();
     window.addEventListener("hashchange", () => {
-      render();
-      window.scrollTo(0, 0);
+      const route = location.hash.slice(2) || "";
+      // Section links only open and scroll; keep the page and its charts intact.
+      if (document.getElementById("section-career") && routes[route])
+        openSection(route);
+      else {
+        render();
+        window.scrollTo(0, 0);
+      }
     });
   })
   .catch(() => {

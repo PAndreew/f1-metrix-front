@@ -71,7 +71,7 @@ const assert = require("node:assert/strict");
         await p.selectOption("#constructor-year", y);
         await p.waitForTimeout(80);
         assert.match(
-          await p.locator("#constructor-chart-host h3").innerText(),
+          await p.locator("#teams-chart").getAttribute("aria-label"),
           new RegExp(y),
         );
       }
@@ -92,6 +92,22 @@ const assert = require("node:assert/strict");
       ])
         await p.locator("#" + id).evaluate((e) => (e.open = false));
     }
+    // A discarded canvas (GPU context loss) must repaint once restored.
+    await p.locator("#section-constructors").evaluate((e) => (e.open = true));
+    await p.waitForTimeout(400);
+    const repainted = await p.locator("#teams-chart").evaluate(async (el) => {
+      const ctx = el.getContext("2d");
+      const ink = () =>
+        ctx
+          .getImageData(0, 0, el.width, el.height)
+          .data.some((v, i) => i % 4 === 3 && v > 0);
+      ctx.clearRect(0, 0, el.width, el.height);
+      const cleared = !ink();
+      el.dispatchEvent(new Event("contextrestored"));
+      await new Promise((r) => setTimeout(r, 600));
+      return cleared && ink();
+    });
+    assert(repainted, "chart did not repaint after context restore");
     assert.deepEqual(errors, []);
     console.log(
       "Hidden-chart initialisation, expand/collapse, three viewports, constructor years and race switching pass",

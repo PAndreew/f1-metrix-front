@@ -12,22 +12,18 @@ const assert = require("node:assert/strict");
     await page.goto(
       (process.env.BASE_URL || "http://localhost:5178") + "/#/results",
     );
-    await page.waitForSelector(".race-accordion", { state: "attached" });
+    await page.waitForSelector(".race-panel", { state: "attached" });
     assert.equal(await page.locator(".results-section").count(), 5);
     assert.equal(
       await page.locator("#section-simulations").evaluate((e) => e.open),
       false,
     );
     await page.click("#section-simulations > summary");
-    assert.equal(await page.locator(".race-accordion").count(), 20);
-    assert.match(
-      await page.locator("main").innerText(),
-      /Not a pre-race forecast/,
-    );
+    assert.equal(await page.locator(".race-panel").count(), 20);
     for (let i = 0; i < 20; i++) {
-      const panel = page.locator(".race-accordion").nth(i);
+      const panel = page.locator(".race-panel").nth(i);
       await page.selectOption("#simulation-race", String(i));
-      assert.equal(await page.locator(".race-accordion:visible").count(), 1);
+      assert.equal(await page.locator(".race-panel:visible").count(), 1);
       assert(await panel.isVisible());
       const select = panel.locator("select");
       const count = await select.locator("option").count();
@@ -38,7 +34,7 @@ const assert = require("node:assert/strict");
         count,
       );
     }
-    assert.equal(await page.locator(".race-accordion[open]").count(), 1);
+    assert.equal(await page.locator(".race-panel:not([hidden])").count(), 1);
     assert.equal(await page.locator("#simulation-race option").count(), 20);
     assert.equal(
       await page.locator("main > .intro").innerText(),
@@ -61,7 +57,7 @@ const assert = require("node:assert/strict");
       ),
       "mobile overflow",
     );
-    const last = page.locator(".race-accordion").last();
+    const last = page.locator(".race-panel").last();
     const cells = await last
       .locator("table")
       .first()
@@ -73,7 +69,7 @@ const assert = require("node:assert/strict");
     assert.equal(cells[3], "6.09");
     assert.equal(await page.locator("#section-performance").count(), 0);
     assert(await page.locator("#section-career").evaluate((e) => e.open));
-    for (const panel of await page.locator(".race-accordion").all()) {
+    for (const panel of await page.locator(".race-panel").all()) {
       const order = await panel
         .locator("table")
         .first()
@@ -84,7 +80,7 @@ const assert = require("node:assert/strict");
         Array.from({ length: order.length }, (_, i) => i + 1),
       );
     }
-    assert.match(await last.innerText(), /Qualifying — this same weekend/);
+    assert.match(await last.innerText(), /Qualifying gaps this weekend/);
     assert.equal(await last.locator("canvas[data-comparison]").count(), 1);
     for (const route of [
       "",
@@ -96,8 +92,8 @@ const assert = require("node:assert/strict");
       await page.goto(
         (process.env.BASE_URL || "http://localhost:5178") + "/#/" + route,
       );
-      await page.waitForSelector(".race-accordion", { state: "attached" });
-      assert.equal(await page.locator(".race-accordion").count(), 20);
+      await page.waitForSelector(".race-panel", { state: "attached" });
+      assert.equal(await page.locator(".race-panel").count(), 20);
       assert.equal(await page.locator("#section-career").count(), 1);
       assert.equal(await page.locator("#section-qualifying").count(), 1);
       assert.match(await page.locator("h1").innerText(), /F1.*Metrix/);

@@ -13,7 +13,7 @@ function refresh() {
   scheduled = true;
   requestAnimationFrame(() => {
     scheduled = false;
-    for (const chart of charts) chart.resize();
+    for (const chart of charts) chart.resize(true);
   });
 }
 // Closed accordions can retain layout dimensions in some browsers. Observe visibility
@@ -25,12 +25,17 @@ new MutationObserver(refresh).observe(document.documentElement, {
 });
 document.fonts?.ready.then(refresh);
 window.addEventListener("resize", refresh);
+// Browsers may discard canvas pixels (GPU context loss, background tab restore)
+// without telling Chart.js, which leaves charts blank until something redraws.
+document.addEventListener("visibilitychange", () => {
+  if (!document.hidden) refresh();
+});
 export function createChart(canvas, config) {
   let instance = null;
   canvas.setAttribute("aria-busy", "true");
   const controller = {
     canvas,
-    resize() {
+    resize(redraw = false) {
       if (!visible(canvas)) return;
       const parent = canvas.parentElement;
       const width = parent.clientWidth,
@@ -44,6 +49,7 @@ export function createChart(canvas, config) {
         Math.abs(instance.height - height) > 1
       )
         instance.resize(width, height);
+      else if (redraw) instance.render();
     },
     destroy() {
       observer.disconnect();
@@ -53,6 +59,7 @@ export function createChart(canvas, config) {
       instance = null;
     },
   };
+  canvas.addEventListener("contextrestored", () => instance?.render());
   const observer = new ResizeObserver(refresh);
   observer.observe(canvas.parentElement);
   charts.add(controller);
