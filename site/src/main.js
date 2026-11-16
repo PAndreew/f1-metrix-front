@@ -2,6 +2,7 @@ import { createChart } from "./chart-lifecycle.js";
 import "./style.css";
 import { qualifyingView } from "./qualifying.js";
 import { simulatorView } from "./simulator.js";
+import { info } from "./hints.js";
 import { Chart, registerables } from "chart.js";
 Chart.register(...registerables);
 Chart.defaults.font.family = "system-ui, sans-serif";
@@ -116,7 +117,7 @@ function rankings(target = main) {
   const m = publication.model,
     interval = m.metadata.intervalPercent ?? 94,
     year = Math.max(...m.drivers.map((d) => d.lastYear));
-  target.innerHTML = `<div class="tabs" role="tablist"><button role="tab" id="tab-table" aria-controls="panel-table" aria-selected="true">Table</button><button role="tab" id="tab-plot" aria-controls="panel-plot" aria-selected="false">Plot</button></div><div role="tabpanel" id="panel-table" aria-labelledby="tab-table"><div class="controls"><input id="search" type="search" placeholder="Search drivers…" aria-label="Search drivers" maxlength="100"><select id="minimum" aria-label="Minimum races"><option value="0">All experience levels</option><option value="25">25+ races</option><option value="100">100+ races</option><option value="200">200+ races</option></select><select id="era" aria-label="Era"><option value="all">All years</option><option value="active">Active in ${year}</option></select><button class="quiet" id="download">Download CSV</button></div><div class="table-wrap"><table id="rankings"><thead><tr><th class="num"><button data-sort="rank">#</button></th><th><button data-sort="name">Driver</button></th><th class="num"><button data-sort="skill">Score</button></th><th class="num">${interval}% range</th><th class="num"><button data-sort="races">Races</button></th><th><button data-sort="last_year">Seasons</button></th></tr></thead><tbody id="rows"><tr><td colspan="6">Loading…</td></tr></tbody></table></div><div class="pagination"><span id="count" aria-live="polite"></span><button class="quiet" id="more">Load more drivers</button></div></div><div role="tabpanel" id="panel-plot" aria-labelledby="tab-plot" hidden><div class="chart-card"><div class="chart-wrap" id="drivers-plot"></div></div></div>`;
+  target.innerHTML = `<div class="controls"><input id="search" type="search" placeholder="Search drivers…" aria-label="Search drivers" maxlength="100"><select id="minimum" aria-label="Minimum races"><option value="0">All experience levels</option><option value="25">25+ races</option><option value="100">100+ races</option><option value="200">200+ races</option></select><select id="era" aria-label="Era"><option value="all">All years</option><option value="active">Active in ${year}</option></select><button class="quiet" id="download">Download CSV</button></div><div class="tabs" role="tablist"><button role="tab" id="tab-table" aria-controls="panel-table" aria-selected="true">Table</button><button role="tab" id="tab-plot" aria-controls="panel-plot" aria-selected="false">Plot</button><button role="tab" id="tab-trend" aria-controls="panel-trend" aria-selected="false">Trend</button></div><div role="tabpanel" id="panel-table" aria-labelledby="tab-table"><div class="table-wrap"><table id="rankings"><thead><tr><th class="num"><button data-sort="rank">#</button></th><th><button data-sort="name">Driver</button></th><th class="num"><button data-sort="skill">Score</button>${info("Score", "A driver’s career strength estimated by the model, after taking out the effect of the car, age and experience. Higher is better. It is a relative scale (0 is roughly an average driver), not seconds or points.")}</th><th class="num">${interval}% range${info(`the ${interval}% range`, `The model is ${interval}% sure the true score lies in this range. Few races means a wide range. When two drivers’ ranges overlap a lot, the data can’t really tell them apart.`)}</th><th class="num"><button data-sort="races">Races</button>${info("Races", "Races the model could use for this driver: those where they were classified as finishing. Retirements and other non-finishes are not counted, so this can be lower than their number of starts.")}</th><th><button data-sort="last_year">Seasons</button></th></tr></thead><tbody id="rows"><tr><td colspan="6">Loading…</td></tr></tbody></table></div><div class="pagination"><span id="count" aria-live="polite"></span><button class="quiet" id="more">Load more drivers</button></div></div><div role="tabpanel" id="panel-plot" aria-labelledby="tab-plot" hidden><div class="chart-card"><p class="legend"><span class="swatch" style="background:${blue}"></span>${interval}% range<span class="swatch diamond" style="background:${red}"></span>Score${info("this plot", "Each bar is a driver’s range of likely scores and the diamond is the best estimate. It shows the same drivers as the table, so search, filters and Load more apply here too.")}</p><div class="chart-wrap" id="drivers-plot"></div></div></div><div role="tabpanel" id="panel-trend" aria-labelledby="tab-trend" hidden><div class="chart-card"><p class="legend" id="trend-summary"></p><div class="chart-wrap tall" id="trend-plot"></div></div></div>`;
   let state = {
       search: "",
       minimum: 0,
@@ -126,7 +127,8 @@ function rankings(target = main) {
       direction: "asc",
       limit: 25,
     },
-    plot = null;
+    plot = null,
+    trend = null;
   const version = renderVersion;
   target.querySelectorAll('[role="tab"]').forEach(
     (tab) =>
@@ -179,6 +181,93 @@ function rankings(target = main) {
     );
     plot = charts.at(-1);
   }
+  function drawTrend() {
+    if (trend) {
+      trend.destroy();
+      charts.splice(charts.indexOf(trend), 1);
+      trend = null;
+    }
+    const drivers = fallback(Infinity).rows.map((d) => ({
+      x: (d.first_year + d.last_year) / 2,
+      y: d.skill,
+      d,
+    }));
+    const summary = document.getElementById("trend-summary");
+    if (drivers.length < 2) {
+      summary.textContent = "Not enough drivers match the filters.";
+      document.getElementById("trend-plot").innerHTML = "";
+      return;
+    }
+    const n = drivers.length,
+      mx = drivers.reduce((a, p) => a + p.x, 0) / n,
+      my = drivers.reduce((a, p) => a + p.y, 0) / n,
+      slope =
+        drivers.reduce((a, p) => a + (p.x - mx) * (p.y - my), 0) /
+        (drivers.reduce((a, p) => a + (p.x - mx) ** 2, 0) || 1),
+      xs = drivers.map((p) => p.x),
+      ends = [Math.min(...xs), Math.max(...xs)];
+    const perDecade = slope * 10;
+    summary.innerHTML = `<span class="swatch" style="background:${blue}"></span>Driver (middle of career)<span class="swatch line" style="border-color:${red}"></span>Trend: scores ${perDecade >= 0 ? "rise" : "fall"} by ${Math.abs(perDecade).toFixed(2)} per decade${info("this trend", `Each dot is one driver: their career score against the middle year of their career. The line is the straight-line trend through all ${n} drivers shown, so it tells you whether later eras produced higher or lower scores on average. Scores are relative to the model, so comparing eras depends on its assumptions. Use the minimum races filter to leave out drivers with very few races.`)}`;
+    document.getElementById("trend-plot").innerHTML =
+      `<canvas id="trend-chart" role="img" aria-label="Driver scores by career midpoint with a trend line"></canvas>`;
+    addChart("trend-chart", {
+      type: "scatter",
+      data: {
+        datasets: [
+          {
+            label: "Drivers",
+            data: drivers,
+            backgroundColor: "rgba(77, 141, 255, 0.55)",
+            pointRadius: 3.5,
+            pointHoverRadius: 6,
+          },
+          {
+            type: "line",
+            label: "Trend",
+            data: ends.map((x) => ({ x, y: my + slope * (x - mx) })),
+            borderColor: red,
+            borderWidth: 2.5,
+            pointRadius: 0,
+            pointHitRadius: 0,
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        // Tooltips only for the dot under the pointer, never the trend line.
+        interaction: {
+          mode: "point",
+          intersect: true,
+          includeInvisible: false,
+        },
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            callbacks: {
+              label: (item) => {
+                const d = item.raw.d;
+                if (!d) return "";
+                return `${d.rank}. ${d.name} · ${d.first_year}–${d.last_year} · score ${number(d.skill)}`;
+              },
+            },
+          },
+        },
+        scales: {
+          x: {
+            title: { display: true, text: "Middle of career (year)" },
+            ticks: { callback: (v) => String(v) },
+            grid: { color: "#e6e6e6" },
+          },
+          y: {
+            title: { display: true, text: "Score" },
+            grid: { color: "#e6e6e6" },
+          },
+        },
+      },
+    });
+    trend = charts.at(-1);
+  }
   function draw({ rows, total }) {
     if (version !== renderVersion) return;
     document.getElementById("rows").innerHTML = rows.length
@@ -203,6 +292,7 @@ function rankings(target = main) {
         state.direction === "asc" ? "ascending" : "descending",
       );
     drawPlot(rows);
+    drawTrend();
   }
   function query() {
     const id = ++queryId;
@@ -382,7 +472,7 @@ function constructorResults(target) {
   const years = [...new Set(publication.model.teams.map((t) => t.year))].sort(
     (a, b) => b - a,
   );
-  target.innerHTML = `<div class="controls"><select id="constructor-year" aria-label="Season">${years.map((y) => `<option>${y}</option>`).join("")}</select></div><div class="chart-card"><div class="chart-wrap" id="constructor-chart-host"></div></div>`;
+  target.innerHTML = `<div class="controls"><select id="constructor-year" aria-label="Season">${years.map((y) => `<option>${y}</option>`).join("")}</select>${info("the team score", "How good each team’s car was that season compared with the other teams that year, after taking out the effect of its drivers. The diamond is the best estimate and the bar the range of likely values. Scores from different seasons should not be compared.")}</div><div class="chart-card"><div class="chart-wrap" id="constructor-chart-host"></div></div>`;
   let chart = null;
   const draw = () => {
     if (chart) {

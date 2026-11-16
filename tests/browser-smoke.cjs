@@ -103,7 +103,24 @@ const { chromium } = require(process.env.PLAYWRIGHT_MODULE || "playwright");
       await page.mouse.move(plot.x + plot.width * 0.6, y);
     await page.waitForTimeout(500);
     assert.deepEqual(errors, []);
+    await page.locator("#tab-trend").click();
+    await page.waitForFunction(
+      () =>
+        document.querySelector("#trend-chart")?.getAttribute("aria-busy") ===
+        "false",
+    );
+    assert.match(
+      await page.locator("#trend-summary").innerText(),
+      /Trend: scores (rise|fall) by \d+\.\d+ per decade/,
+    );
     await page.locator("#tab-table").click();
+    await page.locator("#rankings .info").first().click();
+    assert.match(
+      await page.locator("#hint-box").innerText(),
+      /career strength/,
+    );
+    await page.keyboard.press("Escape");
+    assert(await page.locator("#hint-box").isHidden());
     await page.setViewportSize({ width: 390, height: 844 });
     await page.waitForFunction(
       () => document.documentElement.scrollWidth <= innerWidth,

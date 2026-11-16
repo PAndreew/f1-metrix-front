@@ -112,7 +112,7 @@ p {
 .intro {
   font-size: 19px;
   color: #625d57;
-  max-width: 650px;
+  max-width: 860px;
   margin: 0 0 32px;
 }
 .notice {
@@ -643,4 +643,51 @@ h1 {
 }
 #qualifying-verdict {
   margin: 0 0 16px;
+}
+.info {
+  display: inline-grid;
+  place-items: center;
+  width: 15px;
+  height: 15px;
+  margin-left: 5px;
+  padding: 0;
+  border: 1px solid #9a9a9a;
+  border-radius: 50%;
+  background: #fff;
+  color: #555;
+  font:
+    italic 600 10px/1 Georgia,
+    serif;
+  vertical-align: 1px;
+}
+.info:hover,
+.info[aria-expanded="true"] {
+  border-color: var(--red);
+  color: var(--red);
+}
+.controls .info {
+  align-self: center;
+}
+.hint-box {
+  position: fixed;
+  z-index: 20;
+  max-width: 300px;
+  padding: 10px 12px;
+  background: #1f1f1f;
+  color: #fff;
+  border-radius: 4px;
+  font-size: 12px;
+  line-height: 1.55;
+  white-space: normal;
+  text-align: left;
+  box-shadow: 0 6px 18px rgb(0 0 0 / 18%);
+}
+.hint-box[hidden] {
+  display: none;
+}
+.swatch.diamond {
+  width: 9px;
+  height: 9px;
+  border-radius: 0;
+  transform: rotate(45deg);
 }

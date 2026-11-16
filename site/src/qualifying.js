@@ -1,4 +1,5 @@
 import { createChart } from "./chart-lifecycle.js";
+import { info } from "./hints.js";
 const esc = (v) =>
   String(v).replace(
     /[&<>"']/g,
@@ -24,7 +25,7 @@ export function qualifyingView(main, q, charts) {
     main.innerHTML = "<p>No qualifying data available.</p>";
     return;
   }
-  main.innerHTML = `<div class="controls"><select id="qualifying-pair" aria-label="Teammate pair">${q.comparisons.map((c, i) => `<option value="${i}">${esc(c.nameA)} vs ${esc(c.nameB)}</option>`).join("")}</select></div><p id="qualifying-verdict"></p><div class="chart-card"><p class="legend" id="qualifying-legend"></p><div style="position:relative;height:320px"><canvas id="qualifying-chart" role="img" aria-label="Qualifying gap by round, coloured by the faster driver"></canvas></div></div><div id="qualifying-rounds"></div><h3>Season averages</h3><div class="table-wrap"><table><thead><tr><th>Teammates</th><th>Faster on average</th><th class="num">Average gap</th><th class="num">Chance faster</th><th class="num">Sessions</th></tr></thead><tbody>${q.comparisons
+  main.innerHTML = `<div class="controls"><select id="qualifying-pair" aria-label="Teammate pair">${q.comparisons.map((c, i) => `<option value="${i}">${esc(c.nameA)} vs ${esc(c.nameB)}</option>`).join("")}</select></div><p id="qualifying-verdict"></p><div class="chart-card"><p class="legend" id="qualifying-legend"></p><div style="position:relative;height:320px"><canvas id="qualifying-chart" role="img" aria-label="Qualifying gap by round, coloured by the faster driver"></canvas></div></div><div id="qualifying-rounds"></div><h3>Season averages</h3><div class="table-wrap"><table><thead><tr><th>Teammates</th><th>Faster on average</th><th class="num">Average gap${info("the average gap", "The model’s estimate of the typical qualifying gap between the two teammates over the season, roughly in percent of lap time.")}</th><th class="num">Chance faster${info("Chance faster", "How sure the model is that the named driver really is the faster qualifier. 50% means a coin flip.")}</th><th class="num">Sessions${info("Sessions", "Qualifying sessions where both teammates set a time.")}</th></tr></thead><tbody>${q.comparisons
     .map((c) => {
       const aFaster = c.meanLogGapPct < 0;
       return `<tr><td>${esc(c.nameA)} vs ${esc(c.nameB)}</td><td class="name">${esc(faster(c, c.meanLogGapPct))}</td><td class="num">${pct(c.meanLogGapPct)}</td><td class="num">${Math.round(100 * (aFaster ? c.probabilityAFaster : 1 - c.probabilityAFaster))}%</td><td class="num">${c.sessions}</td></tr>`;
@@ -102,7 +103,7 @@ export function qualifyingView(main, q, charts) {
     });
     charts.push(chart);
     document.getElementById("qualifying-rounds").innerHTML =
-      `<h3>By round</h3><div class="table-wrap"><table><thead><tr><th class="num">Round</th><th>Weekend</th><th>Session</th><th>Faster</th><th class="num">Gap</th></tr></thead><tbody>${rows.map((r) => `<tr><td class="num">${r.round}</td><td>${esc(r.race)}</td><td>${esc(r.segment)}</td><td class="name">${esc(faster(c, r.observedLogGapPct))}</td><td class="num">${pct(r.observedLogGapPct)}</td></tr>`).join("")}</tbody></table></div>`;
+      `<h3>By round</h3><div class="table-wrap"><table><thead><tr><th class="num">Round</th><th>Weekend</th><th>Session</th><th>Faster</th><th class="num">Gap${info("the gap", "How much quicker the faster driver’s lap was, roughly in percent of lap time, in the last session both drivers set a time.")}</th></tr></thead><tbody>${rows.map((r) => `<tr><td class="num">${r.round}</td><td>${esc(r.race)}</td><td>${esc(r.segment)}</td><td class="name">${esc(faster(c, r.observedLogGapPct))}</td><td class="num">${pct(r.observedLogGapPct)}</td></tr>`).join("")}</tbody></table></div>`;
   };
   document.getElementById("qualifying-pair").addEventListener("change", draw);
   draw();
