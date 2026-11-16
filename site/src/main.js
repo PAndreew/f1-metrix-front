@@ -7,10 +7,14 @@ Chart.register(...registerables);
 Chart.defaults.font.family = "system-ui, sans-serif";
 Chart.defaults.font.size = 11;
 Chart.defaults.color = "#1f1f1f";
-Chart.defaults.animation = window.matchMedia("(prefers-reduced-motion: reduce)")
-  .matches
-  ? false
-  : { duration: 350 };
+// Only change the duration: Chart.js copies just the keys present in
+// defaults.animation into each animation, so replacing the object drops
+// "type" and hover colour animations crash ("this._fn is not a function").
+Chart.defaults.animation.duration = window.matchMedia(
+  "(prefers-reduced-motion: reduce)",
+).matches
+  ? 0
+  : 350;
 const main = document.querySelector("main");
 main.tabIndex = -1;
 document.querySelector(".skip").addEventListener("click", (event) => {
@@ -288,7 +292,7 @@ function rankings(target = main) {
 function method(target = main) {
   const m = publication.model.metadata,
     interval = m.intervalPercent ?? 95;
-  target.innerHTML = `<div class="prose"><h3>What this site does</h3><p>In Formula One the car matters as much as the driver, so race results alone can’t tell you who the best drivers are. F1 Metrix uses a statistical model to separate the two. Every race result counts as evidence about the driver and about how good that team’s car was that season. Fitting all races since 1954 together lets the model tell driver from car, much like comparing a driver with their teammate, but across whole careers.</p><h3>Driver rankings</h3><p>Each driver gets a score for their whole career. Higher is better. The score is a relative strength on the model’s own scale, not seconds or points. The range next to it shows the uncertainty: the model is ${interval}% sure the true value lies inside it. Drivers with few races have wide ranges. If two drivers’ ranges overlap a lot, the data can’t really separate them. The model also allows for age and experience.</p><h3>Constructors by season</h3><p>Each team gets a separate score for every season, measuring how good its car was that year relative to the other teams that year. Scores from different seasons should not be compared.</p><h3>2026 race simulations</h3><p>For each 2026 race, the model replayed the race thousands of times using the drivers’ and cars’ estimated strength, and compared what really happened with the simulated results. Only drivers who finished the race are included, and the simulations already know the season’s results, so they are not predictions made before the race. A driver beating the simulations may have driven well, but may also have been lucky.</p><h3>2026 qualifying</h3><p>Teammates share the same car, so their qualifying lap times are a fair comparison. The gap is roughly the percentage difference in lap time; a negative number means the first-named driver was faster. The season estimate combines every weekend for each pair. A single weekend’s gap can also come from conditions, mistakes or incidents.</p><h3>Limitations</h3><ul><li>This is a research preview. The model fits the past well, but it has not yet been tested on predicting future races.</li><li>Comparing drivers from very different eras depends on the model’s assumptions.</li><li>Only finishing order is used; retirements and car failures are left out.</li><li>Seasons before 1954 are not included.</li></ul><h3>Data</h3><p>Race data comes from <a href="https://github.com/f1db/f1db">F1DB</a> ${escape(m.sourceRelease)}, up to ${escape(m.lastRaceDate)}. The full results and diagnostics are <a href="https://github.com/PAndreew/f1-metrix-front/tree/master/publication">on GitHub</a>.</p></div>`;
+  target.innerHTML = `<div class="prose"><h3>What this site does</h3><p>In Formula One the car matters as much as the driver, so race results alone can’t tell you who the best drivers are. F1 Metrix uses a statistical model to separate the two. Every race result counts as evidence about the driver and about how good that team’s car was that season. Fitting all races since 1954 together lets the model tell driver from car, much like comparing a driver with their teammate, but across whole careers.</p><h3>Driver rankings</h3><p>Each driver gets a score for their whole career. Higher is better. The score is a relative strength on the model’s own scale, not seconds or points. The range next to it shows the uncertainty: the model is ${interval}% sure the true value lies inside it. Drivers with few races have wide ranges. If two drivers’ ranges overlap a lot, the data can’t really separate them. The model also allows for age and experience.</p><h3>Constructors by season</h3><p>Each team gets a separate score for every season, measuring how good its car was that year relative to the other teams that year. Scores from different seasons should not be compared.</p><h3>2026 race simulations</h3><p>For each 2026 race, the model replayed the race thousands of times using the drivers’ and cars’ estimated strength, and compared what really happened with the simulated results. Only drivers who finished the race are included, and the simulations already know the season’s results, so they are not predictions made before the race. A driver beating the simulations may have driven well, but may also have been lucky.</p><h3>2026 qualifying</h3><p>Teammates share the same car, so their qualifying lap times are a fair comparison. Every gap names the faster driver and shows roughly how much quicker their lap was, in percent. On the chart, bars above the line mean the first-named driver was faster and bars below mean their teammate was. The season average combines every weekend; “too close to call” means the data can’t say for sure who is quicker. A single weekend’s gap can also come from conditions, mistakes or incidents.</p><h3>Limitations</h3><ul><li>This is a research preview. The model fits the past well, but it has not yet been tested on predicting future races.</li><li>Comparing drivers from very different eras depends on the model’s assumptions.</li><li>Only finishing order is used; retirements and car failures are left out.</li><li>Seasons before 1954 are not included.</li></ul><h3>Data</h3><p>Race data comes from <a href="https://github.com/f1db/f1db">F1DB</a> ${escape(m.sourceRelease)}, up to ${escape(m.lastRaceDate)}. The full results and diagnostics are <a href="https://github.com/PAndreew/f1-metrix-front/tree/master/publication">on GitHub</a>.</p></div>`;
 }
 function article(id) {
   const a = publication.articles.find((a) => a.id === id);
@@ -408,7 +412,7 @@ const sections = [
   ["method", "Method and limitations"],
 ];
 function allResults() {
-  main.innerHTML = `<h1>F1 <em>Metrix</em></h1><p class="intro">An homage to <a href="https://f1metrics.wordpress.com/">f1metrics</a> by Andrew Phillips.</p>${sections
+  main.innerHTML = `<h1 class="visually-hidden">F1 Metrix</h1><p class="intro">Welcome to F1Metrix. The site’s goal is to provide data-driven, unbiased analysis of Formula 1© drivers and teams throughout the sport’s history. It is inspired by Dr. Andrew Phillips’ synonymous <a href="https://f1metrics.wordpress.com/">f1metrics</a> blog, which was sadly discontinued around 2020.</p>${sections
     .map(
       ([id, title]) =>
         `<details class="results-section" id="section-${id}"${id === "career" ? " open" : ""}><summary>${title}</summary><section id="results-${id}" class="accordion-body"></section></details>`,

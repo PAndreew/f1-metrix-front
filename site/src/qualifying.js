@@ -1,5 +1,4 @@
 import { createChart } from "./chart-lifecycle.js";
-import { Chart } from "chart.js";
 const esc = (v) =>
   String(v).replace(
     /[&<>"']/g,
@@ -8,13 +7,29 @@ const esc = (v) =>
         c
       ],
   );
-const n = (v) => Number(v).toFixed(3);
+const pct = (v) => Math.abs(Number(v)).toFixed(2) + "%";
+const colorA = "#e10600",
+  colorB = "#4d8dff";
+// Published gaps are 100 × log(A time / B time): negative means A was faster.
+// Everything shown here names the faster driver instead of relying on a sign.
+const faster = (c, gap) => (gap < 0 ? c.nameA : c.nameB);
+function verdict(c, rows) {
+  const ahead = rows.filter((r) => r.observedLogGapPct < 0).length,
+    [low, high] = c.interval95LogGapPct,
+    close = low < 0 && high > 0;
+  return `<strong>${esc(faster(c, c.meanLogGapPct))}</strong> is faster on average, by ${pct(c.meanLogGapPct)}${close ? " (too close to call)" : ""}. ${esc(c.nameA)} was ahead in ${ahead} of ${rows.length} sessions, ${esc(c.nameB)} in ${rows.length - ahead}.`;
+}
 export function qualifyingView(main, q, charts) {
   if (!q) {
     main.innerHTML = "<p>No qualifying data available.</p>";
     return;
   }
-  main.innerHTML = `<div class="controls"><select id="qualifying-pair" aria-label="Teammate pair">${q.comparisons.map((c, i) => `<option value="${i}">${esc(c.nameA)} / ${esc(c.nameB)}</option>`).join("")}</select></div><div class="chart-card"><div style="position:relative;height:320px"><canvas id="qualifying-chart" role="img" aria-label="Qualifying gap by round and season estimate"></canvas></div></div><div id="qualifying-rounds"></div><h3>Season estimates</h3><div class="table-wrap"><table><thead><tr><th>Driver A / Driver B</th><th class="num">Sessions</th><th class="num">Season gap (%)</th><th class="num">95% range</th></tr></thead><tbody>${q.comparisons.map((c) => `<tr><td>${esc(c.nameA)} / ${esc(c.nameB)}</td><td class="num">${c.sessions}</td><td class="num">${n(c.meanLogGapPct)}</td><td class="num">${n(c.interval95LogGapPct[0])} – ${n(c.interval95LogGapPct[1])}</td></tr>`).join("")}</tbody></table></div>`;
+  main.innerHTML = `<div class="controls"><select id="qualifying-pair" aria-label="Teammate pair">${q.comparisons.map((c, i) => `<option value="${i}">${esc(c.nameA)} vs ${esc(c.nameB)}</option>`).join("")}</select></div><p id="qualifying-verdict"></p><div class="chart-card"><p class="legend" id="qualifying-legend"></p><div style="position:relative;height:320px"><canvas id="qualifying-chart" role="img" aria-label="Qualifying gap by round, coloured by the faster driver"></canvas></div></div><div id="qualifying-rounds"></div><h3>Season averages</h3><div class="table-wrap"><table><thead><tr><th>Teammates</th><th>Faster on average</th><th class="num">Average gap</th><th class="num">Chance faster</th><th class="num">Sessions</th></tr></thead><tbody>${q.comparisons
+    .map((c) => {
+      const aFaster = c.meanLogGapPct < 0;
+      return `<tr><td>${esc(c.nameA)} vs ${esc(c.nameB)}</td><td class="name">${esc(faster(c, c.meanLogGapPct))}</td><td class="num">${pct(c.meanLogGapPct)}</td><td class="num">${Math.round(100 * (aFaster ? c.probabilityAFaster : 1 - c.probabilityAFaster))}%</td><td class="num">${c.sessions}</td></tr>`;
+    })
+    .join("")}</tbody></table></div>`;
   let chart;
   const draw = () => {
     if (chart) {
@@ -27,37 +42,30 @@ export function qualifyingView(main, q, charts) {
     const rows = q.rounds
       .filter((r) => r.driverA === c.driverA && r.driverB === c.driverB)
       .sort((a, b) => a.round - b.round);
+    document.getElementById("qualifying-verdict").innerHTML = verdict(c, rows);
+    document.getElementById("qualifying-legend").innerHTML =
+      `<span class="swatch" style="background:${colorA}"></span>${esc(c.nameA)} faster <span class="swatch" style="background:${colorB}"></span>${esc(c.nameB)} faster <span class="swatch line"></span>Season average`;
+    // Plot A's advantage so bars above zero mean A was faster.
     chart = createChart(document.getElementById("qualifying-chart"), {
-      type: "line",
+      type: "bar",
       data: {
         labels: rows.map((r) => `R${r.round}`),
         datasets: [
           {
-            label: "Weekend gap",
-            data: rows.map((r) => r.observedLogGapPct),
-            borderColor: "#e10600",
-            backgroundColor: "#e10600",
-            pointRadius: 4,
-            showLine: false,
+            label: "Gap",
+            data: rows.map((r) => -r.observedLogGapPct),
+            backgroundColor: rows.map((r) =>
+              r.observedLogGapPct < 0 ? colorA : colorB,
+            ),
+            borderRadius: 2,
           },
           {
-            label: "Season estimate",
-            data: rows.map(() => c.meanLogGapPct),
-            borderColor: "#4d8dff",
-            pointRadius: 0,
-          },
-          {
-            label: "95% range",
-            data: rows.map(() => c.interval95LogGapPct[0]),
-            borderColor: "#9db9f2",
-            borderDash: [4, 4],
-            pointRadius: 0,
-          },
-          {
-            label: "95% range upper",
-            data: rows.map(() => c.interval95LogGapPct[1]),
-            borderColor: "#9db9f2",
-            borderDash: [4, 4],
+            type: "line",
+            label: "Season average",
+            data: rows.map(() => -c.meanLogGapPct),
+            borderColor: "#1f1f1f",
+            borderDash: [5, 4],
+            borderWidth: 1.5,
             pointRadius: 0,
           },
         ],
@@ -66,13 +74,27 @@ export function qualifyingView(main, q, charts) {
         responsive: true,
         maintainAspectRatio: false,
         plugins: {
-          legend: { labels: { filter: (item) => item.datasetIndex !== 3 } },
+          legend: { display: false },
+          tooltip: {
+            callbacks: {
+              title: (items) => rows[items[0].dataIndex].race,
+              label: (item) =>
+                item.datasetIndex === 0
+                  ? `${faster(c, rows[item.dataIndex].observedLogGapPct)} faster by ${pct(rows[item.dataIndex].observedLogGapPct)} (${rows[item.dataIndex].segment})`
+                  : `Season average: ${faster(c, c.meanLogGapPct)} by ${pct(c.meanLogGapPct)}`,
+            },
+          },
         },
         scales: {
+          x: { grid: { display: false } },
           y: {
+            grid: {
+              color: (ctx) => (ctx.tick.value === 0 ? "#1f1f1f" : "#e6e6e6"),
+            },
+            ticks: { callback: (v) => Math.abs(v).toFixed(1) + "%" },
             title: {
               display: true,
-              text: "Gap (%) · negative = A faster",
+              text: `Up: ${c.nameA} faster · Down: ${c.nameB} faster`,
             },
           },
         },
@@ -80,7 +102,7 @@ export function qualifyingView(main, q, charts) {
     });
     charts.push(chart);
     document.getElementById("qualifying-rounds").innerHTML =
-      `<h3>By round</h3><div class="table-wrap"><table><thead><tr><th class="num">Round</th><th>Weekend</th><th>Session</th><th class="num">Gap (%)</th><th class="num">vs season estimate</th></tr></thead><tbody>${rows.map((r) => `<tr><td class="num">${r.round}</td><td>${esc(r.race)}</td><td>${esc(r.segment)}</td><td class="num">${n(r.observedLogGapPct)}</td><td class="num">${n(r.observedLogGapPct - c.meanLogGapPct)}</td></tr>`).join("")}</tbody></table></div>`;
+      `<h3>By round</h3><div class="table-wrap"><table><thead><tr><th class="num">Round</th><th>Weekend</th><th>Session</th><th>Faster</th><th class="num">Gap</th></tr></thead><tbody>${rows.map((r) => `<tr><td class="num">${r.round}</td><td>${esc(r.race)}</td><td>${esc(r.segment)}</td><td class="name">${esc(faster(c, r.observedLogGapPct))}</td><td class="num">${pct(r.observedLogGapPct)}</td></tr>`).join("")}</tbody></table></div>`;
   };
   document.getElementById("qualifying-pair").addEventListener("change", draw);
   draw();

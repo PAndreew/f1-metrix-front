@@ -24,7 +24,10 @@ const { chromium } = require(process.env.PLAYWRIGHT_MODULE || "playwright");
       background: getComputedStyle(document.documentElement).backgroundColor,
       headingFont: getComputedStyle(document.querySelector("h1")).fontFamily,
       fontLoaded: document.fonts.check("16px Orbitron"),
-      hasEmoji: /\p{Extended_Pictographic}/u.test(document.body.innerText),
+      // The copyright sign is text, not an emoji.
+      hasEmoji: /\p{Extended_Pictographic}/u.test(
+        document.body.innerText.replace(/©/g, ""),
+      ),
     }));
     assert.equal(appearance.background, "rgb(255, 255, 255)");
     assert.match(appearance.headingFont, /Orbitron/);
@@ -93,6 +96,13 @@ const { chromium } = require(process.env.PLAYWRIGHT_MODULE || "playwright");
         "false",
     );
     assert(await page.locator("#panel-table").isHidden());
+    // Hover animates colours; a broken animation config used to throw here
+    // ("this._fn is not a function") and blank every chart.
+    const plot = await page.locator("#drivers-chart").boundingBox();
+    for (let y = plot.y + 20; y < plot.y + 300; y += 12)
+      await page.mouse.move(plot.x + plot.width * 0.6, y);
+    await page.waitForTimeout(500);
+    assert.deepEqual(errors, []);
     await page.locator("#tab-table").click();
     await page.setViewportSize({ width: 390, height: 844 });
     await page.waitForFunction(

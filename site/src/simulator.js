@@ -31,7 +31,17 @@ function qualifyingForRace(race, q) {
   );
   const rows = q.rounds.filter((r) => r.round === race.round);
   if (!rows.length) return "";
-  return `<h3>Qualifying gaps this weekend</h3><div class="table-wrap"><table><thead><tr><th>Driver A</th><th>Driver B</th><th>Session</th><th class="num">Gap (%)</th></tr></thead><tbody>${rows.map((r) => `<tr><td>${esc(names.get(r.driverA) ?? r.driverA)}</td><td>${esc(names.get(r.driverB) ?? r.driverB)}</td><td>${esc(r.segment)}</td><td class="num">${Number(r.observedLogGapPct).toFixed(3)}</td></tr>`).join("")}</tbody></table></div>`;
+  // Negative gaps mean driver A was faster; name the faster driver explicitly.
+  const name = (id) => esc(names.get(id) ?? id);
+  return `<h3>Qualifying gaps this weekend</h3><div class="table-wrap"><table><thead><tr><th>Faster</th><th>Slower teammate</th><th>Session</th><th class="num">Gap</th></tr></thead><tbody>${rows
+    .map((r) => {
+      const [fast, slow] =
+        r.observedLogGapPct < 0
+          ? [r.driverA, r.driverB]
+          : [r.driverB, r.driverA];
+      return `<tr><td class="name">${name(fast)}</td><td>${name(slow)}</td><td>${esc(r.segment)}</td><td class="num">${Math.abs(r.observedLogGapPct).toFixed(2)}%</td></tr>`;
+    })
+    .join("")}</tbody></table></div>`;
 }
 const red = "#e10600",
   blue = "#4d8dff";
