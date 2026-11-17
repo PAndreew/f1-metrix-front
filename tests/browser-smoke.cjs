@@ -72,6 +72,13 @@ const { chromium } = require(process.env.PLAYWRIGHT_MODULE || "playwright");
     // Articles: the home page stub links to the article, whose charts and
     // champion picker work without errors.
     await page.locator("#section-articles > summary").click();
+    // The RSS feed is linked and served as a valid feed.
+    const feedHref = await page
+      .locator("#results-articles .rss-link")
+      .getAttribute("href");
+    const feed = await page.request.get(new URL(feedHref, base).href);
+    assert.equal(feed.status(), 200);
+    assert.match(await feed.text(), /<item>[\s\S]*#\/posts\/driver-or-car/);
     await page.locator("#results-articles .read-more").click();
     await page.locator('#doc-scatter[aria-busy="false"]').waitFor();
     assert.equal(

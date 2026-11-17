@@ -1070,6 +1070,22 @@ h1 {
 .read-more {
   font-size: 14px;
 }
+.post-links {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+.rss-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 13px;
+  color: var(--muted);
+  text-decoration: none;
+}
+.rss-link:hover {
+  color: #e8710a;
+}
 .more-posts {
   margin: 28px 0 8px;
   font-size: 15px;

@@ -3,6 +3,7 @@ import { createChart } from "../chart-lifecycle.js";
 import { createCombobox } from "../combobox.js";
 import { info } from "../hints.js";
 import { titleShares, byChampion } from "./title-shares.js";
+import { catalog } from "./catalog.js";
 
 const esc = (v) =>
   String(v ?? "").replace(
@@ -24,11 +25,7 @@ const shade = (share, alpha = 1) => {
 };
 
 export const driverOrCar = {
-  id: "driver-or-car",
-  title: "Driver or car? How much of each world title was down to the champion",
-  date: "2026-11-17",
-  summary:
-    "The model scores drivers and cars separately, so every championship since 1954 can be split into the driver’s part and the car’s part. Jim Clark and Jochen Rindt won almost on their own; Jacques Villeneuve, Phil Hill and Damon Hill were carried.",
+  ...catalog.find((a) => a.id === "driver-or-car"),
   render(target, { model, facts, charts }) {
     const titles = titleShares(model, facts),
       champions = byChampion(titles),
