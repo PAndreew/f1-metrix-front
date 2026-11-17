@@ -8,11 +8,11 @@ const load = () =>
       new URL("../publication/sequential-preview.json", import.meta.url),
     ),
   );
-test("completed four-round preview passes with sixteen explicitly pending rounds", () => {
+test("completed forecasts pass with later rounds explicitly pending", () => {
   const s = load();
   validateSequentialPreview(s);
-  assert.equal(s.races.filter((r) => r.status === "ready").length, 4);
-  assert.equal(s.races.filter((r) => r.status === "pending").length, 16);
+  assert.equal(s.races.filter((r) => r.status === "ready").length, 18);
+  assert.equal(s.races.filter((r) => r.status === "pending").length, 2);
 });
 for (const [name, change] of [
   ["target-round leakage", (s) => (s.races[0].trainingThroughRound = 1)],
@@ -24,7 +24,7 @@ for (const [name, change] of [
   ["bad convergence", (s) => (s.races[0].originDiagnostics.maxRhat = 1.1)],
   [
     "pending old prediction",
-    (s) => s.races[4].drivers.push(s.races[0].drivers[0]),
+    (s) => s.races[18].drivers.push(s.races[0].drivers[0]),
   ],
   ["claimed full validation", (s) => (s.validatedForecast = true)],
   ["noncontiguous preview", (s) => (s.availableRounds = [1, 2, 4, 5])],
