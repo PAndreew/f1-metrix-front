@@ -5,6 +5,7 @@ import { qualifyingView } from "./qualifying.js";
 import { simulatorView } from "./simulator.js";
 import { info } from "./hints.js";
 import { initNextGrandPrix } from "./next-gp.js";
+import { createCombobox } from "./combobox.js";
 import { Chart, registerables } from "chart.js";
 Chart.register(...registerables);
 Chart.defaults.font.family = "system-ui, sans-serif";
@@ -127,7 +128,7 @@ function rankings(target = main) {
   const m = publication.model,
     interval = m.metadata.intervalPercent ?? 94,
     year = Math.max(...m.drivers.map((d) => d.lastYear));
-  target.innerHTML = `<div class="controls"><input id="search" type="search" placeholder="Search drivers…" aria-label="Search drivers" maxlength="100"><select id="minimum" aria-label="Minimum races"><option value="0">All experience levels</option><option value="25">25+ races</option><option value="100">100+ races</option><option value="200">200+ races</option></select><select id="era" aria-label="Era"><option value="all">All years</option><option value="active">Active in ${year}</option></select><select id="champions" aria-label="Champions"><option value="all">All drivers</option><option value="champions">World champions</option></select><button class="quiet" id="download">Download CSV</button></div><div class="tabs" role="tablist"><button role="tab" id="tab-table" aria-controls="panel-table" aria-selected="true">Table</button><button role="tab" id="tab-plot" aria-controls="panel-plot" aria-selected="false">Plot</button><button role="tab" id="tab-trend" aria-controls="panel-trend" aria-selected="false">Trend</button><button role="tab" id="tab-career" aria-controls="panel-career" aria-selected="false">Career</button></div><div role="tabpanel" id="panel-table" aria-labelledby="tab-table"><div class="table-wrap"><table id="rankings"><thead><tr><th class="num"><button data-sort="rank">#</button></th><th><button data-sort="name">Driver</button></th><th class="num"><button data-sort="skill">Score</button>${info("Score", "A driver’s career strength estimated by the model, after taking out the effect of the car, age and experience. Higher is better and 0 is about average. It is not seconds, points or standard deviations: what matters is the difference between two drivers. In equal cars, a driver 1 point higher would finish ahead of the other about 73% of the time, 2 points higher 88%, 3 points higher 95%.")}</th><th class="num">${interval}% range${info(`the ${interval}% range`, `The model is ${interval}% sure the true score lies in this range. Few races means a wide range. When two drivers’ ranges overlap a lot, the data can’t really tell them apart.`)}</th><th class="num"><button data-sort="races">Races</button>${info("Races", "Races the model could use for this driver: those where they were classified as finishing. Retirements and other non-finishes are not counted, so this can be lower than their number of starts.")}</th><th><button data-sort="last_year">Seasons</button></th></tr></thead><tbody id="rows"><tr><td colspan="6">Loading…</td></tr></tbody></table></div><div class="pagination"><span id="count" aria-live="polite"></span><div id="pages" role="navigation" aria-label="Driver result pages"></div></div></div><div role="tabpanel" id="panel-plot" aria-labelledby="tab-plot" hidden><div class="chart-card"><p class="legend"><span class="swatch" style="background:${blue}"></span>${interval}% range<span class="swatch diamond" style="background:${red}"></span>Score${info("this plot", "Each bar is a driver’s range of likely scores and the diamond is the best estimate. It shows the same drivers as the table, so search, filters and page selection apply here too.")}</p><div class="chart-wrap" id="drivers-plot"></div></div></div><div role="tabpanel" id="panel-trend" aria-labelledby="tab-trend" hidden><div class="chart-card"><p class="legend" id="trend-summary"></p><div class="chart-wrap tall" id="trend-plot"></div></div></div><div role="tabpanel" id="panel-career" aria-labelledby="tab-career" hidden><div class="controls"><input id="career-search" type="search" placeholder="Find a driver…" aria-label="Find a driver" maxlength="100"><select id="career-driver" aria-label="Driver"></select><select id="career-compare" aria-label="Compare with"></select></div><div class="chart-card"><p class="legend" id="career-legend"></p><div class="chart-wrap tall" id="career-plot"></div></div></div>`;
+  target.innerHTML = `<div class="controls"><input id="search" type="search" placeholder="Search drivers…" aria-label="Search drivers" maxlength="100"><select id="minimum" aria-label="Minimum races"><option value="0">All experience levels</option><option value="25">25+ races</option><option value="100">100+ races</option><option value="200">200+ races</option></select><select id="era" aria-label="Era"><option value="all">All years</option><option value="active">Active in ${year}</option></select><select id="champions" aria-label="Champions"><option value="all">All drivers</option><option value="champions">World champions</option></select><button class="quiet" id="download">Download CSV</button></div><div class="tabs" role="tablist"><button role="tab" id="tab-table" aria-controls="panel-table" aria-selected="true">Table</button><button role="tab" id="tab-plot" aria-controls="panel-plot" aria-selected="false">Plot</button><button role="tab" id="tab-trend" aria-controls="panel-trend" aria-selected="false">Trend</button><button role="tab" id="tab-career" aria-controls="panel-career" aria-selected="false">Career</button></div><div role="tabpanel" id="panel-table" aria-labelledby="tab-table"><div class="table-wrap"><table id="rankings"><thead><tr><th class="num"><button data-sort="rank">#</button></th><th><button data-sort="name">Driver</button></th><th class="num"><button data-sort="skill">Score</button>${info("Score", "A driver’s career strength estimated by the model, after taking out the effect of the car, age and experience. Higher is better and 0 is about average. It is not seconds, points or standard deviations: what matters is the difference between two drivers. In equal cars, a driver 1 point higher would finish ahead of the other about 73% of the time, 2 points higher 88%, 3 points higher 95%.")}</th><th class="num">${interval}% range${info(`the ${interval}% range`, `The model is ${interval}% sure the true score lies in this range. Few races means a wide range. When two drivers’ ranges overlap a lot, the data can’t really tell them apart.`)}</th><th class="num"><button data-sort="races">Races</button>${info("Races", "Races the model could use for this driver: those where they were classified as finishing. Retirements and other non-finishes are not counted, so this can be lower than their number of starts.")}</th><th><button data-sort="last_year">Seasons</button></th></tr></thead><tbody id="rows"><tr><td colspan="6">Loading…</td></tr></tbody></table></div><div class="pagination"><span id="count" aria-live="polite"></span><div id="pages" role="navigation" aria-label="Driver result pages"></div></div></div><div role="tabpanel" id="panel-plot" aria-labelledby="tab-plot" hidden><div class="chart-card"><p class="legend"><span class="swatch" style="background:${blue}"></span>${interval}% range<span class="swatch diamond" style="background:${red}"></span>Score${info("this plot", "Each bar is a driver’s range of likely scores and the diamond is the best estimate. It shows the same drivers as the table, so search, filters and page selection apply here too.")}</p><div class="chart-wrap" id="drivers-plot"></div></div></div><div role="tabpanel" id="panel-trend" aria-labelledby="tab-trend" hidden><div class="chart-card"><p class="legend" id="trend-summary"></p><div class="chart-wrap tall" id="trend-plot"></div></div></div><div role="tabpanel" id="panel-career" aria-labelledby="tab-career" hidden><div class="controls"><div id="career-driver"></div><div id="career-compare"></div></div><div class="chart-card"><p class="legend" id="career-legend"></p><div class="chart-wrap tall" id="career-plot"></div></div></div>`;
   let state = {
       search: "",
       minimum: 0,
@@ -400,37 +401,34 @@ function rankings(target = main) {
     career = charts.at(-1);
   }
   const ranked = [...m.drivers].sort((a, b) => a.rank - b.rank);
-  const careerSearch = document.getElementById("career-search"),
-    careerDriver = document.getElementById("career-driver"),
-    careerCompare = document.getElementById("career-compare");
-  // Rebuild both selects from the search text, always keeping the current
-  // choice so narrowing the list never changes what is plotted.
-  function fillCareerSelects() {
-    const q = careerSearch.value.trim().toLowerCase(),
-      option = (d) =>
-        `<option value="${escape(d.id)}">${escape(d.rank)}. ${escape(d.name)}</option>`,
-      list = (keep) =>
-        ranked
-          .filter((d) => d.id === keep || d.name.toLowerCase().includes(q))
-          .map(option)
-          .join("");
-    careerDriver.innerHTML = list(careerIds[0]);
-    careerDriver.value = careerIds[0] ?? "";
-    careerCompare.innerHTML =
-      `<option value="">Compare with: none</option>` + list(careerIds[1]);
-    careerCompare.value = careerIds[1] ?? "";
-  }
+  const driverOptions = ranked.map((d) => ({
+    value: d.id,
+    label: `${d.rank}. ${d.name}`,
+  }));
+  const pick = () =>
+    showCareer([
+      careerIds[0],
+      careerIds[1] !== careerIds[0] ? careerIds[1] : null,
+    ]);
+  const careerDriver = createCombobox(document.getElementById("career-driver"), {
+    label: "Driver",
+    options: driverOptions,
+    onChange: (id) => ((careerIds[0] = id), pick()),
+  });
+  const careerCompare = createCombobox(
+    document.getElementById("career-compare"),
+    {
+      label: "Compare with",
+      options: [{ value: "", label: "Compare with: none" }, ...driverOptions],
+      onChange: (id) => ((careerIds[1] = id || null), pick()),
+    },
+  );
   const showCareer = (ids) => {
     careerIds = ids.filter(Boolean);
-    fillCareerSelects();
+    careerDriver.set(careerIds[0]);
+    careerCompare.set(careerIds[1]);
     drawCareer();
   };
-  careerSearch.oninput = fillCareerSelects;
-  careerDriver.onchange = careerCompare.onchange = () =>
-    showCareer([
-      careerDriver.value,
-      careerCompare.value !== careerDriver.value ? careerCompare.value : null,
-    ]);
   document.getElementById("rows").onclick = (event) => {
     const link = event.target.closest(".driver-link");
     if (!link) return;

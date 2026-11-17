@@ -94,11 +94,13 @@ const { chromium } = require(process.env.PLAYWRIGHT_MODULE || "playwright");
         "false",
     );
     assert.equal(
-      await page.locator("#career-driver").inputValue(),
-      "sebastian-vettel",
+      await page.locator("#career-driver .combo-button").innerText(),
+      "82. Sebastian Vettel",
     );
-    await page.locator("#career-search").fill("webber");
-    await page.selectOption("#career-compare", "mark-webber");
+    // Pick from the searchable combo: open, type, choose.
+    await page.locator("#career-compare .combo-button").click();
+    await page.locator("#career-compare .combo-search").fill("webber");
+    await page.locator('#career-compare li[data-value="mark-webber"]').click();
     await page.waitForFunction(() =>
       /Sebastian Vettel[\s\S]*Mark Webber/.test(
         document.querySelector("#career-legend")?.textContent,
@@ -109,9 +111,11 @@ const { chromium } = require(process.env.PLAYWRIGHT_MODULE || "playwright");
     for (let x = career.x; x < career.x + career.width; x += 8)
       await page.mouse.move(x, career.y + career.height / 2);
     // Picking from the plain selects redraws the chart.
-    await page.locator("#career-search").fill("hamilton");
-    await page.selectOption("#career-driver", "lewis-hamilton");
-    await page.selectOption("#career-compare", "");
+    await page.locator("#career-driver .combo-button").click();
+    await page.locator("#career-driver .combo-search").fill("hamilton");
+    await page.keyboard.press("Enter");
+    await page.locator("#career-compare .combo-button").click();
+    await page.locator('#career-compare li[data-value=""]').click();
     await page.waitForFunction(() =>
       /^Lewis Hamilton/.test(
         document.querySelector("#career-legend")?.textContent,
