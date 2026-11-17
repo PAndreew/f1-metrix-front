@@ -574,6 +574,12 @@ small {
   height: 56px;
   background: #fff;
 }
+.brand,
+.footer-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
 .brand {
   font:
     italic 400 16px "Orbitron",
