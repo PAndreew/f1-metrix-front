@@ -13,7 +13,7 @@ const assert = require("node:assert/strict");
       (process.env.BASE_URL || "http://localhost:5178") + "/#/results",
     );
     await page.waitForSelector(".race-panel", { state: "attached" });
-    assert.equal(await page.locator(".results-section").count(), 5);
+    assert.equal(await page.locator(".results-section").count(), 6);
     assert.equal(
       await page.locator("#section-simulations").evaluate((e) => e.open),
       false,

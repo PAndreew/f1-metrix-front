@@ -6,7 +6,8 @@ import { simulatorView } from "./simulator.js";
 import { info } from "./hints.js";
 import { initNextGrandPrix } from "./next-gp.js";
 import { createCombobox } from "./combobox.js";
-import { modelPage, postsPage } from "./model-page.js";
+import { modelPage } from "./model-page.js";
+import { articlesSection, articlePage, postsPage } from "./articles/index.js";
 import { Chart, registerables } from "chart.js";
 Chart.register(...registerables);
 Chart.defaults.font.family = "system-ui, sans-serif";
@@ -691,6 +692,7 @@ function constructorResults(target) {
 
 const sections = [
   ["career", "All time historical driver rankings"],
+  ["articles", "Articles"],
   ["constructors", "Constructor strength by season"],
   ["simulations", "2026 race simulations"],
   ["qualifying", "2026 qualifying: teammate gaps"],
@@ -715,6 +717,7 @@ function allResults() {
     charts,
   );
   rankings(document.getElementById("results-career"));
+  articlesSection(document.getElementById("results-articles"));
   constructorResults(document.getElementById("results-constructors"));
   method(document.getElementById("results-method"));
 }
@@ -733,6 +736,7 @@ main.addEventListener(
 
 const routes = {
   rankings: "career",
+  articles: "articles",
   constructors: "constructors",
   simulations: "simulations",
   simulator: "simulations",
@@ -760,6 +764,13 @@ function render() {
   } else if (route === "model") {
     modelPage(main, publication.model.metadata);
     document.title = "The model — F1 Metrix";
+  } else if (route.startsWith("posts/")) {
+    const a = articlePage(main, decodeURIComponent(route.slice(6)), {
+      model: publication.model,
+      facts: publication.facts,
+      charts,
+    });
+    document.title = `${a?.title ?? "Article not found"} — F1 Metrix`;
   } else if (route === "posts") {
     postsPage(main);
     document.title = "Posts — F1 Metrix";

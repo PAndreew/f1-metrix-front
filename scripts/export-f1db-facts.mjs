@@ -83,7 +83,50 @@ export function extractFacts(db, sourceRelease) {
     "SELECT driver_id, year FROM season_driver_standing WHERE championship_won = 1 ORDER BY year",
   ))
     (champions[driver_id] ||= []).push(y);
-  return { sourceRelease, season: year, races, champions };
+  // Each title with the constructor the champion raced for most that season,
+  // and the drivers of the same entrant and constructor who raced at least a
+  // third as many rounds (so privateers in customer cars are not teammates).
+  const entries = (y, constructor) =>
+    all(
+      `SELECT entrant_id, driver_id, rounds FROM season_entrant_driver
+        WHERE year = ? AND constructor_id = ? AND test_driver = 0`,
+      y,
+      constructor,
+    ).map((e) => ({ ...e, n: e.rounds ? e.rounds.split(";").length : 0 }));
+  const titles = all(
+    `SELECT s.year, s.driver_id, rr.constructor_id, c.name, count(*) AS n
+       FROM season_driver_standing s
+       JOIN race r ON r.year = s.year
+       JOIN race_result rr ON rr.race_id = r.id AND rr.driver_id = s.driver_id
+       JOIN constructor c ON c.id = rr.constructor_id
+      WHERE s.championship_won = 1
+      GROUP BY s.year, s.driver_id, rr.constructor_id
+      ORDER BY s.year, n DESC`,
+  )
+    .filter((t, i, list) => i === 0 || list[i - 1].year !== t.year)
+    .map((t) => {
+      const car = entries(t.year, t.constructor_id),
+        own = car.filter((e) => e.driver_id === t.driver_id),
+        rounds = Math.max(...own.map((e) => e.n), 0),
+        mates = new Map();
+      for (const e of car)
+        if (
+          e.driver_id !== t.driver_id &&
+          own.some((o) => o.entrant_id === e.entrant_id)
+        )
+          mates.set(e.driver_id, (mates.get(e.driver_id) ?? 0) + e.n);
+      return {
+        year: t.year,
+        driverId: t.driver_id,
+        constructorId: t.constructor_id,
+        constructor: t.name,
+        teammates: [...mates]
+          .filter(([, n]) => n * 3 >= rounds)
+          .sort((a, b) => b[1] - a[1])
+          .map(([id]) => id),
+      };
+    });
+  return { sourceRelease, season: year, races, champions, titles };
 }
 
 export function validateFacts(facts) {
@@ -104,6 +147,17 @@ export function validateFacts(facts) {
       (r.start !== null && Number.isNaN(Date.parse(r.start)))
     )
       throw new Error(`Invalid race in F1DB facts: ${r.name ?? r.round}`);
+  if (
+    !Array.isArray(facts.titles) ||
+    !facts.titles.every(
+      (t) =>
+        Number.isInteger(t.year) &&
+        facts.champions[t.driverId]?.includes(t.year) &&
+        t.constructorId &&
+        Array.isArray(t.teammates),
+    )
+  )
+    throw new Error("Invalid titles in F1DB facts");
   for (const years of Object.values(facts.champions))
     if (!Array.isArray(years) || !years.every(Number.isInteger))
       throw new Error("Invalid champion years in F1DB facts");

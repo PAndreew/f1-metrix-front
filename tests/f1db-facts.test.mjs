@@ -14,6 +14,10 @@ test("published F1DB facts are valid", () => {
     facts.champions["juan-manuel-fangio"],
     [1951, 1954, 1955, 1956, 1957],
   );
+  const t2005 = facts.titles.find((t) => t.year === 2005);
+  assert.equal(t2005.driverId, "fernando-alonso");
+  assert.equal(t2005.constructorId, "renault");
+  assert.ok(t2005.teammates.includes("giancarlo-fisichella"));
 });
 
 test("invalid F1DB facts are rejected", () => {
@@ -23,6 +27,7 @@ test("invalid F1DB facts are rejected", () => {
     { ...facts, races: [{ ...facts.races[0], lengthKm: 0 }] },
     { ...facts, races: [{ ...facts.races[0], start: "not a date" }] },
     { ...facts, champions: { x: ["1950"] } },
+    { ...facts, titles: [{ ...facts.titles[0], year: 1900 }] },
   ])
     assert.throws(() => validateFacts(bad));
 });

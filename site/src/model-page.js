@@ -72,7 +72,3 @@ async function typeset(target) {
     }),
   );
 }
-
-export function postsPage(target) {
-  target.innerHTML = `<div class="page-head"><h1>Posts</h1></div><p class="empty-page">No posts yet.</p>`;
-}

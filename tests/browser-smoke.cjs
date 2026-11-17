@@ -69,6 +69,23 @@ const { chromium } = require(process.env.PLAYWRIGHT_MODULE || "playwright");
     await page.locator('#menu a[href="#/rankings"]').click();
     await page.locator("#rows td.rank").first().waitFor();
     await page.locator("#search").waitFor();
+    // Articles: the home page stub links to the article, whose charts and
+    // champion picker work without errors.
+    await page.locator("#section-articles > summary").click();
+    await page.locator("#results-articles .read-more").click();
+    await page.locator('#doc-scatter[aria-busy="false"]').waitFor();
+    assert.equal(
+      await page.locator(".page-head .pill").innerText(),
+      "LLM generated",
+    );
+    await page.locator("#doc-pick .combo-button").click();
+    await page.locator("#doc-pick .combo-search").fill("clark");
+    await page.keyboard.press("Enter");
+    await page.locator("#doc-tab-titles").click();
+    await page.locator('#doc-titles[aria-busy="false"]').waitFor();
+    assert.deepEqual(errors, []);
+    await page.goto(base);
+    await page.locator("#rows td.rank").first().waitFor();
     // Next Grand Prix countdown and details dialog.
     assert.match(
       await page.locator(".countdown").innerText(),

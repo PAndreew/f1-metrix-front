@@ -721,5 +721,724 @@
   "kimi-antonelli": [
    2026
   ]
- }
+ },
+ "titles": [
+  {
+   "year": 1950,
+   "driverId": "nino-farina",
+   "constructorId": "alfa-romeo",
+   "constructor": "Alfa Romeo",
+   "teammates": [
+    "juan-manuel-fangio",
+    "luigi-fagioli"
+   ]
+  },
+  {
+   "year": 1951,
+   "driverId": "juan-manuel-fangio",
+   "constructorId": "alfa-romeo",
+   "constructor": "Alfa Romeo",
+   "teammates": [
+    "nino-farina",
+    "consalvo-sanesi",
+    "felice-bonetto",
+    "emmanuel-de-graffenried"
+   ]
+  },
+  {
+   "year": 1952,
+   "driverId": "alberto-ascari",
+   "constructorId": "ferrari",
+   "constructor": "Ferrari",
+   "teammates": [
+    "nino-farina",
+    "piero-taruffi"
+   ]
+  },
+  {
+   "year": 1953,
+   "driverId": "alberto-ascari",
+   "constructorId": "ferrari",
+   "constructor": "Ferrari",
+   "teammates": [
+    "luigi-villoresi",
+    "mike-hawthorn",
+    "nino-farina"
+   ]
+  },
+  {
+   "year": 1954,
+   "driverId": "juan-manuel-fangio",
+   "constructorId": "mercedes",
+   "constructor": "Mercedes",
+   "teammates": [
+    "karl-kling",
+    "hans-herrmann"
+   ]
+  },
+  {
+   "year": 1955,
+   "driverId": "juan-manuel-fangio",
+   "constructorId": "mercedes",
+   "constructor": "Mercedes",
+   "teammates": [
+    "stirling-moss",
+    "karl-kling",
+    "hans-herrmann",
+    "piero-taruffi"
+   ]
+  },
+  {
+   "year": 1956,
+   "driverId": "juan-manuel-fangio",
+   "constructorId": "ferrari",
+   "constructor": "Ferrari",
+   "teammates": [
+    "eugenio-castellotti",
+    "peter-collins",
+    "luigi-musso",
+    "alfonso-de-portago"
+   ]
+  },
+  {
+   "year": 1957,
+   "driverId": "juan-manuel-fangio",
+   "constructorId": "maserati",
+   "constructor": "Maserati",
+   "teammates": [
+    "jean-behra",
+    "harry-schell",
+    "carlos-menditeguy",
+    "giorgio-scarlatti"
+   ]
+  },
+  {
+   "year": 1958,
+   "driverId": "mike-hawthorn",
+   "constructorId": "ferrari",
+   "constructor": "Ferrari",
+   "teammates": [
+    "peter-collins",
+    "wolfgang-von-trips",
+    "luigi-musso"
+   ]
+  },
+  {
+   "year": 1959,
+   "driverId": "jack-brabham",
+   "constructorId": "cooper",
+   "constructor": "Cooper",
+   "teammates": [
+    "bruce-mclaren",
+    "masten-gregory"
+   ]
+  },
+  {
+   "year": 1960,
+   "driverId": "jack-brabham",
+   "constructorId": "cooper",
+   "constructor": "Cooper",
+   "teammates": [
+    "bruce-mclaren"
+   ]
+  },
+  {
+   "year": 1961,
+   "driverId": "phil-hill",
+   "constructorId": "ferrari",
+   "constructor": "Ferrari",
+   "teammates": [
+    "richie-ginther",
+    "wolfgang-von-trips"
+   ]
+  },
+  {
+   "year": 1962,
+   "driverId": "graham-hill",
+   "constructorId": "brm",
+   "constructor": "BRM",
+   "teammates": [
+    "richie-ginther"
+   ]
+  },
+  {
+   "year": 1963,
+   "driverId": "jim-clark",
+   "constructorId": "lotus",
+   "constructor": "Lotus",
+   "teammates": [
+    "trevor-taylor"
+   ]
+  },
+  {
+   "year": 1964,
+   "driverId": "john-surtees",
+   "constructorId": "ferrari",
+   "constructor": "Ferrari",
+   "teammates": [
+    "lorenzo-bandini"
+   ]
+  },
+  {
+   "year": 1965,
+   "driverId": "jim-clark",
+   "constructorId": "lotus",
+   "constructor": "Lotus",
+   "teammates": [
+    "mike-spence"
+   ]
+  },
+  {
+   "year": 1966,
+   "driverId": "jack-brabham",
+   "constructorId": "brabham",
+   "constructor": "Brabham",
+   "teammates": [
+    "denny-hulme"
+   ]
+  },
+  {
+   "year": 1967,
+   "driverId": "denny-hulme",
+   "constructorId": "brabham",
+   "constructor": "Brabham",
+   "teammates": [
+    "jack-brabham"
+   ]
+  },
+  {
+   "year": 1968,
+   "driverId": "graham-hill",
+   "constructorId": "lotus",
+   "constructor": "Lotus",
+   "teammates": [
+    "jackie-oliver"
+   ]
+  },
+  {
+   "year": 1969,
+   "driverId": "jackie-stewart",
+   "constructorId": "matra",
+   "constructor": "Matra",
+   "teammates": [
+    "jean-pierre-beltoise",
+    "johnny-servoz-gavin"
+   ]
+  },
+  {
+   "year": 1970,
+   "driverId": "jochen-rindt",
+   "constructorId": "lotus",
+   "constructor": "Lotus",
+   "teammates": [
+    "john-miles",
+    "emerson-fittipaldi"
+   ]
+  },
+  {
+   "year": 1971,
+   "driverId": "jackie-stewart",
+   "constructorId": "tyrrell",
+   "constructor": "Tyrrell",
+   "teammates": [
+    "francois-cevert"
+   ]
+  },
+  {
+   "year": 1972,
+   "driverId": "emerson-fittipaldi",
+   "constructorId": "lotus",
+   "constructor": "Lotus",
+   "teammates": [
+    "david-walker"
+   ]
+  },
+  {
+   "year": 1973,
+   "driverId": "jackie-stewart",
+   "constructorId": "tyrrell",
+   "constructor": "Tyrrell",
+   "teammates": [
+    "francois-cevert"
+   ]
+  },
+  {
+   "year": 1974,
+   "driverId": "emerson-fittipaldi",
+   "constructorId": "mclaren",
+   "constructor": "McLaren",
+   "teammates": [
+    "denny-hulme"
+   ]
+  },
+  {
+   "year": 1975,
+   "driverId": "niki-lauda",
+   "constructorId": "ferrari",
+   "constructor": "Ferrari",
+   "teammates": [
+    "clay-regazzoni"
+   ]
+  },
+  {
+   "year": 1976,
+   "driverId": "james-hunt",
+   "constructorId": "mclaren",
+   "constructor": "McLaren",
+   "teammates": [
+    "jochen-mass"
+   ]
+  },
+  {
+   "year": 1977,
+   "driverId": "niki-lauda",
+   "constructorId": "ferrari",
+   "constructor": "Ferrari",
+   "teammates": [
+    "carlos-reutemann"
+   ]
+  },
+  {
+   "year": 1978,
+   "driverId": "mario-andretti",
+   "constructorId": "lotus",
+   "constructor": "Lotus",
+   "teammates": [
+    "ronnie-peterson"
+   ]
+  },
+  {
+   "year": 1979,
+   "driverId": "jody-scheckter",
+   "constructorId": "ferrari",
+   "constructor": "Ferrari",
+   "teammates": [
+    "gilles-villeneuve"
+   ]
+  },
+  {
+   "year": 1980,
+   "driverId": "alan-jones",
+   "constructorId": "williams",
+   "constructor": "Williams",
+   "teammates": [
+    "carlos-reutemann"
+   ]
+  },
+  {
+   "year": 1981,
+   "driverId": "nelson-piquet",
+   "constructorId": "brabham",
+   "constructor": "Brabham",
+   "teammates": [
+    "hector-rebaque"
+   ]
+  },
+  {
+   "year": 1982,
+   "driverId": "keke-rosberg",
+   "constructorId": "williams",
+   "constructor": "Williams",
+   "teammates": [
+    "derek-daly"
+   ]
+  },
+  {
+   "year": 1983,
+   "driverId": "nelson-piquet",
+   "constructorId": "brabham",
+   "constructor": "Brabham",
+   "teammates": [
+    "riccardo-patrese"
+   ]
+  },
+  {
+   "year": 1984,
+   "driverId": "niki-lauda",
+   "constructorId": "mclaren",
+   "constructor": "McLaren",
+   "teammates": [
+    "alain-prost"
+   ]
+  },
+  {
+   "year": 1985,
+   "driverId": "alain-prost",
+   "constructorId": "mclaren",
+   "constructor": "McLaren",
+   "teammates": [
+    "niki-lauda"
+   ]
+  },
+  {
+   "year": 1986,
+   "driverId": "alain-prost",
+   "constructorId": "mclaren",
+   "constructor": "McLaren",
+   "teammates": [
+    "keke-rosberg"
+   ]
+  },
+  {
+   "year": 1987,
+   "driverId": "nelson-piquet",
+   "constructorId": "williams",
+   "constructor": "Williams",
+   "teammates": [
+    "nigel-mansell"
+   ]
+  },
+  {
+   "year": 1988,
+   "driverId": "ayrton-senna",
+   "constructorId": "mclaren",
+   "constructor": "McLaren",
+   "teammates": [
+    "alain-prost"
+   ]
+  },
+  {
+   "year": 1989,
+   "driverId": "alain-prost",
+   "constructorId": "mclaren",
+   "constructor": "McLaren",
+   "teammates": [
+    "ayrton-senna"
+   ]
+  },
+  {
+   "year": 1990,
+   "driverId": "ayrton-senna",
+   "constructorId": "mclaren",
+   "constructor": "McLaren",
+   "teammates": [
+    "gerhard-berger"
+   ]
+  },
+  {
+   "year": 1991,
+   "driverId": "ayrton-senna",
+   "constructorId": "mclaren",
+   "constructor": "McLaren",
+   "teammates": [
+    "gerhard-berger"
+   ]
+  },
+  {
+   "year": 1992,
+   "driverId": "nigel-mansell",
+   "constructorId": "williams",
+   "constructor": "Williams",
+   "teammates": [
+    "riccardo-patrese"
+   ]
+  },
+  {
+   "year": 1993,
+   "driverId": "alain-prost",
+   "constructorId": "williams",
+   "constructor": "Williams",
+   "teammates": [
+    "damon-hill"
+   ]
+  },
+  {
+   "year": 1994,
+   "driverId": "michael-schumacher",
+   "constructorId": "benetton",
+   "constructor": "Benetton",
+   "teammates": [
+    "jos-verstappen",
+    "jj-lehto"
+   ]
+  },
+  {
+   "year": 1995,
+   "driverId": "michael-schumacher",
+   "constructorId": "benetton",
+   "constructor": "Benetton",
+   "teammates": [
+    "johnny-herbert"
+   ]
+  },
+  {
+   "year": 1996,
+   "driverId": "damon-hill",
+   "constructorId": "williams",
+   "constructor": "Williams",
+   "teammates": [
+    "jacques-villeneuve"
+   ]
+  },
+  {
+   "year": 1997,
+   "driverId": "jacques-villeneuve",
+   "constructorId": "williams",
+   "constructor": "Williams",
+   "teammates": [
+    "heinz-harald-frentzen"
+   ]
+  },
+  {
+   "year": 1998,
+   "driverId": "mika-hakkinen",
+   "constructorId": "mclaren",
+   "constructor": "McLaren",
+   "teammates": [
+    "david-coulthard"
+   ]
+  },
+  {
+   "year": 1999,
+   "driverId": "mika-hakkinen",
+   "constructorId": "mclaren",
+   "constructor": "McLaren",
+   "teammates": [
+    "david-coulthard"
+   ]
+  },
+  {
+   "year": 2000,
+   "driverId": "michael-schumacher",
+   "constructorId": "ferrari",
+   "constructor": "Ferrari",
+   "teammates": [
+    "rubens-barrichello"
+   ]
+  },
+  {
+   "year": 2001,
+   "driverId": "michael-schumacher",
+   "constructorId": "ferrari",
+   "constructor": "Ferrari",
+   "teammates": [
+    "rubens-barrichello"
+   ]
+  },
+  {
+   "year": 2002,
+   "driverId": "michael-schumacher",
+   "constructorId": "ferrari",
+   "constructor": "Ferrari",
+   "teammates": [
+    "rubens-barrichello"
+   ]
+  },
+  {
+   "year": 2003,
+   "driverId": "michael-schumacher",
+   "constructorId": "ferrari",
+   "constructor": "Ferrari",
+   "teammates": [
+    "rubens-barrichello"
+   ]
+  },
+  {
+   "year": 2004,
+   "driverId": "michael-schumacher",
+   "constructorId": "ferrari",
+   "constructor": "Ferrari",
+   "teammates": [
+    "rubens-barrichello"
+   ]
+  },
+  {
+   "year": 2005,
+   "driverId": "fernando-alonso",
+   "constructorId": "renault",
+   "constructor": "Renault",
+   "teammates": [
+    "giancarlo-fisichella"
+   ]
+  },
+  {
+   "year": 2006,
+   "driverId": "fernando-alonso",
+   "constructorId": "renault",
+   "constructor": "Renault",
+   "teammates": [
+    "giancarlo-fisichella"
+   ]
+  },
+  {
+   "year": 2007,
+   "driverId": "kimi-raikkonen",
+   "constructorId": "ferrari",
+   "constructor": "Ferrari",
+   "teammates": [
+    "felipe-massa"
+   ]
+  },
+  {
+   "year": 2008,
+   "driverId": "lewis-hamilton",
+   "constructorId": "mclaren",
+   "constructor": "McLaren",
+   "teammates": [
+    "heikki-kovalainen"
+   ]
+  },
+  {
+   "year": 2009,
+   "driverId": "jenson-button",
+   "constructorId": "brawn",
+   "constructor": "Brawn",
+   "teammates": [
+    "rubens-barrichello"
+   ]
+  },
+  {
+   "year": 2010,
+   "driverId": "sebastian-vettel",
+   "constructorId": "red-bull",
+   "constructor": "Red Bull",
+   "teammates": [
+    "mark-webber"
+   ]
+  },
+  {
+   "year": 2011,
+   "driverId": "sebastian-vettel",
+   "constructorId": "red-bull",
+   "constructor": "Red Bull",
+   "teammates": [
+    "mark-webber"
+   ]
+  },
+  {
+   "year": 2012,
+   "driverId": "sebastian-vettel",
+   "constructorId": "red-bull",
+   "constructor": "Red Bull",
+   "teammates": [
+    "mark-webber"
+   ]
+  },
+  {
+   "year": 2013,
+   "driverId": "sebastian-vettel",
+   "constructorId": "red-bull",
+   "constructor": "Red Bull",
+   "teammates": [
+    "mark-webber"
+   ]
+  },
+  {
+   "year": 2014,
+   "driverId": "lewis-hamilton",
+   "constructorId": "mercedes",
+   "constructor": "Mercedes",
+   "teammates": [
+    "nico-rosberg"
+   ]
+  },
+  {
+   "year": 2015,
+   "driverId": "lewis-hamilton",
+   "constructorId": "mercedes",
+   "constructor": "Mercedes",
+   "teammates": [
+    "nico-rosberg"
+   ]
+  },
+  {
+   "year": 2016,
+   "driverId": "nico-rosberg",
+   "constructorId": "mercedes",
+   "constructor": "Mercedes",
+   "teammates": [
+    "lewis-hamilton"
+   ]
+  },
+  {
+   "year": 2017,
+   "driverId": "lewis-hamilton",
+   "constructorId": "mercedes",
+   "constructor": "Mercedes",
+   "teammates": [
+    "valtteri-bottas"
+   ]
+  },
+  {
+   "year": 2018,
+   "driverId": "lewis-hamilton",
+   "constructorId": "mercedes",
+   "constructor": "Mercedes",
+   "teammates": [
+    "valtteri-bottas"
+   ]
+  },
+  {
+   "year": 2019,
+   "driverId": "lewis-hamilton",
+   "constructorId": "mercedes",
+   "constructor": "Mercedes",
+   "teammates": [
+    "valtteri-bottas"
+   ]
+  },
+  {
+   "year": 2020,
+   "driverId": "lewis-hamilton",
+   "constructorId": "mercedes",
+   "constructor": "Mercedes",
+   "teammates": [
+    "valtteri-bottas"
+   ]
+  },
+  {
+   "year": 2021,
+   "driverId": "max-verstappen",
+   "constructorId": "red-bull",
+   "constructor": "Red Bull",
+   "teammates": [
+    "sergio-perez"
+   ]
+  },
+  {
+   "year": 2022,
+   "driverId": "max-verstappen",
+   "constructorId": "red-bull",
+   "constructor": "Red Bull",
+   "teammates": [
+    "sergio-perez"
+   ]
+  },
+  {
+   "year": 2023,
+   "driverId": "max-verstappen",
+   "constructorId": "red-bull",
+   "constructor": "Red Bull",
+   "teammates": [
+    "sergio-perez"
+   ]
+  },
+  {
+   "year": 2024,
+   "driverId": "max-verstappen",
+   "constructorId": "red-bull",
+   "constructor": "Red Bull",
+   "teammates": [
+    "sergio-perez"
+   ]
+  },
+  {
+   "year": 2025,
+   "driverId": "lando-norris",
+   "constructorId": "mclaren",
+   "constructor": "McLaren",
+   "teammates": [
+    "oscar-piastri"
+   ]
+  },
+  {
+   "year": 2026,
+   "driverId": "kimi-antonelli",
+   "constructorId": "mercedes",
+   "constructor": "Mercedes",
+   "teammates": [
+    "george-russell"
+   ]
+  }
+ ]
 }
