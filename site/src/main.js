@@ -292,6 +292,13 @@ function rankings(target = main) {
       careers.get(r.driverId) ?? careers.set(r.driverId, []).get(r.driverId)
     ).push(r);
   for (const rows of careers.values()) rows.sort((a, b) => a.year - b.year);
+  // Measured season form, checked against the model's curve (export-form.mjs).
+  const form = new Map(
+    (publication.form?.seasons ?? []).map((s) => [
+      `${s.driverId}:${s.year}`,
+      s,
+    ]),
+  );
   let career = null,
     careerIds = [];
   function drawCareer() {
@@ -305,7 +312,8 @@ function rankings(target = main) {
       .filter((d) => d && careers.has(d.id));
     const legend = document.getElementById("career-legend");
     if (!drivers.length) {
-      legend.textContent = "Pick a driver to see their career curve.";
+      legend.textContent =
+        "Pick a driver to see their career curve and season form.";
       document.getElementById("career-plot").innerHTML = "";
       return;
     }
@@ -318,9 +326,15 @@ function rankings(target = main) {
         )
         .join("") +
       `<span class="swatch band"></span>${interval}% range` +
+      `<span class="swatch line solid"></span>Career curve (model)` +
       info(
         "the career curve",
-        "The model gives each driver one career level and adjusts it for their age and experience each season, so the curve is smooth. It shows how the model thinks the driver’s ability changed over their career; it does not capture good or bad individual seasons. Gaps are seasons they did not race.",
+        "The model gives each driver one career level and adds an age curve and an experience curve that are the same for every driver. So every curve has the same shape, rises over the first seasons and then slowly falls; it only dips after a break from racing. It is not season form: a good or bad year does not show up in it. Gaps are seasons they did not race.",
+      ) +
+      `<span class="swatch line"></span>Season form (measured)` +
+      info(
+        "season form",
+        "Where that season’s finishing orders put the driver, holding their car and every rival at the model’s values. It is measured from the results, not estimated by the model. It is noisy: each point is uncertain by about ±0.3 even in a full season, so most ups and downs are within noise. Only classified finishers count.",
       );
     // Points per season, with a null where a driver skipped a year so the line breaks.
     const series = (d, key) => {
@@ -329,12 +343,19 @@ function rankings(target = main) {
       rows.forEach((r, i) => {
         if (i && r.year - rows[i - 1].year > 1)
           points.push({ x: r.year - 1, y: null });
-        points.push({ x: r.year, y: r[key], r });
+        points.push({
+          x: r.year,
+          y:
+            key === "form"
+              ? (form.get(`${d.id}:${r.year}`)?.form ?? null)
+              : r[key],
+          r,
+        });
       });
       return points;
     };
     document.getElementById("career-plot").innerHTML =
-      `<canvas id="career-chart" role="img" aria-label="Career curve by season for ${escape(drivers.map((d) => d.name).join(" and "))}"></canvas>`;
+      `<canvas id="career-chart" role="img" aria-label="Career curve and measured season form by season for ${escape(drivers.map((d) => d.name).join(" and "))}"></canvas>`;
     addChart("career-chart", {
       type: "line",
       data: {
@@ -368,6 +389,16 @@ function rankings(target = main) {
             pointRadius: 3,
             pointHoverRadius: 6,
           },
+          {
+            label: `${d.name} form`,
+            data: series(d, "form"),
+            borderColor: colors[i],
+            backgroundColor: colors[i],
+            borderWidth: 1.5,
+            borderDash: [5, 4],
+            pointRadius: 2,
+            pointHoverRadius: 5,
+          },
         ]),
       },
       options: {
@@ -379,12 +410,16 @@ function rankings(target = main) {
         plugins: {
           legend: { display: false },
           tooltip: {
-            filter: (item) => item.datasetIndex % 3 === 2 && !!item.raw?.r,
+            filter: (item) => item.datasetIndex % 4 >= 2 && item.raw?.y != null,
             callbacks: {
               title: (items) => (items.length ? String(items[0].raw.x) : ""),
               label: (item) => {
                 const r = item.raw.r;
-                return `${item.dataset.label}: ${number(r.median)} (${number(r.low95)} to ${number(r.high95)}) · ${r.races} races`;
+                if (item.datasetIndex % 4 === 3) {
+                  const f = form.get(`${r.driverId}:${r.year}`);
+                  return `${item.dataset.label}: ${number(f.form)} ± ${number(f.se)} · ${f.races} races`;
+                }
+                return `${item.dataset.label} curve: ${number(r.median)} (${number(r.low95)} to ${number(r.high95)}) · ${r.races} races`;
               },
             },
           },

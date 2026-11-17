@@ -4,6 +4,7 @@ import { validateSimulations } from "./validate-simulations.mjs";
 import { validateSequentialPreview } from "./validate-sequential-preview.mjs";
 import { validatePerformance } from "./validate-performance.mjs";
 import { validateFacts } from "./export-f1db-facts.mjs";
+import { validateForm } from "./export-form.mjs";
 import {
   existsSync,
   mkdirSync,
@@ -119,8 +120,14 @@ export function exportPublication(root) {
     : null;
   if (facts) validateFacts(facts);
   const titles = (id) => facts?.champions[id]?.length ?? 0;
+  const formPath = join(root, "publication", "form.json");
+  const form = existsSync(formPath)
+    ? JSON.parse(readFileSync(formPath, "utf8"))
+    : null;
+  if (form) validateForm(form);
   const data = {
     facts,
+    form,
     simulations,
     qualifying,
     model,

@@ -46,7 +46,7 @@ const assert = require("node:assert/strict");
     assert.equal(await page.locator("#simulation-race option").count(), 20);
     assert.equal(
       await page.locator("main > .intro").innerText(),
-      "Welcome to F1Metrix. The site’s goal is to provide data-driven, unbiased analysis of Formula 1© drivers and teams throughout the sport’s history. It is inspired by Dr. Andrew Phillips’ synonymous f1metrics blog, which was sadly discontinued around 2020.",
+      "Welcome to F1Metrix. The site’s goal is to provide data-driven, unbiased analysis of Formula 1© drivers and teams throughout the sport’s history. It is inspired by Dr. Andrew Phillips’ eponymous f1metrics blog, which was sadly discontinued around 2020.",
     );
     await page.waitForSelector("#rankings tbody tr");
     await page.evaluate(() => document.fonts.ready);

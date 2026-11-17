@@ -706,6 +706,9 @@ h1 {
   border-radius: 0;
   vertical-align: 3px;
 }
+.swatch.line.solid {
+  border-top-style: solid;
+}
 #qualifying-verdict {
   margin: 0 0 16px;
 }
