@@ -10,7 +10,7 @@
     "build": "node scripts/export-publication.mjs && vite build site",
     "preview": "vite preview site --host 0.0.0.0",
     "test": "node --test tests/*.test.mjs",
-    "test:browser": "node tests/browser-smoke.cjs && node tests/chart-lifecycle-browser.cjs && node tests/simulator-browser.cjs && node tests/qualifying-browser.cjs"
+    "test:browser": "node tests/browser-smoke.cjs && node tests/chart-lifecycle-browser.cjs && node tests/simulator-browser.cjs && node tests/qualifying-browser.cjs && node tests/table-usability-browser.cjs"
   },
   "dependencies": {
     "chart.js": "^4.4.9",

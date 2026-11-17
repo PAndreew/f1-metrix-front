@@ -264,6 +264,10 @@ select {
 }
 input[type="search"] {
   min-width: 240px;
+  font-size: 16px;
+}
+.controls :is(input, select, button.quiet) {
+  height: 44px;
 }
 .table-wrap {
   overflow: auto;
@@ -336,7 +340,49 @@ button:disabled {
 }
 .pagination div {
   display: flex;
+  flex-wrap: wrap;
   gap: 10px;
+}
+.pagination {
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.pagination #pages {
+  flex: 1 1 300px;
+}
+.pagination button[aria-current="page"] {
+  color: var(--red);
+  border-color: var(--red);
+}
+.table-wrap table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+.frozen-column {
+  position: sticky;
+  left: var(--frozen-left, 0px);
+  z-index: 2;
+  background: #fff;
+  box-shadow: 1px 0 0 var(--line);
+}
+th.frozen-column {
+  z-index: 3;
+  background: #efede7;
+}
+tbody tr:hover .frozen-column {
+  background: #f2f0eb;
+}
+.frozen-rank {
+  width: 64px;
+  min-width: 64px;
+  max-width: 64px;
+}
+.frozen-identity {
+  width: 192px;
+  min-width: 160px;
+  max-width: 192px;
+  white-space: normal;
+  overflow-wrap: break-word;
 }
 .prose {
   max-width: 700px;

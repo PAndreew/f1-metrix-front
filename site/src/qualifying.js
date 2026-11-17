@@ -103,7 +103,7 @@ export function qualifyingView(main, q, charts) {
     });
     charts.push(chart);
     document.getElementById("qualifying-rounds").innerHTML =
-      `<h3>By round</h3><div class="table-wrap"><table><thead><tr><th class="num">Round</th><th>Weekend</th><th>Session</th><th>Faster</th><th class="num">Gap${info("the gap", "How much quicker the faster driver’s lap was, roughly in percent of lap time, in the last session both drivers set a time.")}</th></tr></thead><tbody>${rows.map((r) => `<tr><td class="num">${r.round}</td><td>${esc(r.race)}</td><td>${esc(r.segment)}</td><td class="name">${esc(faster(c, r.observedLogGapPct))}</td><td class="num">${pct(r.observedLogGapPct)}</td></tr>`).join("")}</tbody></table></div>`;
+      `<h3>By round</h3><div class="table-wrap"><table><thead><tr><th class="num">Round</th><th>Faster</th><th>Weekend</th><th>Session</th><th class="num">Gap${info("the gap", "How much quicker the faster driver’s lap was, roughly in percent of lap time, in the last session both drivers set a time.")}</th></tr></thead><tbody>${rows.map((r) => `<tr><td class="num">${r.round}</td><td class="name">${esc(faster(c, r.observedLogGapPct))}</td><td>${esc(r.race)}</td><td>${esc(r.segment)}</td><td class="num">${pct(r.observedLogGapPct)}</td></tr>`).join("")}</tbody></table></div>`;
   };
   document.getElementById("qualifying-pair").addEventListener("change", draw);
   draw();

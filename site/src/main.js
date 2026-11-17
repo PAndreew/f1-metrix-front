@@ -1,3 +1,4 @@
+import { installStickyColumns } from "./sticky-columns.js";
 import { createChart } from "./chart-lifecycle.js";
 import "./style.css";
 import { qualifyingView } from "./qualifying.js";
@@ -17,6 +18,7 @@ Chart.defaults.animation.duration = window.matchMedia(
   ? 0
   : 350;
 const main = document.querySelector("main");
+installStickyColumns(main);
 main.tabIndex = -1;
 document.querySelector(".skip").addEventListener("click", (event) => {
   event.preventDefault();
@@ -117,7 +119,7 @@ function rankings(target = main) {
   const m = publication.model,
     interval = m.metadata.intervalPercent ?? 94,
     year = Math.max(...m.drivers.map((d) => d.lastYear));
-  target.innerHTML = `<div class="controls"><input id="search" type="search" placeholder="Search drivers…" aria-label="Search drivers" maxlength="100"><select id="minimum" aria-label="Minimum races"><option value="0">All experience levels</option><option value="25">25+ races</option><option value="100">100+ races</option><option value="200">200+ races</option></select><select id="era" aria-label="Era"><option value="all">All years</option><option value="active">Active in ${year}</option></select><button class="quiet" id="download">Download CSV</button></div><div class="tabs" role="tablist"><button role="tab" id="tab-table" aria-controls="panel-table" aria-selected="true">Table</button><button role="tab" id="tab-plot" aria-controls="panel-plot" aria-selected="false">Plot</button><button role="tab" id="tab-trend" aria-controls="panel-trend" aria-selected="false">Trend</button></div><div role="tabpanel" id="panel-table" aria-labelledby="tab-table"><div class="table-wrap"><table id="rankings"><thead><tr><th class="num"><button data-sort="rank">#</button></th><th><button data-sort="name">Driver</button></th><th class="num"><button data-sort="skill">Score</button>${info("Score", "A driver’s career strength estimated by the model, after taking out the effect of the car, age and experience. Higher is better and 0 is about average. It is not seconds, points or standard deviations: what matters is the difference between two drivers. In equal cars, a driver 1 point higher would finish ahead of the other about 73% of the time, 2 points higher 88%, 3 points higher 95%.")}</th><th class="num">${interval}% range${info(`the ${interval}% range`, `The model is ${interval}% sure the true score lies in this range. Few races means a wide range. When two drivers’ ranges overlap a lot, the data can’t really tell them apart.`)}</th><th class="num"><button data-sort="races">Races</button>${info("Races", "Races the model could use for this driver: those where they were classified as finishing. Retirements and other non-finishes are not counted, so this can be lower than their number of starts.")}</th><th><button data-sort="last_year">Seasons</button></th></tr></thead><tbody id="rows"><tr><td colspan="6">Loading…</td></tr></tbody></table></div><div class="pagination"><span id="count" aria-live="polite"></span><button class="quiet" id="more">Load more drivers</button></div></div><div role="tabpanel" id="panel-plot" aria-labelledby="tab-plot" hidden><div class="chart-card"><p class="legend"><span class="swatch" style="background:${blue}"></span>${interval}% range<span class="swatch diamond" style="background:${red}"></span>Score${info("this plot", "Each bar is a driver’s range of likely scores and the diamond is the best estimate. It shows the same drivers as the table, so search, filters and Load more apply here too.")}</p><div class="chart-wrap" id="drivers-plot"></div></div></div><div role="tabpanel" id="panel-trend" aria-labelledby="tab-trend" hidden><div class="chart-card"><p class="legend" id="trend-summary"></p><div class="chart-wrap tall" id="trend-plot"></div></div></div>`;
+  target.innerHTML = `<div class="controls"><input id="search" type="search" placeholder="Search drivers…" aria-label="Search drivers" maxlength="100"><select id="minimum" aria-label="Minimum races"><option value="0">All experience levels</option><option value="25">25+ races</option><option value="100">100+ races</option><option value="200">200+ races</option></select><select id="era" aria-label="Era"><option value="all">All years</option><option value="active">Active in ${year}</option></select><button class="quiet" id="download">Download CSV</button></div><div class="tabs" role="tablist"><button role="tab" id="tab-table" aria-controls="panel-table" aria-selected="true">Table</button><button role="tab" id="tab-plot" aria-controls="panel-plot" aria-selected="false">Plot</button><button role="tab" id="tab-trend" aria-controls="panel-trend" aria-selected="false">Trend</button></div><div role="tabpanel" id="panel-table" aria-labelledby="tab-table"><div class="table-wrap"><table id="rankings"><thead><tr><th class="num"><button data-sort="rank">#</button></th><th><button data-sort="name">Driver</button></th><th class="num"><button data-sort="skill">Score</button>${info("Score", "A driver’s career strength estimated by the model, after taking out the effect of the car, age and experience. Higher is better and 0 is about average. It is not seconds, points or standard deviations: what matters is the difference between two drivers. In equal cars, a driver 1 point higher would finish ahead of the other about 73% of the time, 2 points higher 88%, 3 points higher 95%.")}</th><th class="num">${interval}% range${info(`the ${interval}% range`, `The model is ${interval}% sure the true score lies in this range. Few races means a wide range. When two drivers’ ranges overlap a lot, the data can’t really tell them apart.`)}</th><th class="num"><button data-sort="races">Races</button>${info("Races", "Races the model could use for this driver: those where they were classified as finishing. Retirements and other non-finishes are not counted, so this can be lower than their number of starts.")}</th><th><button data-sort="last_year">Seasons</button></th></tr></thead><tbody id="rows"><tr><td colspan="6">Loading…</td></tr></tbody></table></div><div class="pagination"><span id="count" aria-live="polite"></span><div id="pages" role="navigation" aria-label="Driver result pages"></div></div></div><div role="tabpanel" id="panel-plot" aria-labelledby="tab-plot" hidden><div class="chart-card"><p class="legend"><span class="swatch" style="background:${blue}"></span>${interval}% range<span class="swatch diamond" style="background:${red}"></span>Score${info("this plot", "Each bar is a driver’s range of likely scores and the diamond is the best estimate. It shows the same drivers as the table, so search, filters and page selection apply here too.")}</p><div class="chart-wrap" id="drivers-plot"></div></div></div><div role="tabpanel" id="panel-trend" aria-labelledby="tab-trend" hidden><div class="chart-card"><p class="legend" id="trend-summary"></p><div class="chart-wrap tall" id="trend-plot"></div></div></div>`;
   let state = {
       search: "",
       minimum: 0,
@@ -126,6 +128,7 @@ function rankings(target = main) {
       sort: "rank",
       direction: "asc",
       limit: 25,
+      page: 0,
     },
     plot = null,
     trend = null;
@@ -159,7 +162,8 @@ function rankings(target = main) {
           (state.direction === "asc" ? 1 : -1)
         );
       });
-    return { total: rows.length, rows: rows.slice(0, limit) };
+    const offset = limit === Infinity ? 0 : state.page * state.limit;
+    return { total: rows.length, rows: rows.slice(offset, offset + limit) };
   }
   function drawPlot(rows) {
     if (plot) {
@@ -278,9 +282,14 @@ function rankings(target = main) {
           )
           .join("")
       : '<tr><td colspan="6">No matching drivers.</td></tr>';
-    document.getElementById("count").textContent =
-      `Showing ${rows.length} of ${total} drivers`;
-    document.getElementById("more").hidden = rows.length >= total;
+    document.getElementById("count").textContent = total
+      ? `Showing ${state.page * state.limit + 1}–${state.page * state.limit + rows.length} of ${total} drivers`
+      : "No matching drivers";
+    const pageHadFocus = document.activeElement?.closest('#pages');
+    document.getElementById("pages").innerHTML = Array.from({ length: Math.ceil(total / state.limit) }, (_, page) =>
+      `<button class="quiet" type="button" data-page="${page}" aria-label="Page ${page + 1}" ${page === state.page ? 'aria-current="page"' : ''}>${page + 1}</button>`
+    ).join("");
+    if (pageHadFocus) document.querySelector('#pages [aria-current="page"]')?.focus({ preventScroll: true });
     target
       .querySelectorAll("th")
       .forEach((th) => th.removeAttribute("aria-sort"));
@@ -304,7 +313,7 @@ function rankings(target = main) {
       if (data.id !== id) return;
       draw(data.error ? fallback() : data);
     };
-    worker.postMessage({ ...state, id });
+    worker.postMessage({ ...state, offset: state.page * state.limit, id });
   }
   try {
     worker ||= new Worker(new URL("./db.worker.js", import.meta.url), {
@@ -323,17 +332,19 @@ function rankings(target = main) {
     clearTimeout(timer);
     timer = setTimeout(() => {
       state.search = e.target.value;
-      state.limit = 25;
+      state.page = 0;
       query();
     }, 120);
   };
-  document.getElementById("more").onclick = () => {
-    state.limit += 25;
+  document.getElementById("pages").onclick = (event) => {
+    const button = event.target.closest("[data-page]");
+    if (!button || Number(button.dataset.page) === state.page) return;
+    state.page = Number(button.dataset.page);
     query();
   };
   const refilter = (change) => {
     change();
-    state.limit = 25;
+    state.page = 0;
     query();
   };
   document.getElementById("minimum").onchange = (e) =>

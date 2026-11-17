@@ -61,10 +61,10 @@ const { chromium } = require(process.env.PLAYWRIGHT_MODULE || "playwright");
     await page.waitForFunction(
       () =>
         document.querySelector("#count")?.textContent ===
-        "Showing 1 of 1 drivers",
+        "Showing 1–1 of 1 drivers",
     );
     assert.match(await page.locator("#rows").textContent(), /Fernando Alonso/);
-    assert(await page.locator("#more").isHidden());
+    assert.equal(await page.locator("#pages button").count(), 1);
     await page.locator("#search").fill("no_such_driver");
     await page.getByText("No matching drivers.").waitFor();
     await page.locator("#search").fill("");
@@ -72,10 +72,11 @@ const { chromium } = require(process.env.PLAYWRIGHT_MODULE || "playwright");
       () => document.querySelectorAll("#rows tr").length === 25,
     );
     assert.match(await page.locator("#rows tr").first().textContent(), /^1\./);
-    await page.locator("#more").click();
+    await page.locator('#pages [data-page="1"]').click();
     await page.waitForFunction(
-      () => document.querySelectorAll("#rows tr").length === 50,
+      () => document.querySelector("#rows tr td")?.textContent === "26.",
     );
+    assert.equal(await page.locator("#rows tr").count(), 25);
     await page.locator('[data-sort="name"]').click();
     await page.waitForFunction(
       () =>
@@ -90,7 +91,7 @@ const { chromium } = require(process.env.PLAYWRIGHT_MODULE || "playwright");
     await page.selectOption("#era", "active");
     await page.waitForFunction(
       () =>
-        /^Showing \d+ of \d+ drivers$/.test(
+        /^Showing \d+–\d+ of \d+ drivers$/.test(
           document.querySelector("#count")?.textContent,
         ) && document.querySelectorAll("#rows tr").length < 25,
     );
@@ -208,7 +209,7 @@ const { chromium } = require(process.env.PLAYWRIGHT_MODULE || "playwright");
     );
     assert.deepEqual(errors, []);
     console.log(
-      "Browser smoke passed: SQLite/WASM, search, empty state, load more, sort, filters, CSV, plot tab, mobile layout, article chart.",
+      "Browser smoke passed: SQLite/WASM, search, empty state, numbered pagination, sort, filters, CSV, plot tab, mobile layout, article chart.",
     );
   } catch (error) {
     console.error(
