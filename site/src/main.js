@@ -6,6 +6,7 @@ import { simulatorView } from "./simulator.js";
 import { info } from "./hints.js";
 import { initNextGrandPrix } from "./next-gp.js";
 import { createCombobox } from "./combobox.js";
+import { modelPage, postsPage } from "./model-page.js";
 import { Chart, registerables } from "chart.js";
 Chart.register(...registerables);
 Chart.defaults.font.family = "system-ui, sans-serif";
@@ -286,7 +287,9 @@ function rankings(target = main) {
   }
   const careers = new Map();
   for (const r of m.driverYears ?? [])
-    (careers.get(r.driverId) ?? careers.set(r.driverId, []).get(r.driverId)).push(r);
+    (
+      careers.get(r.driverId) ?? careers.set(r.driverId, []).get(r.driverId)
+    ).push(r);
   for (const rows of careers.values()) rows.sort((a, b) => a.year - b.year);
   let career = null,
     careerIds = [];
@@ -350,7 +353,9 @@ function rankings(target = main) {
             pointRadius: 0,
             pointHoverRadius: 0,
             pointHitRadius: 0,
-            backgroundColor: i ? "rgba(225, 6, 0, 0.12)" : "rgba(77, 141, 255, 0.18)",
+            backgroundColor: i
+              ? "rgba(225, 6, 0, 0.12)"
+              : "rgba(77, 141, 255, 0.18)",
             fill: "-1",
           },
           {
@@ -410,11 +415,14 @@ function rankings(target = main) {
       careerIds[0],
       careerIds[1] !== careerIds[0] ? careerIds[1] : null,
     ]);
-  const careerDriver = createCombobox(document.getElementById("career-driver"), {
-    label: "Driver",
-    options: driverOptions,
-    onChange: (id) => ((careerIds[0] = id), pick()),
-  });
+  const careerDriver = createCombobox(
+    document.getElementById("career-driver"),
+    {
+      label: "Driver",
+      options: driverOptions,
+      onChange: (id) => ((careerIds[0] = id), pick()),
+    },
+  );
   const careerCompare = createCombobox(
     document.getElementById("career-compare"),
     {
@@ -449,13 +457,15 @@ function rankings(target = main) {
     document.getElementById("count").textContent = total
       ? `Showing ${state.page * state.limit + 1}–${state.page * state.limit + rows.length} of ${total} drivers`
       : "No matching drivers";
-    const pageHadFocus = document.activeElement?.closest('#pages');
+    const pageHadFocus = document.activeElement?.closest("#pages");
     const pageCount = Math.ceil(total / state.limit);
-    document.getElementById("pages").innerHTML = pageCount ?
-      `<button class="quiet" type="button" data-page="${state.page - 1}" aria-label="Previous page" ${state.page === 0 ? 'disabled' : ''}>Previous</button>` +
-      `<select id="page-select" aria-label="Driver results page">${Array.from({ length: pageCount }, (_, page) => `<option value="${page}" ${page === state.page ? 'selected' : ''}>${page + 1}</option>`).join('')}</select>` +
-      `<button class="quiet" type="button" data-page="${state.page + 1}" aria-label="Next page" ${state.page === pageCount - 1 ? 'disabled' : ''}>Next</button>` : '';
-    if (pageHadFocus) document.querySelector('#page-select')?.focus({ preventScroll: true });
+    document.getElementById("pages").innerHTML = pageCount
+      ? `<button class="quiet" type="button" data-page="${state.page - 1}" aria-label="Previous page" ${state.page === 0 ? "disabled" : ""}>Previous</button>` +
+        `<select id="page-select" aria-label="Driver results page">${Array.from({ length: pageCount }, (_, page) => `<option value="${page}" ${page === state.page ? "selected" : ""}>${page + 1}</option>`).join("")}</select>` +
+        `<button class="quiet" type="button" data-page="${state.page + 1}" aria-label="Next page" ${state.page === pageCount - 1 ? "disabled" : ""}>Next</button>`
+      : "";
+    if (pageHadFocus)
+      document.querySelector("#page-select")?.focus({ preventScroll: true });
     target
       .querySelectorAll("th")
       .forEach((th) => th.removeAttribute("aria-sort"));
@@ -508,8 +518,8 @@ function rankings(target = main) {
     state.page = Number(button.dataset.page);
     query();
   };
-  document.getElementById('pages').onchange = (event) => {
-    if (event.target.id !== 'page-select') return;
+  document.getElementById("pages").onchange = (event) => {
+    if (event.target.id !== "page-select") return;
     state.page = Number(event.target.value);
     query();
   };
@@ -749,6 +759,12 @@ function render() {
   if (route.startsWith("article/")) {
     article(decodeURIComponent(route.slice(8)));
     document.title = "Article — F1 Metrix";
+  } else if (route === "model") {
+    modelPage(main, publication.model.metadata);
+    document.title = "The model — F1 Metrix";
+  } else if (route === "posts") {
+    postsPage(main);
+    document.title = "Posts — F1 Metrix";
   } else {
     allResults();
     const reloaded =

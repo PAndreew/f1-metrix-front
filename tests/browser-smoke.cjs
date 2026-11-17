@@ -56,6 +56,18 @@ const { chromium } = require(process.env.PLAYWRIGHT_MODULE || "playwright");
       ]),
       [0, ["section-career"]],
     );
+    // The Model page typesets its maths; section links return to the results.
+    await page.locator(".menu-toggle").click();
+    await page.locator('#menu a[href="#/model"]').click();
+    await page.locator(".model-page .katex-display").first().waitFor();
+    assert.equal(await page.locator(".katex-error").count(), 0);
+    assert.equal(
+      await page.locator(".page-head .pill").innerText(),
+      "LLM generated",
+    );
+    await page.locator(".menu-toggle").click();
+    await page.locator('#menu a[href="#/rankings"]').click();
+    await page.locator("#rows td.rank").first().waitFor();
     await page.locator("#search").waitFor();
     // Next Grand Prix countdown and details dialog.
     assert.match(
