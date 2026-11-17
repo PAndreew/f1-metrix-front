@@ -350,9 +350,16 @@ button:disabled {
 .pagination #pages {
   flex: 1 1 300px;
 }
-.pagination button[aria-current="page"] {
-  color: var(--red);
-  border-color: var(--red);
+.pagination #pages button {
+  height: 36px;
+}
+.pagination select {
+  height: 36px;
+  min-width: 64px;
+  appearance: none;
+  padding: 6px 26px 6px 10px;
+  font-size: 16px;
+  background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='m2 2 4 4 4-4' fill='none' stroke='%2368635c' stroke-width='1.5'/%3E%3C/svg%3E") no-repeat right 10px center;
 }
 .table-wrap table {
   border-collapse: separate;
@@ -564,7 +571,6 @@ small {
   align-items: center;
   height: 56px;
   background: #fff;
-  border-bottom: 1px solid var(--line);
 }
 .brand {
   font:

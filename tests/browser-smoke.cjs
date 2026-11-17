@@ -64,7 +64,7 @@ const { chromium } = require(process.env.PLAYWRIGHT_MODULE || "playwright");
         "Showing 1–1 of 1 drivers",
     );
     assert.match(await page.locator("#rows").textContent(), /Fernando Alonso/);
-    assert.equal(await page.locator("#pages button").count(), 1);
+    assert.equal(await page.locator("#page-select option").count(), 1);
     await page.locator("#search").fill("no_such_driver");
     await page.getByText("No matching drivers.").waitFor();
     await page.locator("#search").fill("");

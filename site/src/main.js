@@ -286,10 +286,12 @@ function rankings(target = main) {
       ? `Showing ${state.page * state.limit + 1}–${state.page * state.limit + rows.length} of ${total} drivers`
       : "No matching drivers";
     const pageHadFocus = document.activeElement?.closest('#pages');
-    document.getElementById("pages").innerHTML = Array.from({ length: Math.ceil(total / state.limit) }, (_, page) =>
-      `<button class="quiet" type="button" data-page="${page}" aria-label="Page ${page + 1}" ${page === state.page ? 'aria-current="page"' : ''}>${page + 1}</button>`
-    ).join("");
-    if (pageHadFocus) document.querySelector('#pages [aria-current="page"]')?.focus({ preventScroll: true });
+    const pageCount = Math.ceil(total / state.limit);
+    document.getElementById("pages").innerHTML = pageCount ?
+      `<button class="quiet" type="button" data-page="${state.page - 1}" aria-label="Previous page" ${state.page === 0 ? 'disabled' : ''}>Previous</button>` +
+      `<select id="page-select" aria-label="Driver results page">${Array.from({ length: pageCount }, (_, page) => `<option value="${page}" ${page === state.page ? 'selected' : ''}>${page + 1}</option>`).join('')}</select>` +
+      `<button class="quiet" type="button" data-page="${state.page + 1}" aria-label="Next page" ${state.page === pageCount - 1 ? 'disabled' : ''}>Next</button>` : '';
+    if (pageHadFocus) document.querySelector('#page-select')?.focus({ preventScroll: true });
     target
       .querySelectorAll("th")
       .forEach((th) => th.removeAttribute("aria-sort"));
@@ -340,6 +342,11 @@ function rankings(target = main) {
     const button = event.target.closest("[data-page]");
     if (!button || Number(button.dataset.page) === state.page) return;
     state.page = Number(button.dataset.page);
+    query();
+  };
+  document.getElementById('pages').onchange = (event) => {
+    if (event.target.id !== 'page-select') return;
+    state.page = Number(event.target.value);
     query();
   };
   const refilter = (change) => {

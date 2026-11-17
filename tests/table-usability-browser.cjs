@@ -16,8 +16,26 @@ const assert = require("node:assert/strict");
       (await page.locator("#count").innerText()).match(/of (\d+)/)[1],
     );
     assert.equal(
-      await page.locator("#pages button").count(),
+      await page.locator("#page-select option").count(),
       Math.ceil(total / 25),
+    );
+    assert.equal(await page.locator("#pages button").count(), 2);
+    assert.notEqual(
+      await page
+        .locator("#page-select")
+        .evaluate((e) => getComputedStyle(e).backgroundImage),
+      "none",
+    );
+    assert(
+      await page
+        .getByRole("button", { name: "Previous page", exact: true })
+        .isDisabled(),
+    );
+    assert.equal(
+      await page
+        .locator(".topbar")
+        .evaluate((e) => parseFloat(getComputedStyle(e).borderBottomWidth)),
+      0,
     );
     await page.click('#pages [data-page="1"]');
     await page.waitForFunction(
@@ -36,7 +54,24 @@ const assert = require("node:assert/strict");
       total + 1,
       "CSV must include all filtered drivers, not only current page",
     );
-    await page.click(`#pages [data-page="${Math.ceil(total / 25) - 1}"]`);
+    await page.selectOption("#page-select", { value: "12" });
+    await page.waitForFunction(
+      () => document.querySelector("#rows tr td")?.textContent === "301.",
+    );
+    assert.equal(await page.locator("#page-select").inputValue(), "12");
+    await page
+      .getByRole("button", { name: "Previous page", exact: true })
+      .click();
+    await page.waitForFunction(
+      () => document.querySelector("#rows tr td")?.textContent === "276.",
+    );
+    await page.getByRole("button", { name: "Next page", exact: true }).click();
+    await page.waitForFunction(
+      () => document.querySelector("#rows tr td")?.textContent === "301.",
+    );
+    await page.selectOption("#page-select", {
+      value: String(Math.ceil(total / 25) - 1),
+    });
     await page.waitForFunction(
       (total) =>
         document
@@ -45,13 +80,18 @@ const assert = require("node:assert/strict");
       total,
     );
     assert.equal(await page.locator("#rows tr").count(), total % 25 || 25);
+    assert(
+      await page
+        .getByRole("button", { name: "Next page", exact: true })
+        .isDisabled(),
+    );
     await page.fill("#search", "alonso");
     await page.waitForFunction(
       () =>
         document.querySelector("#count")?.textContent ===
         "Showing 1–1 of 1 drivers",
     );
-    assert.equal(await page.locator("#pages button").count(), 1);
+    assert.equal(await page.locator("#page-select option").count(), 1);
     await page.fill("#search", "");
     await page.waitForFunction(
       () => document.querySelector("#rows tr td")?.textContent === "1.",
@@ -88,12 +128,10 @@ const assert = require("node:assert/strict");
       await wrap.evaluate((e) => (e.scrollLeft = e.scrollWidth));
       await page.waitForTimeout(80);
       for (let j = 0; j < indices.length; j++) {
-        const position = await cells
-          .nth(indices[j])
-          .evaluate((e) => ({
-            x: e.getBoundingClientRect().left,
-            mode: getComputedStyle(e).position,
-          }));
+        const position = await cells.nth(indices[j]).evaluate((e) => ({
+          x: e.getBoundingClientRect().left,
+          mode: getComputedStyle(e).position,
+        }));
         assert.equal(position.mode, "sticky");
         const expected = await cells
           .nth(indices[j])
@@ -136,7 +174,7 @@ const assert = require("node:assert/strict");
     assert.equal(await fallback.locator("#rows tr").count(), 25);
     await fallback.close();
     console.log(
-      "16px search, equal control heights, all page buttons, complete CSV, frozen identities and fallback pagination pass",
+      "16px search, equal control heights, page dropdown and caret, complete CSV, frozen identities and fallback pagination pass",
     );
   } finally {
     await browser.close();

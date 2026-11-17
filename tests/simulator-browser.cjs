@@ -25,7 +25,7 @@ const assert = require("node:assert/strict");
       await page.selectOption("#simulation-race", String(i));
       assert.equal(await page.locator(".race-panel:visible").count(), 1);
       assert(await panel.isVisible());
-      if (i >= 18) {
+      if (i >= 20) {
         assert.match(
           await panel.innerText(),
           /Sequential expectations are not published/,
