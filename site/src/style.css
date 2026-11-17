@@ -1020,6 +1020,10 @@ h1 {
 .empty-page {
   color: var(--muted);
 }
+.model-page h3 {
+  font-size: 15px;
+  margin: 28px 0 6px;
+}
 .model-page h2 + h3 {
   margin-top: 16px;
 }
@@ -1027,4 +1031,8 @@ h1 {
   color: #514d48;
   font-size: 17px;
   line-height: 1.75;
+}
+.intro sup {
+  font-size: 0.6em;
+  line-height: 0;
 }
