@@ -95,14 +95,29 @@ const { chromium } = require(process.env.PLAYWRIGHT_MODULE || "playwright");
     );
     assert.equal(
       await page.locator("#career-driver").inputValue(),
-      "Sebastian Vettel",
+      "sebastian-vettel",
     );
-    await page.locator("#career-compare").fill("Mark Webber");
+    await page.locator("#career-search").fill("webber");
+    await page.selectOption("#career-compare", "mark-webber");
     await page.waitForFunction(() =>
       /Sebastian Vettel[\s\S]*Mark Webber/.test(
         document.querySelector("#career-legend")?.textContent,
       ),
     );
+    // Hover across the whole chart; empty tooltips used to throw.
+    const career = await page.locator("#career-chart").boundingBox();
+    for (let x = career.x; x < career.x + career.width; x += 8)
+      await page.mouse.move(x, career.y + career.height / 2);
+    // Picking from the plain selects redraws the chart.
+    await page.locator("#career-search").fill("hamilton");
+    await page.selectOption("#career-driver", "lewis-hamilton");
+    await page.selectOption("#career-compare", "");
+    await page.waitForFunction(() =>
+      /^Lewis Hamilton/.test(
+        document.querySelector("#career-legend")?.textContent,
+      ),
+    );
+    assert.deepEqual(errors, []);
     await page.locator("#tab-table").click();
     await page.locator("#search").fill("");
     await page.waitForFunction(
