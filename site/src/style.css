@@ -941,7 +941,8 @@ h1 {
   margin: 0 0 24px;
   font: 15px/1.7 var(--sans);
   padding: 0 18px;
-  background: #fff6c7;
+  background: #fffbe8;
+  color: #57534e;
   border: 0;
   border-radius: 6px;
 }
@@ -951,7 +952,6 @@ h1 {
   gap: 10px;
   padding: 14px 0;
   cursor: pointer;
-  font-weight: 600;
   list-style: none;
 }
 .disclaimer > summary::-webkit-details-marker {
@@ -959,7 +959,7 @@ h1 {
 }
 .disclaimer > summary svg {
   flex: none;
-  color: #a37b00;
+  color: #b8962e;
 }
 .disclaimer-body {
   padding: 0 0 6px 28px;
