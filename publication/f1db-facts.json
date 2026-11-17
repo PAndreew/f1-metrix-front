@@ -1,0 +1,725 @@
+{
+ "sourceRelease": "v2026.20.0",
+ "season": 2026,
+ "races": [
+  {
+   "round": 1,
+   "name": "Australian Grand Prix",
+   "officialName": "Formula 1 Qatar Airways Australian Grand Prix 2026",
+   "start": "2026-03-08T04:00:00Z",
+   "date": "2026-03-08",
+   "circuit": "Albert Park Circuit",
+   "place": "Melbourne",
+   "country": "Australia",
+   "lengthKm": 5.278,
+   "turns": 14,
+   "laps": 58,
+   "firstRaceHere": 1996,
+   "racesHeldHere": 28,
+   "grandPrixFirstHeld": 1985,
+   "typicalLap": {
+    "ms": 107479,
+    "year": 2025
+   },
+   "fastestLap": {
+    "ms": 82167,
+    "year": 2025,
+    "driver": "Lando Norris"
+   }
+  },
+  {
+   "round": 2,
+   "name": "Chinese Grand Prix",
+   "officialName": "Formula 1 Heineken Chinese Grand Prix 2026",
+   "start": "2026-03-15T07:00:00Z",
+   "date": "2026-03-15",
+   "circuit": "Shanghai International Circuit",
+   "place": "Shanghai",
+   "country": "China",
+   "lengthKm": 5.451,
+   "turns": 16,
+   "laps": 56,
+   "firstRaceHere": 2004,
+   "racesHeldHere": 18,
+   "grandPrixFirstHeld": 2004,
+   "typicalLap": {
+    "ms": 97411,
+    "year": 2025
+   },
+   "fastestLap": {
+    "ms": 95454,
+    "year": 2025,
+    "driver": "Lando Norris"
+   }
+  },
+  {
+   "round": 3,
+   "name": "Japanese Grand Prix",
+   "officialName": "Formula 1 Aramco Japanese Grand Prix 2026",
+   "start": "2026-03-29T05:00:00Z",
+   "date": "2026-03-29",
+   "circuit": "Suzuka Circuit",
+   "place": "Suzuka",
+   "country": "Japan",
+   "lengthKm": 5.807,
+   "turns": 18,
+   "laps": 53,
+   "firstRaceHere": 1987,
+   "racesHeldHere": 35,
+   "grandPrixFirstHeld": 1976,
+   "typicalLap": {
+    "ms": 92962,
+    "year": 2025
+   },
+   "fastestLap": {
+    "ms": 90965,
+    "year": 2025,
+    "driver": "Kimi Antonelli"
+   }
+  },
+  {
+   "round": 4,
+   "name": "Miami Grand Prix",
+   "officialName": "Formula 1 Crypto.com Miami Grand Prix 2026",
+   "start": "2026-05-03T17:00:00Z",
+   "date": "2026-05-03",
+   "circuit": "Miami International Autodrome",
+   "place": "Miami Gardens",
+   "country": "United States of America",
+   "lengthKm": 5.412,
+   "turns": 19,
+   "laps": 57,
+   "firstRaceHere": 2022,
+   "racesHeldHere": 4,
+   "grandPrixFirstHeld": 2022,
+   "typicalLap": {
+    "ms": 93537,
+    "year": 2025
+   },
+   "fastestLap": {
+    "ms": 89746,
+    "year": 2025,
+    "driver": "Lando Norris"
+   }
+  },
+  {
+   "round": 5,
+   "name": "Canadian Grand Prix",
+   "officialName": "Formula 1 Lenovo Grand Prix du Canada 2026",
+   "start": "2026-05-24T20:00:00Z",
+   "date": "2026-05-24",
+   "circuit": "Circuit Gilles Villeneuve",
+   "place": "Montreal",
+   "country": "Canada",
+   "lengthKm": 4.361,
+   "turns": 14,
+   "laps": 68,
+   "firstRaceHere": 1978,
+   "racesHeldHere": 44,
+   "grandPrixFirstHeld": 1967,
+   "typicalLap": {
+    "ms": 78753,
+    "year": 2025
+   },
+   "fastestLap": {
+    "ms": 74119,
+    "year": 2025,
+    "driver": "George Russell"
+   }
+  },
+  {
+   "round": 6,
+   "name": "Monaco Grand Prix",
+   "officialName": "Formula 1 Louis Vuitton Grand Prix de Monaco 2026",
+   "start": "2026-06-07T13:00:00Z",
+   "date": "2026-06-07",
+   "circuit": "Circuit de Monaco",
+   "place": "Monte Carlo",
+   "country": "Monaco",
+   "lengthKm": 3.337,
+   "turns": 19,
+   "laps": 78,
+   "firstRaceHere": 1950,
+   "racesHeldHere": 71,
+   "grandPrixFirstHeld": 1950,
+   "typicalLap": {
+    "ms": 77357,
+    "year": 2025
+   },
+   "fastestLap": {
+    "ms": 73221,
+    "year": 2025,
+    "driver": "Lando Norris"
+   }
+  },
+  {
+   "round": 7,
+   "name": "Barcelona-Catalunya Grand Prix",
+   "officialName": "Formula 1 MSC Cruises Gran Premio de Barcelona-Catalunya 2026",
+   "start": "2026-06-14T13:00:00Z",
+   "date": "2026-06-14",
+   "circuit": "Circuit de Barcelona-Catalunya",
+   "place": "Montmeló",
+   "country": "Spain",
+   "lengthKm": 4.657,
+   "turns": 14,
+   "laps": 66,
+   "firstRaceHere": 1991,
+   "racesHeldHere": 35,
+   "grandPrixFirstHeld": null,
+   "typicalLap": {
+    "ms": 84506,
+    "year": 2025
+   },
+   "fastestLap": {
+    "ms": 75743,
+    "year": 2025,
+    "driver": "Oscar Piastri"
+   }
+  },
+  {
+   "round": 8,
+   "name": "Austrian Grand Prix",
+   "officialName": "Formula 1 Lenovo Austrian Grand Prix 2026",
+   "start": "2026-06-28T13:00:00Z",
+   "date": "2026-06-28",
+   "circuit": "Red Bull Ring",
+   "place": "Spielberg",
+   "country": "Austria",
+   "lengthKm": 4.326,
+   "turns": 10,
+   "laps": 71,
+   "firstRaceHere": 1970,
+   "racesHeldHere": 39,
+   "grandPrixFirstHeld": 1964,
+   "typicalLap": {
+    "ms": 71824,
+    "year": 2025
+   },
+   "fastestLap": {
+    "ms": 67924,
+    "year": 2025,
+    "driver": "Oscar Piastri"
+   }
+  },
+  {
+   "round": 9,
+   "name": "British Grand Prix",
+   "officialName": "Formula 1 Pirelli British Grand Prix 2026",
+   "start": "2026-07-05T14:00:00Z",
+   "date": "2026-07-05",
+   "circuit": "Silverstone Circuit",
+   "place": "Silverstone",
+   "country": "United Kingdom",
+   "lengthKm": 5.891,
+   "turns": 18,
+   "laps": 52,
+   "firstRaceHere": 1950,
+   "racesHeldHere": 60,
+   "grandPrixFirstHeld": 1950,
+   "typicalLap": {
+    "ms": 112226,
+    "year": 2025
+   },
+   "fastestLap": {
+    "ms": 89337,
+    "year": 2025,
+    "driver": "Oscar Piastri"
+   }
+  },
+  {
+   "round": 10,
+   "name": "Belgian Grand Prix",
+   "officialName": "Formula 1 Moët & Chandon Belgian Grand Prix 2026",
+   "start": "2026-07-19T13:00:00Z",
+   "date": "2026-07-19",
+   "circuit": "Circuit de Spa-Francorchamps",
+   "place": "Spa",
+   "country": "Belgium",
+   "lengthKm": 7.004,
+   "turns": 19,
+   "laps": 44,
+   "firstRaceHere": 1950,
+   "racesHeldHere": 58,
+   "grandPrixFirstHeld": 1950,
+   "typicalLap": {
+    "ms": 116423,
+    "year": 2025
+   },
+   "fastestLap": {
+    "ms": 104861,
+    "year": 2025,
+    "driver": "Kimi Antonelli"
+   }
+  },
+  {
+   "round": 11,
+   "name": "Hungarian Grand Prix",
+   "officialName": "Formula 1 AWS Hungarian Grand Prix 2026",
+   "start": "2026-07-26T13:00:00Z",
+   "date": "2026-07-26",
+   "circuit": "Hungaroring",
+   "place": "Budapest",
+   "country": "Hungary",
+   "lengthKm": 4.381,
+   "turns": 14,
+   "laps": 70,
+   "firstRaceHere": 1986,
+   "racesHeldHere": 40,
+   "grandPrixFirstHeld": 1986,
+   "typicalLap": {
+    "ms": 81732,
+    "year": 2025
+   },
+   "fastestLap": {
+    "ms": 79409,
+    "year": 2025,
+    "driver": "George Russell"
+   }
+  },
+  {
+   "round": 12,
+   "name": "Dutch Grand Prix",
+   "officialName": "Formula 1 Heineken Dutch Grand Prix 2026",
+   "start": "2026-08-23T13:00:00Z",
+   "date": "2026-08-23",
+   "circuit": "Circuit Zandvoort",
+   "place": "Zandvoort",
+   "country": "Netherlands",
+   "lengthKm": 4.259,
+   "turns": 14,
+   "laps": 72,
+   "firstRaceHere": 1952,
+   "racesHeldHere": 35,
+   "grandPrixFirstHeld": 1952,
+   "typicalLap": {
+    "ms": 82081,
+    "year": 2025
+   },
+   "fastestLap": {
+    "ms": 72271,
+    "year": 2025,
+    "driver": "Oscar Piastri"
+   }
+  },
+  {
+   "round": 13,
+   "name": "Italian Grand Prix",
+   "officialName": "Formula 1 Pirelli Gran Premio d'Italia 2026",
+   "start": "2026-09-06T13:00:00Z",
+   "date": "2026-09-06",
+   "circuit": "Autodromo Nazionale Monza",
+   "place": "Monza",
+   "country": "Italy",
+   "lengthKm": 5.793,
+   "turns": 11,
+   "laps": 53,
+   "firstRaceHere": 1950,
+   "racesHeldHere": 75,
+   "grandPrixFirstHeld": 1950,
+   "typicalLap": {
+    "ms": 83100,
+    "year": 2025
+   },
+   "fastestLap": {
+    "ms": 80901,
+    "year": 2025,
+    "driver": "Lando Norris"
+   }
+  },
+  {
+   "round": 14,
+   "name": "Spanish Grand Prix",
+   "officialName": "Formula 1 TAG Heuer Gran Premio de España 2026",
+   "start": "2026-09-13T13:00:00Z",
+   "date": "2026-09-13",
+   "circuit": "Circuito de Madring",
+   "place": "Madrid",
+   "country": "Spain",
+   "lengthKm": 5.416,
+   "turns": 22,
+   "laps": 57,
+   "firstRaceHere": null,
+   "racesHeldHere": 0,
+   "grandPrixFirstHeld": 1951,
+   "typicalLap": null,
+   "fastestLap": null
+  },
+  {
+   "round": 15,
+   "name": "Azerbaijan Grand Prix",
+   "officialName": "Formula 1 Qatar Airways Azerbaijan Grand Prix 2026",
+   "start": "2026-09-26T11:00:00Z",
+   "date": "2026-09-26",
+   "circuit": "Baku City Circuit",
+   "place": "Baku",
+   "country": "Azerbaijan",
+   "lengthKm": 6.003,
+   "turns": 20,
+   "laps": 51,
+   "firstRaceHere": 2016,
+   "racesHeldHere": 9,
+   "grandPrixFirstHeld": 2017,
+   "typicalLap": {
+    "ms": 109930,
+    "year": 2025
+   },
+   "fastestLap": {
+    "ms": 103388,
+    "year": 2025,
+    "driver": "Max Verstappen"
+   }
+  },
+  {
+   "round": 16,
+   "name": "Bahrain Grand Prix",
+   "officialName": "Formula 1 Gulf Air Bahrain Grand Prix in Malaysia 2026",
+   "start": "2026-10-04T07:00:00Z",
+   "date": "2026-10-04",
+   "circuit": "Sepang International Circuit",
+   "place": "Sepang",
+   "country": "Malaysia",
+   "lengthKm": 5.543,
+   "turns": 15,
+   "laps": 55,
+   "firstRaceHere": 1999,
+   "racesHeldHere": 19,
+   "grandPrixFirstHeld": 2004,
+   "typicalLap": {
+    "ms": 96452,
+    "year": 2017
+   },
+   "fastestLap": {
+    "ms": 94080,
+    "year": 2017,
+    "driver": "Sebastian Vettel"
+   }
+  },
+  {
+   "round": 17,
+   "name": "Singapore Grand Prix",
+   "officialName": "Formula 1 Singapore Airlines Singapore Grand Prix 2026",
+   "start": "2026-10-11T12:00:00Z",
+   "date": "2026-10-11",
+   "circuit": "Marina Bay Street Circuit",
+   "place": "Singapore",
+   "country": "Singapore",
+   "lengthKm": 4.927,
+   "turns": 19,
+   "laps": 62,
+   "firstRaceHere": 2008,
+   "racesHeldHere": 16,
+   "grandPrixFirstHeld": 2008,
+   "typicalLap": {
+    "ms": 97135,
+    "year": 2025
+   },
+   "fastestLap": {
+    "ms": 93808,
+    "year": 2025,
+    "driver": "Lewis Hamilton"
+   }
+  },
+  {
+   "round": 18,
+   "name": "United States Grand Prix",
+   "officialName": "Formula 1 MSC Cruises United States Grand Prix 2026",
+   "start": "2026-10-25T20:00:00Z",
+   "date": "2026-10-25",
+   "circuit": "Circuit of the Americas",
+   "place": "Austin",
+   "country": "United States of America",
+   "lengthKm": 5.513,
+   "turns": 20,
+   "laps": 56,
+   "firstRaceHere": 2012,
+   "racesHeldHere": 13,
+   "grandPrixFirstHeld": 1959,
+   "typicalLap": {
+    "ms": 100717,
+    "year": 2025
+   },
+   "fastestLap": {
+    "ms": 97577,
+    "year": 2025,
+    "driver": "Kimi Antonelli"
+   }
+  },
+  {
+   "round": 19,
+   "name": "Mexican Grand Prix",
+   "officialName": "Formula 1 Gran Premio de la Ciudad de México 2026",
+   "start": "2026-11-01T20:00:00Z",
+   "date": "2026-11-01",
+   "circuit": "Autódromo Hermanos Rodríguez",
+   "place": "Mexico City",
+   "country": "Mexico",
+   "lengthKm": 4.304,
+   "turns": 17,
+   "laps": 71,
+   "firstRaceHere": 1963,
+   "racesHeldHere": 25,
+   "grandPrixFirstHeld": 1963,
+   "typicalLap": {
+    "ms": 82797,
+    "year": 2025
+   },
+   "fastestLap": {
+    "ms": 80052,
+    "year": 2025,
+    "driver": "George Russell"
+   }
+  },
+  {
+   "round": 20,
+   "name": "São Paulo Grand Prix",
+   "officialName": "Formula 1 MSC Cruises Grande Prêmio de São Paulo 2026",
+   "start": "2026-11-08T17:00:00Z",
+   "date": "2026-11-08",
+   "circuit": "Autódromo José Carlos Pace",
+   "place": "São Paulo",
+   "country": "Brazil",
+   "lengthKm": 4.309,
+   "turns": 15,
+   "laps": 71,
+   "firstRaceHere": 1973,
+   "racesHeldHere": 42,
+   "grandPrixFirstHeld": 2021,
+   "typicalLap": {
+    "ms": 77769,
+    "year": 2025
+   },
+   "fastestLap": {
+    "ms": 72400,
+    "year": 2025,
+    "driver": "Alexander Albon"
+   }
+  },
+  {
+   "round": 21,
+   "name": "Las Vegas Grand Prix",
+   "officialName": "Formula 1 Heineken Las Vegas Grand Prix 2026",
+   "start": "2026-11-22T04:00:00Z",
+   "date": "2026-11-22",
+   "circuit": "Las Vegas Street Circuit",
+   "place": "Las Vegas",
+   "country": "United States of America",
+   "lengthKm": 6.201,
+   "turns": 17,
+   "laps": 50,
+   "firstRaceHere": 2023,
+   "racesHeldHere": 3,
+   "grandPrixFirstHeld": 2023,
+   "typicalLap": {
+    "ms": 97369,
+    "year": 2025
+   },
+   "fastestLap": {
+    "ms": 93365,
+    "year": 2025,
+    "driver": "Max Verstappen"
+   }
+  },
+  {
+   "round": 22,
+   "name": "Qatar Grand Prix",
+   "officialName": "Formula 1 Qatar Airways Qatar Grand Prix 2026",
+   "start": "2026-11-29T16:00:00Z",
+   "date": "2026-11-29",
+   "circuit": "Lusail International Circuit",
+   "place": "Lusail",
+   "country": "Qatar",
+   "lengthKm": 5.419,
+   "turns": 16,
+   "laps": 57,
+   "firstRaceHere": 2021,
+   "racesHeldHere": 4,
+   "grandPrixFirstHeld": 2021,
+   "typicalLap": {
+    "ms": 89092,
+    "year": 2025
+   },
+   "fastestLap": {
+    "ms": 82996,
+    "year": 2025,
+    "driver": "Oscar Piastri"
+   }
+  },
+  {
+   "round": 23,
+   "name": "Abu Dhabi Grand Prix",
+   "officialName": "Formula 1 Etihad Airways Abu Dhabi Grand Prix 2026",
+   "start": "2026-12-06T13:00:00Z",
+   "date": "2026-12-06",
+   "circuit": "Yas Marina Circuit",
+   "place": "Abu Dhabi",
+   "country": "United Arab Emirates",
+   "lengthKm": 5.281,
+   "turns": 16,
+   "laps": 58,
+   "firstRaceHere": 2009,
+   "racesHeldHere": 17,
+   "grandPrixFirstHeld": 2009,
+   "typicalLap": {
+    "ms": 89094,
+    "year": 2025
+   },
+   "fastestLap": {
+    "ms": 86725,
+    "year": 2025,
+    "driver": "Charles Leclerc"
+   }
+  }
+ ],
+ "champions": {
+  "nino-farina": [
+   1950
+  ],
+  "juan-manuel-fangio": [
+   1951,
+   1954,
+   1955,
+   1956,
+   1957
+  ],
+  "alberto-ascari": [
+   1952,
+   1953
+  ],
+  "mike-hawthorn": [
+   1958
+  ],
+  "jack-brabham": [
+   1959,
+   1960,
+   1966
+  ],
+  "phil-hill": [
+   1961
+  ],
+  "graham-hill": [
+   1962,
+   1968
+  ],
+  "jim-clark": [
+   1963,
+   1965
+  ],
+  "john-surtees": [
+   1964
+  ],
+  "denny-hulme": [
+   1967
+  ],
+  "jackie-stewart": [
+   1969,
+   1971,
+   1973
+  ],
+  "jochen-rindt": [
+   1970
+  ],
+  "emerson-fittipaldi": [
+   1972,
+   1974
+  ],
+  "niki-lauda": [
+   1975,
+   1977,
+   1984
+  ],
+  "james-hunt": [
+   1976
+  ],
+  "mario-andretti": [
+   1978
+  ],
+  "jody-scheckter": [
+   1979
+  ],
+  "alan-jones": [
+   1980
+  ],
+  "nelson-piquet": [
+   1981,
+   1983,
+   1987
+  ],
+  "keke-rosberg": [
+   1982
+  ],
+  "alain-prost": [
+   1985,
+   1986,
+   1989,
+   1993
+  ],
+  "ayrton-senna": [
+   1988,
+   1990,
+   1991
+  ],
+  "nigel-mansell": [
+   1992
+  ],
+  "michael-schumacher": [
+   1994,
+   1995,
+   2000,
+   2001,
+   2002,
+   2003,
+   2004
+  ],
+  "damon-hill": [
+   1996
+  ],
+  "jacques-villeneuve": [
+   1997
+  ],
+  "mika-hakkinen": [
+   1998,
+   1999
+  ],
+  "fernando-alonso": [
+   2005,
+   2006
+  ],
+  "kimi-raikkonen": [
+   2007
+  ],
+  "lewis-hamilton": [
+   2008,
+   2014,
+   2015,
+   2017,
+   2018,
+   2019,
+   2020
+  ],
+  "jenson-button": [
+   2009
+  ],
+  "sebastian-vettel": [
+   2010,
+   2011,
+   2012,
+   2013
+  ],
+  "nico-rosberg": [
+   2016
+  ],
+  "max-verstappen": [
+   2021,
+   2022,
+   2023,
+   2024
+  ],
+  "lando-norris": [
+   2025
+  ],
+  "kimi-antonelli": [
+   2026
+  ]
+ }
+}

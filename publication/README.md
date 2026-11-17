@@ -13,3 +13,5 @@ These artifacts are actual saved-fit summaries, not bootstrap or illustrative va
 **Publication status: research preview.** Rolling backtests, predictive calibration, unseen-entrant support and sensitivity validation remain incomplete. Results do not isolate causal talent; cross-era comparisons depend on model assumptions. Customer-car support labels and dynamic equipment evolution are not included.
 
 `model.json` contains the site-compatible artifact. `diagnostics.json`, `reliability-gate.json` and `run-manifest.json` record original fit checks and provenance. The latter's `modelSha256` identifies original fit code, not later export-recovery changes. The original source SHA256 identifies the downloaded source archive, not the extracted SQLite database.
+
+`f1db-facts.json` holds raw F1DB facts shown beside the model results: the current season calendar (UTC start times, circuit length, first race held, the latest winner's average lap and fastest race lap on the same layout) and world champions by year. Regenerate it from the same release's SQLite database with `node scripts/export-f1db-facts.mjs path/to/f1db.db v2026.20.0`.

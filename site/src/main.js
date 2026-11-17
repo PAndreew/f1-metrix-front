@@ -4,6 +4,7 @@ import "./style.css";
 import { qualifyingView } from "./qualifying.js";
 import { simulatorView } from "./simulator.js";
 import { info } from "./hints.js";
+import { initNextGrandPrix } from "./next-gp.js";
 import { Chart, registerables } from "chart.js";
 Chart.register(...registerables);
 Chart.defaults.font.family = "system-ui, sans-serif";
@@ -58,6 +59,13 @@ function addChart(id, config) {
   const el = document.getElementById(id);
   if (el) charts.push(createChart(el, config));
 }
+const titleYears = (id) => publication.facts?.champions?.[id] ?? [];
+const trophy = (id) => {
+  const years = titleYears(id);
+  if (!years.length) return "";
+  const text = `World champion ${years.length > 1 ? `${years.length}× · ` : ""}${years.join(", ")}`;
+  return `<span class="trophy" role="img" aria-label="${escape(text)}" title="${escape(text)}"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg></span>`;
+};
 function intervalChart(id, rows, label) {
   addChart(id, {
     type: "bar",
@@ -119,11 +127,12 @@ function rankings(target = main) {
   const m = publication.model,
     interval = m.metadata.intervalPercent ?? 94,
     year = Math.max(...m.drivers.map((d) => d.lastYear));
-  target.innerHTML = `<div class="controls"><input id="search" type="search" placeholder="Search drivers…" aria-label="Search drivers" maxlength="100"><select id="minimum" aria-label="Minimum races"><option value="0">All experience levels</option><option value="25">25+ races</option><option value="100">100+ races</option><option value="200">200+ races</option></select><select id="era" aria-label="Era"><option value="all">All years</option><option value="active">Active in ${year}</option></select><button class="quiet" id="download">Download CSV</button></div><div class="tabs" role="tablist"><button role="tab" id="tab-table" aria-controls="panel-table" aria-selected="true">Table</button><button role="tab" id="tab-plot" aria-controls="panel-plot" aria-selected="false">Plot</button><button role="tab" id="tab-trend" aria-controls="panel-trend" aria-selected="false">Trend</button></div><div role="tabpanel" id="panel-table" aria-labelledby="tab-table"><div class="table-wrap"><table id="rankings"><thead><tr><th class="num"><button data-sort="rank">#</button></th><th><button data-sort="name">Driver</button></th><th class="num"><button data-sort="skill">Score</button>${info("Score", "A driver’s career strength estimated by the model, after taking out the effect of the car, age and experience. Higher is better and 0 is about average. It is not seconds, points or standard deviations: what matters is the difference between two drivers. In equal cars, a driver 1 point higher would finish ahead of the other about 73% of the time, 2 points higher 88%, 3 points higher 95%.")}</th><th class="num">${interval}% range${info(`the ${interval}% range`, `The model is ${interval}% sure the true score lies in this range. Few races means a wide range. When two drivers’ ranges overlap a lot, the data can’t really tell them apart.`)}</th><th class="num"><button data-sort="races">Races</button>${info("Races", "Races the model could use for this driver: those where they were classified as finishing. Retirements and other non-finishes are not counted, so this can be lower than their number of starts.")}</th><th><button data-sort="last_year">Seasons</button></th></tr></thead><tbody id="rows"><tr><td colspan="6">Loading…</td></tr></tbody></table></div><div class="pagination"><span id="count" aria-live="polite"></span><div id="pages" role="navigation" aria-label="Driver result pages"></div></div></div><div role="tabpanel" id="panel-plot" aria-labelledby="tab-plot" hidden><div class="chart-card"><p class="legend"><span class="swatch" style="background:${blue}"></span>${interval}% range<span class="swatch diamond" style="background:${red}"></span>Score${info("this plot", "Each bar is a driver’s range of likely scores and the diamond is the best estimate. It shows the same drivers as the table, so search, filters and page selection apply here too.")}</p><div class="chart-wrap" id="drivers-plot"></div></div></div><div role="tabpanel" id="panel-trend" aria-labelledby="tab-trend" hidden><div class="chart-card"><p class="legend" id="trend-summary"></p><div class="chart-wrap tall" id="trend-plot"></div></div></div>`;
+  target.innerHTML = `<div class="controls"><input id="search" type="search" placeholder="Search drivers…" aria-label="Search drivers" maxlength="100"><select id="minimum" aria-label="Minimum races"><option value="0">All experience levels</option><option value="25">25+ races</option><option value="100">100+ races</option><option value="200">200+ races</option></select><select id="era" aria-label="Era"><option value="all">All years</option><option value="active">Active in ${year}</option></select><select id="champions" aria-label="Champions"><option value="all">All drivers</option><option value="champions">World champions</option></select><button class="quiet" id="download">Download CSV</button></div><div class="tabs" role="tablist"><button role="tab" id="tab-table" aria-controls="panel-table" aria-selected="true">Table</button><button role="tab" id="tab-plot" aria-controls="panel-plot" aria-selected="false">Plot</button><button role="tab" id="tab-trend" aria-controls="panel-trend" aria-selected="false">Trend</button></div><div role="tabpanel" id="panel-table" aria-labelledby="tab-table"><div class="table-wrap"><table id="rankings"><thead><tr><th class="num"><button data-sort="rank">#</button></th><th><button data-sort="name">Driver</button></th><th class="num"><button data-sort="skill">Score</button>${info("Score", "A driver’s career strength estimated by the model, after taking out the effect of the car, age and experience. Higher is better and 0 is about average. It is not seconds, points or standard deviations: what matters is the difference between two drivers. In equal cars, a driver 1 point higher would finish ahead of the other about 73% of the time, 2 points higher 88%, 3 points higher 95%.")}</th><th class="num">${interval}% range${info(`the ${interval}% range`, `The model is ${interval}% sure the true score lies in this range. Few races means a wide range. When two drivers’ ranges overlap a lot, the data can’t really tell them apart.`)}</th><th class="num"><button data-sort="races">Races</button>${info("Races", "Races the model could use for this driver: those where they were classified as finishing. Retirements and other non-finishes are not counted, so this can be lower than their number of starts.")}</th><th><button data-sort="last_year">Seasons</button></th></tr></thead><tbody id="rows"><tr><td colspan="6">Loading…</td></tr></tbody></table></div><div class="pagination"><span id="count" aria-live="polite"></span><div id="pages" role="navigation" aria-label="Driver result pages"></div></div></div><div role="tabpanel" id="panel-plot" aria-labelledby="tab-plot" hidden><div class="chart-card"><p class="legend"><span class="swatch" style="background:${blue}"></span>${interval}% range<span class="swatch diamond" style="background:${red}"></span>Score${info("this plot", "Each bar is a driver’s range of likely scores and the diamond is the best estimate. It shows the same drivers as the table, so search, filters and page selection apply here too.")}</p><div class="chart-wrap" id="drivers-plot"></div></div></div><div role="tabpanel" id="panel-trend" aria-labelledby="tab-trend" hidden><div class="chart-card"><p class="legend" id="trend-summary"></p><div class="chart-wrap tall" id="trend-plot"></div></div></div>`;
   let state = {
       search: "",
       minimum: 0,
       active: false,
+      champions: false,
       year,
       sort: "rank",
       direction: "asc",
@@ -152,7 +161,8 @@ function rankings(target = main) {
             .toLowerCase()
             .includes(state.search.toLowerCase()) &&
           d.races >= state.minimum &&
-          (!state.active || d.last_year >= year),
+          (!state.active || d.last_year >= year) &&
+          (!state.champions || titleYears(d.id).length > 0),
       )
       .sort((a, b) => {
         const x = a[state.sort],
@@ -252,7 +262,8 @@ function rankings(target = main) {
               label: (item) => {
                 const d = item.raw.d;
                 if (!d) return "";
-                return `${d.rank}. ${d.name} · ${d.first_year}–${d.last_year} · score ${number(d.skill)}`;
+                const titles = titleYears(d.id).length;
+                return `${d.rank}. ${d.name} · ${d.first_year}–${d.last_year} · score ${number(d.skill)}${titles ? ` · world champion ×${titles}` : ""}`;
               },
             },
           },
@@ -278,7 +289,7 @@ function rankings(target = main) {
       ? rows
           .map(
             (d) =>
-              `<tr><td class="num rank">${escape(d.rank)}.</td><td class="name">${escape(d.name)}</td><td class="num">${number(d.skill)}</td><td class="num">${number(d.low)} – ${number(d.high)}</td><td class="num">${escape(d.races)}</td><td>${escape(d.first_year)}–${escape(d.last_year)}</td></tr>`,
+              `<tr><td class="num rank">${escape(d.rank)}.</td><td class="name">${escape(d.name)}${trophy(d.id)}</td><td class="num">${number(d.skill)}</td><td class="num">${number(d.low)} – ${number(d.high)}</td><td class="num">${escape(d.races)}</td><td>${escape(d.first_year)}–${escape(d.last_year)}</td></tr>`,
           )
           .join("")
       : '<tr><td colspan="6">No matching drivers.</td></tr>';
@@ -358,6 +369,8 @@ function rankings(target = main) {
     refilter(() => (state.minimum = Number(e.target.value)));
   document.getElementById("era").onchange = (e) =>
     refilter(() => (state.active = e.target.value === "active"));
+  document.getElementById("champions").onchange = (e) =>
+    refilter(() => (state.champions = e.target.value === "champions"));
   target.querySelectorAll("[data-sort]").forEach(
     (b) =>
       (b.onclick = () =>
@@ -379,10 +392,13 @@ function rankings(target = main) {
       "races",
       "first_year",
       "last_year",
+      "titles",
     ];
     const csv = [
       fields,
-      ...fallback(Infinity).rows.map((d) => fields.map((k) => d[k])),
+      ...fallback(Infinity).rows.map((d) =>
+        fields.map((k) => (k === "titles" ? titleYears(d.id).length : d[k])),
+      ),
     ]
       .map((r) =>
         r.map((v) => '"' + String(v ?? "").replace(/"/g, '""') + '"').join(","),
@@ -627,6 +643,7 @@ fetch("/data/publication.json")
   })
   .then((data) => {
     publication = data;
+    initNextGrandPrix(data.facts);
     render();
     window.addEventListener("hashchange", () => {
       const route = location.hash.slice(2) || "";

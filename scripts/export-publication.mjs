@@ -3,6 +3,7 @@ import { validateQualifying } from "./validate-qualifying.mjs";
 import { validateSimulations } from "./validate-simulations.mjs";
 import { validateSequentialPreview } from "./validate-sequential-preview.mjs";
 import { validatePerformance } from "./validate-performance.mjs";
+import { validateFacts } from "./export-f1db-facts.mjs";
 import {
   existsSync,
   mkdirSync,
@@ -112,7 +113,14 @@ export function exportPublication(root) {
       validateSequentialPreview(simulations);
     else validateSimulations(simulations);
   }
+  const factsPath = join(root, "publication", "f1db-facts.json");
+  const facts = existsSync(factsPath)
+    ? JSON.parse(readFileSync(factsPath, "utf8"))
+    : null;
+  if (facts) validateFacts(facts);
+  const titles = (id) => facts?.champions[id]?.length ?? 0;
   const data = {
+    facts,
     simulations,
     qualifying,
     model,
@@ -130,11 +138,11 @@ export function exportPublication(root) {
   const db = new DatabaseSync(sqlite);
   try {
     db.exec(
-      "CREATE TABLE drivers(id TEXT PRIMARY KEY,name TEXT,nationality TEXT,races INTEGER,first_year INTEGER,last_year INTEGER,skill REAL,low REAL,high REAL,rank INTEGER); CREATE TABLE metadata(key TEXT PRIMARY KEY,value TEXT);",
+      "CREATE TABLE drivers(id TEXT PRIMARY KEY,name TEXT,nationality TEXT,races INTEGER,first_year INTEGER,last_year INTEGER,skill REAL,low REAL,high REAL,rank INTEGER,titles INTEGER); CREATE TABLE metadata(key TEXT PRIMARY KEY,value TEXT);",
     );
     db.exec("BEGIN");
     const insert = db.prepare(
-      "INSERT INTO drivers VALUES(?,?,?,?,?,?,?,?,?,?)",
+      "INSERT INTO drivers VALUES(?,?,?,?,?,?,?,?,?,?,?)",
     );
     for (const d of model.drivers)
       insert.run(
@@ -148,6 +156,7 @@ export function exportPublication(root) {
         d.low,
         d.high,
         d.rank,
+        titles(d.id),
       );
     db.prepare("INSERT INTO metadata VALUES(?,?)").run(
       "model",

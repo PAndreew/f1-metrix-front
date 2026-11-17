@@ -747,3 +747,108 @@ h1 {
 .repo-link:hover {
   color: var(--red);
 }
+.mono {
+  font-family:
+    ui-monospace, "Cascadia Mono", "SF Mono", Menlo, Consolas, monospace;
+  font-variant-numeric: tabular-nums;
+}
+.next-gp {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: #1f1f1f;
+}
+.next-gp[hidden] {
+  display: none;
+}
+.next-gp:hover {
+  color: var(--red);
+}
+.countdown {
+  font-size: 13px;
+}
+#gp-dialog {
+  width: min(460px, calc(100vw - 32px));
+  padding: 0;
+  border: 0;
+  border-radius: 6px;
+  box-shadow: 0 20px 60px rgb(0 0 0 / 25%);
+}
+#gp-dialog::backdrop {
+  background: rgb(0 0 0 / 35%);
+}
+.gp-panel {
+  position: relative;
+  padding: 24px 26px 22px;
+}
+.gp-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  padding: 4px;
+  border: 0;
+  background: none;
+  color: #555;
+}
+.gp-close:hover {
+  color: var(--red);
+}
+.gp-round {
+  margin: 0;
+  font-size: 12px;
+  color: var(--muted);
+}
+#gp-dialog h2 {
+  font-size: 24px;
+  margin: 2px 0 2px;
+}
+.gp-place {
+  margin: 0;
+  font-size: 13px;
+  color: var(--muted);
+}
+.gp-start {
+  margin: 16px 0;
+  font-size: 14px;
+}
+#gp-dialog dl {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+}
+#gp-dialog dl div {
+  display: grid;
+  grid-template-columns: 130px 1fr;
+  gap: 12px;
+  font-size: 14px;
+}
+#gp-dialog dt {
+  color: var(--muted);
+}
+#gp-dialog dd {
+  margin: 0;
+}
+#gp-dialog dd .sub {
+  display: block;
+  font-size: 12px;
+  color: var(--muted);
+}
+.trophy {
+  display: inline-flex;
+  margin-left: 6px;
+  color: #c99a06;
+  vertical-align: -2px;
+}
+@media (max-width: 420px) {
+  .topbar-actions {
+    gap: 10px;
+  }
+  .countdown {
+    font-size: 12px;
+  }
+}

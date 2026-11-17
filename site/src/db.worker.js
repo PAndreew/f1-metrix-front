@@ -19,7 +19,8 @@ self.onmessage = async ({ data }) => {
     const minimum = Math.max(0, Math.min(2000, Number(data.minimum) || 0));
     const where =
       "WHERE (name LIKE ? OR nationality LIKE ?) AND races >= ?" +
-      (data.active ? " AND last_year >= ?" : "");
+      (data.active ? " AND last_year >= ?" : "") +
+      (data.champions ? " AND titles > 0" : "");
     const params = [q, q, minimum, ...(data.active ? [data.year] : [])];
     const count = database.prepare(
       "SELECT count(*) AS total FROM drivers " + where,

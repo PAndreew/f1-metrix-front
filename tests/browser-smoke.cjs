@@ -57,6 +57,31 @@ const { chromium } = require(process.env.PLAYWRIGHT_MODULE || "playwright");
       [0, ["section-career"]],
     );
     await page.locator("#search").waitFor();
+    // Next Grand Prix countdown and details dialog.
+    assert.match(
+      await page.locator(".countdown").innerText(),
+      /^(\d+d \d{2}:\d{2}:\d{2}|LIVE)$/,
+    );
+    await page.locator(".next-gp").click();
+    assert.match(
+      await page.locator("#gp-dialog").innerText(),
+      /Track length[\s\S]*Typical race lap[\s\S]*First held/,
+    );
+    await page.keyboard.press("Escape");
+    assert.equal(
+      await page.locator("#gp-dialog").evaluate((d) => d.open),
+      false,
+    );
+    // World champions filter: every row carries a trophy.
+    await page.selectOption("#champions", "champions");
+    await page.waitForFunction(() =>
+      /of 35 drivers$/.test(document.querySelector("#count")?.textContent),
+    );
+    assert.equal(
+      await page.locator("#rows tr").count(),
+      await page.locator("#rows tr .trophy").count(),
+    );
+    await page.selectOption("#champions", "all");
     await page.locator("#search").fill("alonso");
     await page.waitForFunction(
       () =>
