@@ -127,7 +127,10 @@ function rankings(target = main) {
   const m = publication.model,
     interval = m.metadata.intervalPercent ?? 94,
     year = Math.max(...m.drivers.map((d) => d.lastYear));
-  target.innerHTML = `<div class="controls"><input id="search" type="search" placeholder="Search drivers…" aria-label="Search drivers" maxlength="100"><select id="minimum" aria-label="Minimum races"><option value="0">All experience levels</option><option value="25">25+ races</option><option value="100">100+ races</option><option value="200">200+ races</option></select><select id="era" aria-label="Era"><option value="all">All years</option><option value="active">Active in ${year}</option></select><select id="champions" aria-label="Champions"><option value="all">All drivers</option><option value="champions">World champions</option></select><button class="quiet" id="download">Download CSV</button></div><div class="tabs" role="tablist"><button role="tab" id="tab-table" aria-controls="panel-table" aria-selected="true">Table</button><button role="tab" id="tab-plot" aria-controls="panel-plot" aria-selected="false">Plot</button><button role="tab" id="tab-trend" aria-controls="panel-trend" aria-selected="false">Trend</button></div><div role="tabpanel" id="panel-table" aria-labelledby="tab-table"><div class="table-wrap"><table id="rankings"><thead><tr><th class="num"><button data-sort="rank">#</button></th><th><button data-sort="name">Driver</button></th><th class="num"><button data-sort="skill">Score</button>${info("Score", "A driver’s career strength estimated by the model, after taking out the effect of the car, age and experience. Higher is better and 0 is about average. It is not seconds, points or standard deviations: what matters is the difference between two drivers. In equal cars, a driver 1 point higher would finish ahead of the other about 73% of the time, 2 points higher 88%, 3 points higher 95%.")}</th><th class="num">${interval}% range${info(`the ${interval}% range`, `The model is ${interval}% sure the true score lies in this range. Few races means a wide range. When two drivers’ ranges overlap a lot, the data can’t really tell them apart.`)}</th><th class="num"><button data-sort="races">Races</button>${info("Races", "Races the model could use for this driver: those where they were classified as finishing. Retirements and other non-finishes are not counted, so this can be lower than their number of starts.")}</th><th><button data-sort="last_year">Seasons</button></th></tr></thead><tbody id="rows"><tr><td colspan="6">Loading…</td></tr></tbody></table></div><div class="pagination"><span id="count" aria-live="polite"></span><div id="pages" role="navigation" aria-label="Driver result pages"></div></div></div><div role="tabpanel" id="panel-plot" aria-labelledby="tab-plot" hidden><div class="chart-card"><p class="legend"><span class="swatch" style="background:${blue}"></span>${interval}% range<span class="swatch diamond" style="background:${red}"></span>Score${info("this plot", "Each bar is a driver’s range of likely scores and the diamond is the best estimate. It shows the same drivers as the table, so search, filters and page selection apply here too.")}</p><div class="chart-wrap" id="drivers-plot"></div></div></div><div role="tabpanel" id="panel-trend" aria-labelledby="tab-trend" hidden><div class="chart-card"><p class="legend" id="trend-summary"></p><div class="chart-wrap tall" id="trend-plot"></div></div></div>`;
+  target.innerHTML = `<div class="controls"><input id="search" type="search" placeholder="Search drivers…" aria-label="Search drivers" maxlength="100"><select id="minimum" aria-label="Minimum races"><option value="0">All experience levels</option><option value="25">25+ races</option><option value="100">100+ races</option><option value="200">200+ races</option></select><select id="era" aria-label="Era"><option value="all">All years</option><option value="active">Active in ${year}</option></select><select id="champions" aria-label="Champions"><option value="all">All drivers</option><option value="champions">World champions</option></select><button class="quiet" id="download">Download CSV</button></div><div class="tabs" role="tablist"><button role="tab" id="tab-table" aria-controls="panel-table" aria-selected="true">Table</button><button role="tab" id="tab-plot" aria-controls="panel-plot" aria-selected="false">Plot</button><button role="tab" id="tab-trend" aria-controls="panel-trend" aria-selected="false">Trend</button><button role="tab" id="tab-career" aria-controls="panel-career" aria-selected="false">Career</button></div><div role="tabpanel" id="panel-table" aria-labelledby="tab-table"><div class="table-wrap"><table id="rankings"><thead><tr><th class="num"><button data-sort="rank">#</button></th><th><button data-sort="name">Driver</button></th><th class="num"><button data-sort="skill">Score</button>${info("Score", "A driver’s career strength estimated by the model, after taking out the effect of the car, age and experience. Higher is better and 0 is about average. It is not seconds, points or standard deviations: what matters is the difference between two drivers. In equal cars, a driver 1 point higher would finish ahead of the other about 73% of the time, 2 points higher 88%, 3 points higher 95%.")}</th><th class="num">${interval}% range${info(`the ${interval}% range`, `The model is ${interval}% sure the true score lies in this range. Few races means a wide range. When two drivers’ ranges overlap a lot, the data can’t really tell them apart.`)}</th><th class="num"><button data-sort="races">Races</button>${info("Races", "Races the model could use for this driver: those where they were classified as finishing. Retirements and other non-finishes are not counted, so this can be lower than their number of starts.")}</th><th><button data-sort="last_year">Seasons</button></th></tr></thead><tbody id="rows"><tr><td colspan="6">Loading…</td></tr></tbody></table></div><div class="pagination"><span id="count" aria-live="polite"></span><div id="pages" role="navigation" aria-label="Driver result pages"></div></div></div><div role="tabpanel" id="panel-plot" aria-labelledby="tab-plot" hidden><div class="chart-card"><p class="legend"><span class="swatch" style="background:${blue}"></span>${interval}% range<span class="swatch diamond" style="background:${red}"></span>Score${info("this plot", "Each bar is a driver’s range of likely scores and the diamond is the best estimate. It shows the same drivers as the table, so search, filters and page selection apply here too.")}</p><div class="chart-wrap" id="drivers-plot"></div></div></div><div role="tabpanel" id="panel-trend" aria-labelledby="tab-trend" hidden><div class="chart-card"><p class="legend" id="trend-summary"></p><div class="chart-wrap tall" id="trend-plot"></div></div></div><div role="tabpanel" id="panel-career" aria-labelledby="tab-career" hidden><div class="controls"><input id="career-driver" type="search" list="career-names" placeholder="Driver…" aria-label="Driver" autocomplete="off"><input id="career-compare" type="search" list="career-names" placeholder="Compare with…" aria-label="Compare with" autocomplete="off"><datalist id="career-names">${[...m.drivers]
+    .sort((a, b) => a.rank - b.rank)
+    .map((d) => `<option value="${escape(d.name)}"></option>`)
+    .join("")}</datalist></div><div class="chart-card"><p class="legend" id="career-legend"></p><div class="chart-wrap tall" id="career-plot"></div></div></div>`;
   let state = {
       search: "",
       minimum: 0,
@@ -142,16 +145,16 @@ function rankings(target = main) {
     plot = null,
     trend = null;
   const version = renderVersion;
-  target.querySelectorAll('[role="tab"]').forEach(
-    (tab) =>
-      (tab.onclick = () =>
-        target.querySelectorAll('[role="tab"]').forEach((t) => {
-          const selected = t === tab;
-          t.setAttribute("aria-selected", String(selected));
-          document.getElementById(t.getAttribute("aria-controls")).hidden =
-            !selected;
-        })),
-  );
+  const selectTab = (tab) =>
+    target.querySelectorAll('[role="tab"]').forEach((t) => {
+      const selected = t === tab;
+      t.setAttribute("aria-selected", String(selected));
+      document.getElementById(t.getAttribute("aria-controls")).hidden =
+        !selected;
+    });
+  target
+    .querySelectorAll('[role="tab"]')
+    .forEach((tab) => (tab.onclick = () => selectTab(tab)));
   function fallback(limit = state.limit) {
     const rows = m.drivers
       .map((d) => ({ ...d, first_year: d.firstYear, last_year: d.lastYear }))
@@ -283,13 +286,152 @@ function rankings(target = main) {
     });
     trend = charts.at(-1);
   }
+  const careers = new Map();
+  for (const r of m.driverYears ?? [])
+    (careers.get(r.driverId) ?? careers.set(r.driverId, []).get(r.driverId)).push(r);
+  for (const rows of careers.values()) rows.sort((a, b) => a.year - b.year);
+  const byName = new Map(m.drivers.map((d) => [d.name.toLowerCase(), d]));
+  let career = null,
+    careerIds = [];
+  function drawCareer() {
+    if (career) {
+      career.destroy();
+      charts.splice(charts.indexOf(career), 1);
+      career = null;
+    }
+    const drivers = careerIds
+      .map((id) => m.drivers.find((d) => d.id === id))
+      .filter((d) => d && careers.has(d.id));
+    const legend = document.getElementById("career-legend");
+    if (!drivers.length) {
+      legend.textContent = "Pick a driver to see their career curve.";
+      document.getElementById("career-plot").innerHTML = "";
+      return;
+    }
+    const colors = [blue, red];
+    legend.innerHTML =
+      drivers
+        .map(
+          (d, i) =>
+            `<span class="swatch" style="background:${colors[i]}"></span>${escape(d.name)}${trophy(d.id)}`,
+        )
+        .join("") +
+      `<span class="swatch band"></span>${interval}% range` +
+      info(
+        "the career curve",
+        "The model gives each driver one career level and adjusts it for their age and experience each season, so the curve is smooth. It shows how the model thinks the driver’s ability changed over their career; it does not capture good or bad individual seasons. Gaps are seasons they did not race.",
+      );
+    // Points per season, with a null where a driver skipped a year so the line breaks.
+    const series = (d, key) => {
+      const rows = careers.get(d.id),
+        points = [];
+      rows.forEach((r, i) => {
+        if (i && r.year - rows[i - 1].year > 1)
+          points.push({ x: r.year - 1, y: null });
+        points.push({ x: r.year, y: r[key], r });
+      });
+      return points;
+    };
+    document.getElementById("career-plot").innerHTML =
+      `<canvas id="career-chart" role="img" aria-label="Career curve by season for ${escape(drivers.map((d) => d.name).join(" and "))}"></canvas>`;
+    addChart("career-chart", {
+      type: "line",
+      data: {
+        datasets: drivers.flatMap((d, i) => [
+          {
+            label: `${d.name} lower`,
+            data: series(d, "low95"),
+            borderWidth: 0,
+            pointRadius: 0,
+            pointHitRadius: 0,
+          },
+          {
+            label: `${d.name} upper`,
+            data: series(d, "high95"),
+            borderWidth: 0,
+            pointRadius: 0,
+            pointHitRadius: 0,
+            backgroundColor: i ? "rgba(225, 6, 0, 0.12)" : "rgba(77, 141, 255, 0.18)",
+            fill: "-1",
+          },
+          {
+            label: d.name,
+            data: series(d, "median"),
+            borderColor: colors[i],
+            backgroundColor: colors[i],
+            borderWidth: 2.5,
+            pointRadius: 3,
+            pointHoverRadius: 6,
+          },
+        ]),
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        spanGaps: false,
+        interaction: { mode: "nearest", intersect: false },
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            filter: (item) => item.datasetIndex % 3 === 2 && item.raw.r,
+            callbacks: {
+              title: (items) => String(items[0].raw.x),
+              label: (item) => {
+                const r = item.raw.r;
+                return `${item.dataset.label}: ${number(r.median)} (${number(r.low95)} to ${number(r.high95)}) · ${r.races} races`;
+              },
+            },
+          },
+        },
+        scales: {
+          x: {
+            type: "linear",
+            ticks: { stepSize: 1, precision: 0, callback: (v) => String(v) },
+            grid: { color: "#e6e6e6" },
+          },
+          y: {
+            title: { display: true, text: "Score" },
+            grid: {
+              color: (ctx) => (ctx.tick.value === 0 ? "#1f1f1f" : "#e6e6e6"),
+            },
+          },
+        },
+      },
+    });
+    career = charts.at(-1);
+  }
+  const showCareer = (ids) => {
+    careerIds = ids.filter(Boolean);
+    const name = (id) => m.drivers.find((d) => d.id === id)?.name ?? "";
+    document.getElementById("career-driver").value = name(careerIds[0]);
+    document.getElementById("career-compare").value = name(careerIds[1]);
+    drawCareer();
+  };
+  const pickCareer = () => {
+    const id = (input) =>
+      byName.get(document.getElementById(input).value.trim().toLowerCase())?.id;
+    const first = id("career-driver"),
+      compare = id("career-compare");
+    // Ignore partial names while typing; redraw once a full name matches.
+    if (first && (compare || !document.getElementById("career-compare").value.trim()))
+      showCareer([first, compare !== first ? compare : null]);
+  };
+  document.getElementById("career-driver").oninput = pickCareer;
+  document.getElementById("career-compare").oninput = pickCareer;
+  document.getElementById("rows").onclick = (event) => {
+    const link = event.target.closest(".driver-link");
+    if (!link) return;
+    showCareer([link.dataset.driver]);
+    selectTab(document.getElementById("tab-career"));
+  };
+  showCareer([[...m.drivers].sort((a, b) => a.rank - b.rank)[0]?.id]);
   function draw({ rows, total }) {
     if (version !== renderVersion) return;
     document.getElementById("rows").innerHTML = rows.length
       ? rows
           .map(
             (d) =>
-              `<tr><td class="num rank">${escape(d.rank)}.</td><td class="name">${escape(d.name)}${trophy(d.id)}</td><td class="num">${number(d.skill)}</td><td class="num">${number(d.low)} – ${number(d.high)}</td><td class="num">${escape(d.races)}</td><td>${escape(d.first_year)}–${escape(d.last_year)}</td></tr>`,
+              `<tr><td class="num rank">${escape(d.rank)}.</td><td class="name"><button type="button" class="driver-link" data-driver="${escape(d.id)}" title="Show career curve">${escape(d.name)}</button>${trophy(d.id)}</td><td class="num">${number(d.skill)}</td><td class="num">${number(d.low)} – ${number(d.high)}</td><td class="num">${escape(d.races)}</td><td>${escape(d.first_year)}–${escape(d.last_year)}</td></tr>`,
           )
           .join("")
       : '<tr><td colspan="6">No matching drivers.</td></tr>';

@@ -82,6 +82,32 @@ const { chromium } = require(process.env.PLAYWRIGHT_MODULE || "playwright");
       await page.locator("#rows tr .trophy").count(),
     );
     await page.selectOption("#champions", "all");
+    // Driver names open the Career tab with that driver's per-season curve.
+    await page.locator("#search").fill("vettel");
+    await page.waitForFunction(
+      () => document.querySelectorAll("#rows tr").length === 1,
+    );
+    await page.locator("#rows .driver-link").click();
+    await page.waitForFunction(
+      () =>
+        document.querySelector("#career-chart")?.getAttribute("aria-busy") ===
+        "false",
+    );
+    assert.equal(
+      await page.locator("#career-driver").inputValue(),
+      "Sebastian Vettel",
+    );
+    await page.locator("#career-compare").fill("Mark Webber");
+    await page.waitForFunction(() =>
+      /Sebastian Vettel[\s\S]*Mark Webber/.test(
+        document.querySelector("#career-legend")?.textContent,
+      ),
+    );
+    await page.locator("#tab-table").click();
+    await page.locator("#search").fill("");
+    await page.waitForFunction(
+      () => document.querySelectorAll("#rows tr").length === 25,
+    );
     await page.locator("#search").fill("alonso");
     await page.waitForFunction(
       () =>

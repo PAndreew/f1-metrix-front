@@ -359,7 +359,9 @@ button:disabled {
   appearance: none;
   padding: 6px 26px 6px 10px;
   font-size: 16px;
-  background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='m2 2 4 4 4-4' fill='none' stroke='%2368635c' stroke-width='1.5'/%3E%3C/svg%3E") no-repeat right 10px center;
+  background: transparent
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='m2 2 4 4 4-4' fill='none' stroke='%2368635c' stroke-width='1.5'/%3E%3C/svg%3E")
+    no-repeat right 10px center;
 }
 .table-wrap table {
   border-collapse: separate;
@@ -851,4 +853,21 @@ h1 {
   .countdown {
     font-size: 12px;
   }
+}
+.driver-link {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.driver-link:hover {
+  color: var(--red);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.swatch.band {
+  background: rgba(77, 141, 255, 0.25);
 }
