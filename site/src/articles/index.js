@@ -1,5 +1,6 @@
 import { catalog } from "./catalog.js";
 import { driverOrCar } from "./driver-or-car.js";
+import { saoPaulo2026 } from "./sao-paulo-2026.js";
 
 const esc = (v) =>
   String(v ?? "").replace(
@@ -18,7 +19,10 @@ const date = (value) =>
 const pill = `<span class="pill">LLM generated</span>`;
 const href = (a) => `#/posts/${a.id}`;
 
-const renderers = { [driverOrCar.id]: driverOrCar.render };
+const renderers = {
+  [driverOrCar.id]: driverOrCar.render,
+  [saoPaulo2026.id]: saoPaulo2026.render,
+};
 // Newest first, in catalog order.
 export const articles = catalog.map((a) => ({ ...a, render: renderers[a.id] }));
 const rss = `<a class="rss-link" href="/feed.xml" title="RSS feed of new articles"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/></svg>RSS</a>`;

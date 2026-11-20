@@ -1,6 +1,6 @@
 # HERA research-preview publication
 
-These artifacts are actual saved-fit summaries, not bootstrap or illustrative values. No race article is included.
+These artifacts are actual saved-fit summaries, not bootstrap or illustrative values. The [São Paulo 2026 race article](../site/src/articles/sao-paulo-2026.js) uses the sequential race simulations alongside public timing data.
 
 - Source: [F1DB v2026.20.0](https://github.com/f1db/f1db/releases/tag/v2026.20.0), licensed [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
 - Changes to source: eligibility filtering and hierarchical Bayesian model transformation. Tables are posterior summaries, not raw race classifications.

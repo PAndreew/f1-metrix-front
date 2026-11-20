@@ -69,8 +69,7 @@ const { chromium } = require(process.env.PLAYWRIGHT_MODULE || "playwright");
     await page.locator('#menu a[href="#/rankings"]').click();
     await page.locator("#rows td.rank").first().waitFor();
     await page.locator("#search").waitFor();
-    // Articles: the home page stub links to the article, whose charts and
-    // champion picker work without errors.
+    // The latest article has a timing chart, model results and all 71 laps.
     await page.locator("#section-articles > summary").click();
     // The RSS feed is linked and served as a valid feed.
     const feedHref = await page
@@ -78,8 +77,19 @@ const { chromium } = require(process.env.PLAYWRIGHT_MODULE || "playwright");
       .getAttribute("href");
     const feed = await page.request.get(new URL(feedHref, base).href);
     assert.equal(feed.status(), 200);
-    assert.match(await feed.text(), /<item>[\s\S]*#\/posts\/driver-or-car/);
+    const xml = await feed.text();
+    assert.match(xml, /<item>[\s\S]*#\/posts\/sao-paulo-2026[\s\S]*#\/posts\/driver-or-car/);
     await page.locator("#results-articles .read-more").click();
+    await page.locator('#sp26-pace[aria-busy="false"]').waitFor();
+    const modelTable = page.getByRole("table", { name: /simulated eligible-finisher ranks/ });
+    assert.match(await modelTable.getByRole("row").nth(1).innerText(), /Lando Norris\s+6\.33\s+2–11\s+\+5\.33/);
+    await page.getByText("Read all 71 laps and compare the podium’s times").click();
+    const lapTable = page.getByRole("table", { name: "Race notes and recorded lap times" });
+    assert.equal(await lapTable.locator("tbody tr").count(), 71);
+    assert.match(await lapTable.locator("tbody tr").last().innerText(), /71\s+Norris wins by 14\.602/);
+    // The previous article remains reachable and its champion picker works.
+    await page.getByRole("link", { name: "All posts" }).click();
+    await page.getByRole("link", { name: /^Driver or car\?/ }).click();
     await page.locator('#doc-scatter[aria-busy="false"]').waitFor();
     assert.equal(
       await page.locator(".page-head .pill").innerText(),

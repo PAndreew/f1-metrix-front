@@ -803,6 +803,7 @@ function render() {
     const a = articlePage(main, decodeURIComponent(route.slice(6)), {
       model: publication.model,
       facts: publication.facts,
+      simulations: publication.simulations,
       charts,
     });
     document.title = `${a?.title ?? "Article not found"} — F1 Metrix`;
